@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="cadCliente.css"></h:outputStylesheet>
+	<h:outputStylesheet name="resources/primeflex-master/primeflex.min.css" />
+	<title>Cadastro de funcionários</title>
+</h:head>
+
+<h:body style="height: 100%;
+   margin: 0;">
+
+<div id="conteudo" class="content">
+
+
+
+	<ui:include src="/menu.xhtml" />
+	<div class="titulo">
+	<p:commandButton icon="pi pi-list" value="Menu" type="button" onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
+		<p:outputLabel styleClass="title">Cadastro de Clientes</p:outputLabel>
+	</div>
+	<p:growl id="growl" showDetail="true" />
+<p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
+	<br></br>
+	<div class="formulario">
+
+		<h:form id="form_cliente" styleClass="form1">
+
+			<p:panelGrid columns="4"  styleClass="painel">
+			<p:outputLabel value="Foto:"></p:outputLabel>
+			
+			<h:graphicImage id="imagem" value="#{ClienBean.clientes.imagem}" styleClass="Imagem"></h:graphicImage>
+				
+				
+				<p:fileUpload mode="simple" auto="true" update="imagem"  skinSimple="true" label="Adicionar"  listener="#{ClienBean.upload}" ></p:fileUpload>
+				<p:outputLabel></p:outputLabel>
+				
+				<p:outputLabel id="nome">Nome:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.nome}" required="true" requiredMessage="Informe o nome!"></p:inputText>
+				
+				<p:outputLabel id="sobrenome">Sobrenome:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.sobrenome}" required="true" requiredMessage="Informe o sobrenome!"></p:inputText>
+				
+				<p:outputLabel id="Idade">Idade:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.idade}" ></p:inputText>
+				
+				
+				<p:outputLabel id="sexo">Sexo:</p:outputLabel>
+				<p:selectOneMenu value="#{ClienBean.clientes.sexo}" style="width: 193px;" >
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true"  />
+				<f:selectItem itemLabel="Masculino" itemValue="M"  />
+				<f:selectItem itemLabel="Feminino" itemValue="F"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel id="cpf">CPF:</p:outputLabel>
+				<p:inputMask value="#{ClienBean.clientes.cpf}" mask="999.999.999-99" validateMask="true" required="true" requiredMessage="Informe o CPF!"></p:inputMask>
+			
+				
+				<p:outputLabel id="email">E-mail:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.email}" required="true" requiredMessage="Informe o email!"></p:inputText>
+				
+				
+				
+				<p:outputLabel id="ativo">Ativo:</p:outputLabel>
+				<p:toggleSwitch value="#{ClienBean.clientes.ativo}" required="true" ></p:toggleSwitch>
+				
+				<p:outputLabel id="telefoneFixo">Telefone fixo:</p:outputLabel>
+				<p:inputMask value="#{ClienBean.clientes.telefoneFixo}" mask="(99) 9999-9999" validateMask="true"></p:inputMask>
+				
+				<p:outputLabel id="celular">celular:</p:outputLabel>
+				<p:inputMask value="#{ClienBean.clientes.celular}" mask="(99) 99999-9999" validateMask="true"></p:inputMask>
+			
+				<p:outputLabel>CEP:</p:outputLabel>
+				<p:inputMask value="#{ClienBean.clientes.cep}" id="cep" mask="99999999" validateMask="true" required="true" requiredMessage="Informe o CEP!">
+				
+				<f:ajax event="blur" execute="cep" listener="#{ClienBean.pesquisaCep}" render="rua complemento bairro numeroCasa cidade estado"></f:ajax>
+				</p:inputMask>
+				
+				<p:outputLabel >Rua:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.logradouro}" id="rua"></p:inputText>
+				
+				<p:outputLabel >Complemento:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.complemento}" id="complemento"></p:inputText>
+				
+				<p:outputLabel >Bairro:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.bairro}" id="bairro"></p:inputText>
+				
+				<p:outputLabel>número da residência:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.numeroCasa}"  id="numeroCasa"></p:inputText>
+				
+				<p:outputLabel >Cidade:</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.localidade}" id="cidade"></p:inputText>
+				
+				<p:outputLabel >Estado</p:outputLabel>
+				<p:inputText value="#{ClienBean.clientes.uf}" id="estado"></p:inputText>
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel></p:outputLabel>
+				
+				
+			</p:panelGrid>
+				<h:panelGroup >
+				
+				<p:commandButton value="Salvar" action="#{ClienBean.salvar}" icon="pi pi-save" styleClass="corbotao" update="growl" ajax="false"></p:commandButton>
+				<p:commandButton value="Novo" action="#{ClienBean.novo}"   icon="pi pi-user-plus" styleClass="corbotao" update="form_cliente"></p:commandButton>
+				
+				</h:panelGroup>
+		</h:form>
+	</div>
+<br></br>
+</div>
+
+
+
+</h:body>
+</html>

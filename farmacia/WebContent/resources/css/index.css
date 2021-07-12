@@ -1,0 +1,174 @@
+@charset "ISO-8859-1";
+
+
+@font-face {
+	font-family:'Roboto', sans-serif;
+	src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap');
+}
+
+.title{
+	display: flex;
+	position: relative;
+	
+	
+}
+
+.Titulo {
+	font-size: 30px !important;
+	font-family: 'Roboto', sans-serif !important;
+	margin-left: 30%;
+	font-weight: bold;
+	
+	
+}
+
+.TituloLogin{
+	font-size: 30px !important;
+	font-family: 'Roboto', sans-serif !important;
+	margin-left: 34%;
+	
+	font-weight: bold;
+	color: #E8EDDF;
+	
+}
+
+.labellogin{
+	font-size: 20px !important;
+	font-family: 'Roboto', sans-serif !important;
+	color: #E8EDDF;
+}
+
+
+.Titlelogin{
+	margin-top: 50px;
+}
+
+.content{
+	
+	display: flex-inline;
+	background-color:  #121212;
+	width: 100%;
+	height: 100vh;
+}
+
+.Imagem{
+	
+	width: 60%;
+	height: 100vh;
+	background-color:  #FFFFFF;
+	position: relative; 
+	float: left;
+}
+.Login{
+	background-color:  #84DD63;
+	width: 40%;
+	height: 100vh;
+	position: relative; 
+	float: right;
+}
+
+
+
+
+
+.img{
+	
+	padding: 0;
+	width: 100%;
+	height: 94%;
+	margin: 0;
+	
+}
+
+.gif {
+	width: 35px;
+	height: 35px;
+	padding-top: 0;
+	
+}
+
+.ImageAut{
+	margin-top: 25px;
+	width: 200px;
+	heigth: 250px;
+	margin-left: 33%;
+	border-radius: 8px;
+}
+
+.gridlogin{
+	
+	
+	margin-left: 15%;
+	margin-top: 25px;
+}
+
+.ui-panelgrid td{
+	border: none !important;
+	background-color: #84DD63 !important;
+	font-family: 'Roboto', sans-serif !important;
+	font-size: 20px !important;
+	color: #FFFFFF;
+}
+
+.ui-widget.corinput{
+	background-color: transparent !important;
+	border-style: solid !important;
+	border-color: #E8EDDF !important;
+	border-width: 3px !important;
+	border-radius: 5px !important;
+	font-size: 14px !important;
+	font-family: 'Roboto', sans-serif !important;
+	color: #E8EDDF;
+	
+}
+
+.ui-button.buttonlogin{
+	width: 250px;
+	height: 45px;
+	border-radius: 16px !important;
+	margin-left: 30% !important;
+	background-color: #E8EDDF !important;
+	border: none !important;
+	font-family: 'Roboto', sans-serif !important;
+	font-size: 14px !important;
+	color: #84DD63;
+	font-weight: bold;
+	margin-bottom: 10px !important;
+	
+}
+
+@media (max-width: 576px){
+	
+	.Imagem{
+		
+		width: 100%;
+		
+		
+		
+	}
+	
+	.Titulo{
+		margin-left: 16%;
+	}
+	
+	.Login{
+	margin: 0;
+	float: left;
+	position: relative;
+		width: auto;
+		top: 0;
+		
+	}
+	
+	
+	.content{
+		display: block;
+	}
+	
+}
+
+
+
+
+
+

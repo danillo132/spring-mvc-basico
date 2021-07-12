@@ -1,0 +1,20 @@
+@charset "ISO-8859-1";
+
+
+.ui-sidebar{
+	background-color: #84DD63 !important;
+}
+	
+.menu{
+	width: 100%; 
+	height: 100vh;
+	 background-color: #84DD63 !important;
+	 border: none;
+	 border-color: #84DD63 !important;
+}
+
+.submenu{
+	background-color: #84DD63 !important;
+	border-color: #84DD63 !important;
+}
+
