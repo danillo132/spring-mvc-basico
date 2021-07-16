@@ -10,79 +10,113 @@
 	<h:outputStylesheet library="css" name="menu.css"></h:outputStylesheet>
 </h:head>
 
- 
-       
-   
+
+
+
 
 
 <h:form>
-<p:sidebar widgetVar="sidebar1" baseZIndex="10000" >
-	<p:tieredMenu styleClass="menu">
-	
-	<p:menuitem value="Home" icon="pi pi-home"></p:menuitem>
-	<p:submenu label="Clientes" styleClass="submenu" icon="pi pi-user" rendered="#{FuncBean.permiteAcesso('Atendente')}">
+	<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
+		<p:tieredMenu styleClass="menu">
 
-			<p:menuitem value="Cadastrar / atualizar" url="cadCliente.jsf" icon="pi pi-save" styleClass="submenu"></p:menuitem>
-			<p:menuitem value="Todos os clientes" url="cadFunc.jsf" icon="pi pi-users" styleClass="submenu"></p:menuitem>
-			<p:menuitem value="Orçamentos" url="cadFunc.jsf" icon="pi pi-money-bill" styleClass="submenu"></p:menuitem>
-			<p:menuitem value="Receitas" url="cadFunc.jsf" icon="pi pi-book" styleClass="submenu"></p:menuitem>
-		</p:submenu>
-		<p:submenu label="Funcionários" styleClass="submenu" icon="pi pi-user">
+			<p:menuitem value="Home" icon="pi pi-home"></p:menuitem>
+			<p:submenu label="Clientes" styleClass="submenu" icon="pi pi-user"
+				rendered="#{FuncBean.permiteAcesso('Atendente')}">
 
-			<p:menuitem value="Cadastrar / atualizar" url="cadFunc.jsf" icon="pi pi-save" styleClass="submenu"></p:menuitem>
-			<p:menuitem value="Todos funcionários" url="cadFunc.jsf" icon="pi pi-users" styleClass="submenu"></p:menuitem>
-
-		</p:submenu>
-		<p:submenu label="Relatórios" styleClass="submenu" icon="pi pi-folder-open" rendered="#{FuncBean.permiteAcesso('Gerente')}">
-			<p:submenu label="Clientes" styleClass="submenu" icon="pi pi-user">
-				<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf" styleClass="submenu"/>
-				<p:menuitem value="Gerar Excel" icon="pi pi-file-excel" styleClass="submenu"/>
+				<p:menuitem value="Cadastrar / atualizar" url="cadCliente.jsf"
+					icon="pi pi-save" styleClass="submenu"></p:menuitem>
+				<p:menuitem value="Todos os clientes" url="cadFunc.jsf"
+					icon="pi pi-users" styleClass="submenu"></p:menuitem>
+				<p:menuitem value="Orçamentos" url="cadFunc.jsf"
+					icon="pi pi-money-bill" styleClass="submenu"></p:menuitem>
+				<p:menuitem value="Receitas" url="cadFunc.jsf" icon="pi pi-book"
+					styleClass="submenu"></p:menuitem>
 			</p:submenu>
-			<p:submenu label="Funcionários" styleClass="submenu" icon="pi pi-id-card">
-			<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf" styleClass="submenu" />
-				<p:menuitem value="Gerar Excel" icon="pi pi-file-excel" styleClass="submenu"/>
+			<p:submenu label="Funcionários" styleClass="submenu"
+				icon="pi pi-user" rendered="#{FuncBean.permiteAcesso('Gerente')}">
+
+				<p:menuitem value="Cadastrar / atualizar" url="cadFunc.jsf"
+					icon="pi pi-save" styleClass="submenu"></p:menuitem>
+				<p:menuitem value="Todos funcionários" url="cadFunc.jsf"
+					icon="pi pi-users" styleClass="submenu"></p:menuitem>
+
 			</p:submenu>
-			
-			<p:submenu label="Receitas" styleClass="submenu" icon="pi pi-shopping-cart
+			<p:submenu label="Relatórios" styleClass="submenu"
+				icon="pi pi-folder-open"
+				rendered="#{FuncBean.permiteAcesso('Gerente')}">
+				<p:submenu label="Clientes" styleClass="submenu" icon="pi pi-user">
+					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf"
+						styleClass="submenu" />
+					<p:menuitem value="Gerar Excel" icon="pi pi-file-excel"
+						styleClass="submenu" />
+				</p:submenu>
+				<p:submenu label="Funcionários" styleClass="submenu"
+					icon="pi pi-id-card">
+					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf"
+						styleClass="submenu" />
+					<p:menuitem value="Gerar Excel" icon="pi pi-file-excel"
+						styleClass="submenu" />
+				</p:submenu>
+
+				<p:submenu label="Receitas" styleClass="submenu"
+					icon="pi pi-shopping-cart
 			">
-			
-			<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf" styleClass="submenu"/>
-				<p:menuitem value="Gerar Excel" icon="pi pi-file-excel" styleClass="submenu"/>
+
+					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf"
+						styleClass="submenu" />
+					<p:menuitem value="Gerar Excel" icon="pi pi-file-excel"
+						styleClass="submenu" />
+				</p:submenu>
+
 			</p:submenu>
-			
-		</p:submenu>
-		<p:submenu label="Gráficos" styleClass="submenu" icon="pi pi-chart-bar" rendered="#{FuncBean.permiteAcesso('Gerente')}">
-			<p:menuitem value="Clientes" icon="pi pi-user" styleClass="submenu"/>
-				<p:menuitem value="Receitas" icon="pi pi-shopping-cart" styleClass="submenu"/>
-				<p:menuitem value="Vendas" icon="pi pi-dollar" styleClass="submenu"/>
+			<p:submenu label="Gráficos" styleClass="submenu"
+				icon="pi pi-chart-bar"
+				rendered="#{FuncBean.permiteAcesso('Gerente')}">
+				<p:menuitem value="Clientes" icon="pi pi-user" styleClass="submenu" />
+				<p:menuitem value="Receitas" icon="pi pi-shopping-cart"
+					styleClass="submenu" />
+				<p:menuitem value="Vendas" icon="pi pi-dollar" styleClass="submenu" />
 			</p:submenu>
-			
-			<p:submenu label="Estoque" styleClass="submenu" icon="pi pi-table" rendered="#{FuncBean.permiteAcesso('Farmacêutico')}">
-			<p:menuitem value="Cadastrar/atualizar" icon="pi pi-save" styleClass="submenu"/>
-				<p:menuitem value="Todas matérias-primas" icon="pi pi-slack" styleClass="submenu"/>
+
+			<p:submenu label="Estoque" styleClass="submenu" icon="pi pi-table"
+				rendered="#{FuncBean.permiteAcesso('Farmacêutico')}">
 				
+					
+					<p:menuitem value="Cadastrar/atualizar matérias-primas" icon="pi pi-save" styleClass="submenu" url="cadMateria.jsf"></p:menuitem>
+					<p:menuitem value="Cadastrar/atualizar embalagens" icon="pi pi-save" styleClass="submenu"></p:menuitem>
+					<p:menuitem value="Listar matérias-primas" icon="pi pi-list" styleClass="submenu"></p:menuitem>
+				<p:menuitem value="Listar embalagens" icon="pi pi-list" styleClass="submenu"></p:menuitem>
+
 			</p:submenu>
-			<p:submenu label="Fornecedores" styleClass="submenu" icon="pi pi-briefcase"   rendered="#{FuncBean.permiteAcesso('Gerente')}">
-			<p:menuitem value="Cadastrar/atualizar" icon="pi pi-save" url="cadForne.jsf" styleClass="submenu"/>
-				<p:menuitem value="Todos fornecedores" icon="pi pi-users" styleClass="submenu"/>
-				
+			<p:submenu label="Fornecedores" styleClass="submenu"
+				icon="pi pi-briefcase"
+				rendered="#{FuncBean.permiteAcesso('Gerente')}">
+				<p:menuitem value="Cadastrar/atualizar" icon="pi pi-save"
+					url="cadForne.jsf" styleClass="submenu" />
+				<p:menuitem value="Todos fornecedores" icon="pi pi-users"
+					styleClass="submenu" />
+
 			</p:submenu>
 			<p:submenu label="Receitas" styleClass="submenu" icon="pi pi-book">
-			<p:menuitem value="Abertas" icon="pi pi-exclamation-circle" styleClass="submenu"/>
-				<p:menuitem value="Entregues" icon="pi pi-check-square" styleClass="submenu"/>
-				
+				<p:menuitem value="Abertas" icon="pi pi-exclamation-circle"
+					styleClass="submenu" />
+				<p:menuitem value="Entregues" icon="pi pi-check-square"
+					styleClass="submenu" />
+
 			</p:submenu>
-			
-			<p:menuitem value="Controle de caixa"  icon="pi pi-dollar" rendered="#{FuncBean.permiteAcesso('Gerente')}"></p:menuitem>
-			
-		<p:divider style="background-color: black !important;"/>
-		<p:menuitem value="Sair" url="index.jsf" action="#{FuncBean.deslogar}" icon="pi pi-fw pi-power-off"></p:menuitem>
+
+			<p:menuitem value="Controle de caixa" icon="pi pi-dollar"
+				rendered="#{FuncBean.permiteAcesso('Gerente')}"></p:menuitem>
+
+			<p:divider style="background-color: black !important;" />
+			<p:menuitem value="Sair" url="index.jsf"
+				action="#{FuncBean.deslogar}" icon="pi pi-fw pi-power-off"></p:menuitem>
 
 
-	</p:tieredMenu>
-	 </p:sidebar>
-	</h:form>
-	 
+		</p:tieredMenu>
+	</p:sidebar>
+</h:form>
+
 
 
 

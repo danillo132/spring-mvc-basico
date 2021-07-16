@@ -26,6 +26,7 @@
 			<p:graphicImage url="resources/img/login.jpg" library="demo"
 				styleClass="img"></p:graphicImage>
 		</div>
+		<p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
 		<div class="Login">
 			<h:form>
 
@@ -44,7 +45,7 @@
 					<p:password  value="#{FuncBean.funcionarios.senha}" required="true" requiredMessage="Informe a senha!"
 						styleClass="corinput"></p:password>
 				</p:panelGrid>
-				<p:commandButton value="Entrar" action="#{FuncBean.logar}" styleClass="buttonlogin"></p:commandButton>
+				<p:commandButton value="Entrar" action="#{FuncBean.logar}" styleClass="buttonlogin" update="erro" ajax="false"></p:commandButton>
 				<p:commandButton value="Esqueci meu login" styleClass="buttonlogin"></p:commandButton>
 			</h:form>
 		</div>

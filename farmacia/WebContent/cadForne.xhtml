@@ -29,7 +29,7 @@
 	<br></br>
 	<div class="formulario">
 
-		<h:form id="form_cliente" styleClass="form1">
+		<h:form id="form_fornecedor" styleClass="form1">
 
 			<p:panelGrid columns="4"  styleClass="painel">
 			<p:outputLabel value="Foto:"></p:outputLabel>
@@ -41,7 +41,7 @@
 				<p:outputLabel></p:outputLabel>
 				
 				<p:outputLabel id="nome">Nome da empresa:</p:outputLabel>
-				<p:inputText value="#{FornecedoresBean.fornecedores.nomeEmpresa}" required="true" requiredMessage="Informe o nome da empresa!"></p:inputText>
+				<p:inputText value="#{FornecedoresBean.fornecedores.nomeEmpresa}"   required="true" requiredMessage="Informe o nome da empresa!"/>
 				
 				
 				<p:outputLabel id="cnpj">CNPJ:</p:outputLabel>
@@ -97,7 +97,7 @@
 				<h:panelGroup >
 				
 				<p:commandButton value="Salvar" action="#{FornecedoresBean.salvar}" icon="pi pi-save" styleClass="corbotao" update="growl" ajax="false"></p:commandButton>
-				<p:commandButton value="Novo" action="#{FornecedoresBean.novo}"   icon="pi pi-user-plus" styleClass="corbotao" update="form_cliente"></p:commandButton>
+				<p:commandButton value="Novo" action="#{FornecedoresBean.novo}"   icon="pi pi-user-plus" styleClass="corbotao" update="form_fornecedor"></p:commandButton>
 				
 				</h:panelGroup>
 		</h:form>

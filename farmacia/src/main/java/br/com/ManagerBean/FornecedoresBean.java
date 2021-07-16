@@ -7,9 +7,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -31,8 +34,22 @@ public class FornecedoresBean {
 	private Fornecedores fornecedores = new Fornecedores();
 	private DaoGeneric<Fornecedores> daoGeneric = new DaoGeneric<Fornecedores>();
 	private List<Fornecedores> fornecedoresLista = new ArrayList<Fornecedores>();
+
 	
 	
+	
+	
+public List<String> list(String query){
+	String queryLowerCase = query.toLowerCase();
+		List<String> autocomplete = new ArrayList<>();
+		fornecedoresLista = daoGeneric.listar(Fornecedores.class);
+		
+		for (Fornecedores string : fornecedoresLista) {
+			autocomplete.add(string.getNomeEmpresa());
+		}
+		
+		return autocomplete.stream().filter(t -> t.toLowerCase().startsWith(queryLowerCase)).collect(Collectors.toList());
+	}
 	
 	public String salvar() {
 		
@@ -48,6 +65,9 @@ public class FornecedoresBean {
 		
 		return "";
 	}
+	
+	
+	
 	
 	
 public void pesquisaCep(AjaxBehaviorEvent event) {

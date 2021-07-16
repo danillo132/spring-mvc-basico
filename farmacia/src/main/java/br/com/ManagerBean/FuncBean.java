@@ -30,7 +30,7 @@ import br.com.repository.IDaoFuncionario;
 import br.com.repository.IDaoFuncionarioimpl;
 
 @ManagedBean(name = "FuncBean")
-@SessionScoped
+@ViewScoped
 public class FuncBean {
 
 	
@@ -48,7 +48,7 @@ public class FuncBean {
 	
 	@PostConstruct
 	public void carregaFuncionarios() {
-		funcionariosLista = daoGeneric.listarFuncionarios(Funcionarios.class);
+		funcionariosLista = daoGeneric.listar(Funcionarios.class);
 	}
 	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
@@ -111,25 +111,33 @@ public class FuncBean {
 	public String logar() {
 		
 		
-		
-		Funcionarios funcionariosUser = daoFuncionario.consultarFuncionario(funcionarios.getLogin(), funcionarios.getSenha());
-		
-		
-		if (funcionariosUser != null) {
-
-			// Adicionar o usuario na sessao usuariologado
-			FacesContext context = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = context.getExternalContext();
-
-			HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-			HttpSession session = request.getSession();
-
-			session.setAttribute("funcionariologado", funcionariosUser);
+		try {
+			Funcionarios funcionariosUser = daoFuncionario.consultarFuncionario(funcionarios.getLogin(), funcionarios.getSenha());
 			
-			return "cadFunc.jsf";
+			
+			if (funcionariosUser != null) {
+
+				// Adicionar o usuario na sessao usuariologado
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = context.getExternalContext();
+
+				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+				HttpSession session = request.getSession();
+
+				session.setAttribute("funcionariologado", funcionariosUser);
+				
+				
+				
+				return "home.jsf";
+			}
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Login ou senha incorretos"));
+			return "index.jsf";
 		}
 		
-		return "index.jsf";
+		
+			return "";	
+		
 	}
 	
 	public String deslogar() {

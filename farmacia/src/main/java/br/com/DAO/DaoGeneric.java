@@ -44,7 +44,7 @@ public class DaoGeneric<E> {
 		transaction.commit();
 	}
 	
-	public List<E> listarFuncionarios(Class<E> entidade){
+	public List<E> listar(Class<E> entidade){
 		
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();

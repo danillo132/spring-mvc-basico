@@ -80,7 +80,11 @@
 	
 }
 
-.fileupload-buttonbar{
+.ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider {
+	background-color: #84DD63 !important;
+}
+
+.ui-fileupload-buttonbar.ui-widget-header{
 	background-color: #84DD63 !important;
 }
 
@@ -102,6 +106,7 @@
 	border: none !important;
 	margin-left: 5px !important; 
 }
+
 
 
 
