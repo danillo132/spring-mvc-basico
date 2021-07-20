@@ -1,6 +1,7 @@
 package br.com.ManagerBean;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -16,16 +17,21 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.LazyDataModel;
 
 import com.google.gson.Gson;
 
+import br.com.DAO.DaoFunc;
 import br.com.DAO.DaoGeneric;
 import br.com.Model.Funcionarios;
+import br.com.lazyDataTable.LazyDataTable;
 import br.com.repository.IDaoFuncionario;
 import br.com.repository.IDaoFuncionarioimpl;
 
@@ -35,20 +41,19 @@ public class FuncBean {
 
 	
 	private Funcionarios funcionarios = new Funcionarios();
-	private DaoGeneric<Funcionarios> daoGeneric = new DaoGeneric<Funcionarios>();
-	private List<Funcionarios> funcionariosLista = new ArrayList<Funcionarios>();
 	private IDaoFuncionario daoFuncionario = new IDaoFuncionarioimpl();
+	private LazyDataTable<Funcionarios> funcionariosLista = new LazyDataTable<Funcionarios>();
+	private DaoFunc<Funcionarios> daoFunc = new DaoFunc<Funcionarios>();
 	
 	
-	public List<Funcionarios> getFuncionariosLista() {
-		return funcionariosLista;
-	}
 	
 	
 	
 	@PostConstruct
 	public void carregaFuncionarios() {
-		funcionariosLista = daoGeneric.listar(Funcionarios.class);
+
+		funcionariosLista.load(0, 10, null, null);
+		
 	}
 	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
@@ -90,7 +95,8 @@ public class FuncBean {
 	public String salvar() {
 		
 		
-		daoGeneric.salvar(funcionarios);
+		daoFunc.salvar(funcionarios);
+		funcionariosLista.list.add(funcionarios);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Funcionário cadastrado com sucesso!"));
 		return "";
 	}
@@ -107,6 +113,8 @@ public class FuncBean {
 		
 		return funcionarioUser.getFuncao().equals(acesso);
 	}
+	
+	
 	
 	public String logar() {
 		
@@ -162,6 +170,25 @@ public class FuncBean {
 	}
 	
 	
+	public String removerFunc() throws IOException  {
+		
+		try {
+			daoFunc.removerFuncionarios(funcionarios);
+			funcionariosLista.list.remove(funcionarios);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informação", "Funcionário removido com sucesso!"));
+		} catch (Exception e) {
+			
+			if(e.getCause() instanceof ConstraintViolationException) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro:", "Existem clientes para o funcionário! Por favor recarregue a página"));
+			}else {
+				e.printStackTrace();
+			}
+		}
+		
+		return "";
+	}
+	
+	
 	public void upload(FileUploadEvent image) {
 		
 		String imagem = "data:image/jpg;base64," + DatatypeConverter.printBase64Binary(image.getFile().getContent());
@@ -170,7 +197,9 @@ public class FuncBean {
 	
 	
 	
-	
+	public LazyDataTable<Funcionarios> getFuncionariosLista() {
+		return funcionariosLista;
+	}
 	
 	
 	public void setFuncionarios(Funcionarios funcionarios) {

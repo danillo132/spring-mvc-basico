@@ -6,11 +6,11 @@ public class DaoFunc<E> extends DaoGeneric<Funcionarios> {
 	
 	
 	
-	public void removerFuncionarios(Funcionarios funcionario) {
+	public void removerFuncionarios(Funcionarios funcionario) throws Exception {
 		
 		getEntityManager().getTransaction().begin();
 		
-		getEntityManager().remove(funcionario);
+		getEntityManager().remove(getEntityManager().contains(funcionario) ? funcionario : getEntityManager().merge(funcionario));
 		getEntityManager().getTransaction().commit();
 	}
 

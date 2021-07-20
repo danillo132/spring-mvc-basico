@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 
@@ -24,11 +25,12 @@
 				rendered="#{FuncBean.permiteAcesso('Atendente')}">
 
 				<p:menuitem value="Cadastrar / atualizar" url="cadCliente.jsf"
-					icon="pi pi-save" styleClass="submenu"></p:menuitem>
+					icon="pi pi-save" styleClass="submenu" >
+					</p:menuitem>
 				<p:menuitem value="Todos os clientes" url="cadFunc.jsf"
 					icon="pi pi-users" styleClass="submenu"></p:menuitem>
 				<p:menuitem value="Orçamentos" url="cadFunc.jsf"
-					icon="pi pi-money-bill" styleClass="submenu"></p:menuitem>
+					icon="pi pi-money-bill" styleClass="submenu" ></p:menuitem>
 				<p:menuitem value="Receitas" url="cadFunc.jsf" icon="pi pi-book"
 					styleClass="submenu"></p:menuitem>
 			</p:submenu>
@@ -37,7 +39,7 @@
 
 				<p:menuitem value="Cadastrar / atualizar" url="cadFunc.jsf"
 					icon="pi pi-save" styleClass="submenu"></p:menuitem>
-				<p:menuitem value="Todos funcionários" url="cadFunc.jsf"
+				<p:menuitem value="Todos funcionários" url="funcLista.jsf"
 					icon="pi pi-users" styleClass="submenu"></p:menuitem>
 
 			</p:submenu>
@@ -83,9 +85,10 @@
 				
 					
 					<p:menuitem value="Cadastrar/atualizar matérias-primas" icon="pi pi-save" styleClass="submenu" url="cadMateria.jsf"></p:menuitem>
-					<p:menuitem value="Cadastrar/atualizar embalagens" icon="pi pi-save" styleClass="submenu"></p:menuitem>
-					<p:menuitem value="Listar matérias-primas" icon="pi pi-list" styleClass="submenu"></p:menuitem>
-				<p:menuitem value="Listar embalagens" icon="pi pi-list" styleClass="submenu"></p:menuitem>
+					<p:menuitem value="Cadastrar/atualizar embalagens" icon="pi pi-save" styleClass="submenu" url="cadEmbalagens.jsf"></p:menuitem>
+					<p:menuitem value="Cadastrar/atualizar equipamentos" icon="pi pi-save" styleClass="submenu" url="cadEquipamentos.jsf"></p:menuitem>
+					<p:menuitem value="Listar Estoque" icon="pi pi-list" styleClass="submenu"></p:menuitem>
+					<p:menuitem value="Estoque produtos" icon="pi pi-list" styleClass="submenu"></p:menuitem>
 
 			</p:submenu>
 			<p:submenu label="Fornecedores" styleClass="submenu"

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="cadCliente.css"></h:outputStylesheet>
+	<title>Cadastro de funcionários</title>
+</h:head>
+
+<h:body style="height: 100%;
+   margin: 0;">
+
+<div id="conteudo" class="content">
+
+
+
+	<ui:include src="/menu.xhtml" />
+	<div class="titulo">
+	<p:commandButton icon="pi pi-list" value="Menu" type="button" onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
+		<p:outputLabel styleClass="title">Cadastro de Embalagens</p:outputLabel>
+	</div>
+	<p:growl id="growl" showDetail="true" />
+<p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
+	<br></br>
+	<div class="formulario">
+
+		<h:form id="form_embalagem" styleClass="form1">
+
+			<p:panelGrid columns="4"  styleClass="painel">
+			
+								
+				<p:outputLabel id="tipoEmba">Tipo de Embalagem:</p:outputLabel>
+				<p:selectOneMenu value="#{EmbalagemBean.embalagens.tipoEmbalagem}" style="width: 193px;" >
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true"  />
+				<f:selectItem itemLabel="Pote" itemValue="Pote de cápsulas"  />
+				<f:selectItem itemLabel="Bisnaga" itemValue="Bisnagas"/>
+				<f:selectItem itemLabel="Sachê" itemValue="Sachê"/>
+				<f:selectItem itemLabel="Garrafa" itemValue="Pote para líquidos"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel id="qtd">Quantidade:</p:outputLabel>
+				<p:inputNumber value="#{EmbalagemBean.embalagens.quantidade}"    thousandSeparator="," decimalSeparator="." required="true" requiredMessage="Informe a quantidade!"></p:inputNumber>
+				
+				
+				<p:outputLabel id="tipo">Tipo de produto:</p:outputLabel>
+				<p:selectOneMenu value="#{EmbalagemBean.embalagens.tipoProduto}" style="width: 193px;" >
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true"  />
+				<f:selectItem itemLabel="Cápsulas" itemValue="Cápsulas"  />
+				<f:selectItem itemLabel="Comprimidos" itemValue="Comprimidos"/>
+				<f:selectItem itemLabel="Produto em Pó" itemValue="Produto em Pó"/>
+				<f:selectItem itemLabel="Líquido" itemValue="Líquido"/>
+				<f:selectItem itemLabel="Gel" itemValue="Líquido"/>
+				</p:selectOneMenu>
+				
+			
+				
+				
+				
+				
+				
+				<p:outputLabel id="Capacidade">Capacidade:</p:outputLabel>
+				<p:inputText value="#{EmbalagemBean.embalagens.capacidade}"  placeholder="Gramas/número" required="true" requiredMessage="Informe a capacidade!"></p:inputText>
+				
+			
+				
+				
+				<p:outputLabel>Tamanho:</p:outputLabel>
+				 <p:selectOneRadio id="tamanho" value="#{EmbalagemBean.embalagens.tamanho}" unselectable="true">
+            <f:selectItem itemLabel="Pequeno" itemValue="Pequeno"/>
+            <f:selectItem itemLabel="Médio" itemValue="Médio"/>
+            <f:selectItem itemLabel="Grande" itemValue="Grande"/>
+        </p:selectOneRadio>			
+				
+				
+				
+				
+				<p:outputLabel >Fornecedor:</p:outputLabel>
+				<p:autoComplete id="fornecedor" value="#{EmbalagemBean.embalagens.fornecedor}" completeMethod="#{FornecedoresBean.list}" scrollHeight="250"
+                            />
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel></p:outputLabel>
+				
+				
+			</p:panelGrid>
+				<h:panelGroup >
+				
+				<p:commandButton value="Salvar" action="#{EmbalagemBean.salvar}" icon="pi pi-save" styleClass="corbotao" update="growl" ajax="false"></p:commandButton>
+				<p:commandButton value="Novo" action="#{EmbalagemBean.novo}"   icon="pi pi-user-plus" styleClass="corbotao" update="form_embalagem"></p:commandButton>
+				
+				</h:panelGroup>
+		</h:form>
+	</div>
+<br></br>
+</div>
+
+
+
+</h:body>
+</html>

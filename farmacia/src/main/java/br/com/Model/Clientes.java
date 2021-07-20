@@ -1,12 +1,15 @@
 package br.com.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Clientes implements Serializable {
@@ -39,6 +42,9 @@ public class Clientes implements Serializable {
 	
 	@Column(columnDefinition = "text")
 	private String imagem;
+	
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	private Funcionarios funcionarios;
 	
 	public Long getId() {
 		return id;
@@ -152,6 +158,14 @@ public class Clientes implements Serializable {
 	}
 	
 	
+	
+	
+	public Funcionarios getFuncionarios() {
+		return funcionarios;
+	}
+	public void setFuncionarios(Funcionarios funcionarios) {
+		this.funcionarios = funcionarios;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

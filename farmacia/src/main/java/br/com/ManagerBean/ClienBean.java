@@ -8,17 +8,26 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.view.facelets.FaceletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import org.primefaces.event.FileUploadEvent;
 
 import com.google.gson.Gson;
 
+import br.com.DAO.DaoClientes;
+import br.com.DAO.DaoFunc;
 import br.com.DAO.DaoGeneric;
 import br.com.Model.Clientes;
 import br.com.Model.Funcionarios;
@@ -28,14 +37,36 @@ import br.com.Model.Funcionarios;
 public class ClienBean {
 
 	private Clientes clientes = new Clientes();
-	private DaoGeneric<Clientes> daoGeneric = new DaoGeneric<Clientes>();
+	private Funcionarios funcionario = new Funcionarios();
+	private DaoFunc<Funcionarios> daoFuncionario = new DaoFunc<Funcionarios>();
+	private DaoClientes<Clientes> daoCliente = new DaoClientes<Clientes>();
 	private List<Clientes> clientesLista = new ArrayList<Clientes>();
+	
+	
+	@PostConstruct
+	public void init() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+
+		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+		HttpSession session = request.getSession();
+
+		Funcionarios funcionarioUser =  (Funcionarios) session.getAttribute("funcionariologado");
+		
+		funcionario = daoFuncionario.pesquisar(funcionarioUser.getId(), Funcionarios.class);
+		clientesLista = daoCliente.listar(Clientes.class);
+		
+	}
+	
 	
 	
 	
 	public String salvar() {
+		clientes.setFuncionarios(funcionario);
 		
-		daoGeneric.salvar(clientes);
+		daoCliente.salvar(clientes);
+		clientesLista.add(clientes);
+		funcionario = daoFuncionario.pesquisar(funcionario.getId(), Funcionarios.class);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Cliente salvo com sucesso!"));
 		
 		return "";
@@ -116,6 +147,28 @@ public void pesquisaCep(AjaxBehaviorEvent event) {
 	public List<Clientes> getClientesLista() {
 		return clientesLista;
 	}
+
+
+	public Funcionarios getFuncionario() {
+		return funcionario;
+	}
+
+
+	public void setFuncionario(Funcionarios funcionario) {
+		this.funcionario = funcionario;
+	}
+
+
+	public DaoClientes<Clientes> getDaoCliente() {
+		return daoCliente;
+	}
+
+
+	public void setDaoCliente(DaoClientes<Clientes> daoCliente) {
+		this.daoCliente = daoCliente;
+	}
+	
+	
 
 
 

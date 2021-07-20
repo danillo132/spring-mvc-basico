@@ -1,12 +1,17 @@
 package br.com.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Funcionarios implements Serializable {
@@ -42,6 +47,9 @@ public class Funcionarios implements Serializable {
 	@Column(columnDefinition = "text")
 	private String imagem;
 	
+	
+	@OneToMany(mappedBy = "funcionarios", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Clientes> clientes = new ArrayList<Clientes>();
 	
 	public Long getId() {
 		return id;
@@ -187,6 +195,16 @@ public class Funcionarios implements Serializable {
 	}
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+	
+	
+	
+	
+	public List<Clientes> getClientes() {
+		return clientes;
+	}
+	public void setClientes(List<Clientes> clientes) {
+		this.clientes = clientes;
 	}
 	@Override
 	public int hashCode() {

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="cadFunc.css"></h:outputStylesheet>
+	<title>Todos funcionários</title>
+</h:head>
+
+<h:body style="height: 100%;
+   margin: 0;">
+
+<div id="conteudo" class="content">
+
+
+
+	<ui:include src="/menu.xhtml" />
+	<div class="titulo">
+	<p:commandButton icon="pi pi-list" value="Menu" type="button" onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
+		<p:outputLabel styleClass="title">Todos Funcionários</p:outputLabel>
+	</div>
+	<p:growl id="growl" showDetail="true" />
+<p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
+	<br></br>
+	<div class="formularioData">
+
+		<h:form id="form_funclista" styleClass="formData">
+			
+			<p:dataTable id="dataFuncionarios" value="#{FuncBean.funcionariosLista}" var="funcionario" rows="10" paginator="true" lazy="true"
+			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
+			
+			<f:facet name="header">
+			<div class="dataTitle" style="font-size: 20px;">
+						Lista de Funcionários
+						</div>
+						
+						<div>
+							<p:commandButton id="toggler" type="button" value="Colunas" icon="pi pi-align-justify" styleClass="botaoData" />
+							<p:columnToggler datasource="dataFuncionarios" trigger="toggler" />
+						</div>
+			</f:facet>
+			<p:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{funcionario.nome}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Sobrenome</f:facet>
+					<h:outputText value="#{funcionario.sobrenome}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Idade</f:facet>
+					<h:outputText value="#{funcionario.idade}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">E-mail</f:facet>
+					<h:outputText value="#{funcionario.email}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Função</f:facet>
+					<h:outputText value="#{funcionario.funcao}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Ativo</f:facet>
+					<h:outputText value="#{funcionario.ativo}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header" >Editar</f:facet>
+					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar" action="cadFunc.jsf"   styleClass="botaoeditar" >
+						<f:setPropertyActionListener value="#{funcionario}"
+							target="#{FuncBean.funcionarios}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Deletar</f:facet>
+					<p:commandButton action="#{FuncBean.removerFunc}" value="Deletar"  icon="pi pi-trash"   update="dataFuncionarios growl erro"  styleClass="botaodeletar" >
+					<p:confirm header="Confirmação" message="Todos os clientes cadastrados pelo funcionário serão apagados, tem certeza?" icon="pi pi-exclamation-triangle"/>
+						<f:setPropertyActionListener value="#{funcionario}"
+							target="#{FuncBean.funcionarios}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
+            <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+		</h:form>
+	</div>
+<br></br>
+</div>
+
+
+
+</h:body>
+</html>

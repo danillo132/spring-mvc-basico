@@ -56,6 +56,21 @@
 		
 }
 
+.formularioData{
+	display:flex;
+	position: relative;
+	margin-top: 100px !important;
+	
+	margin-left: 3%;
+	width: 95%;
+	background-color: #FFFFFF;
+	margin-bottom: 100px;
+	border-radius: 5px;
+	-webkit-box-shadow: 5px 5px 5px 2px rgba(50, 50, 50, 0.77);
+	-moz-box-shadow:    5px 5px 5px  2px rgba(50, 50, 50, 0.77);
+	box-shadow:         5px 5px 5px 2px rgba(50, 50, 50, 0.77);
+}
+
 .ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider {
 	background-color: #84DD63 !important;
 }
@@ -105,6 +120,30 @@
 	background-color: transparent !important;
 	border: none !important;
 	margin-left: 5px !important; 
+}
+
+.ui-datatable{
+	
+	width: 100% !important;
+}
+
+.formData{
+	width: 100%;
+}
+
+.botaoData{
+	background-color: #84DD63 !important;
+	border-color: #84DD63 !important;
+}
+
+.botaoeditar{
+	background-color: #84DD63 !important;
+	border-color: #84DD63 !important;
+}
+
+.botaodeletar{
+	background-color: #c41c1c !important;
+	border-color: #c41c1c !important;
 }
 
 
