@@ -1,32 +1,38 @@
 package br.com.ManagerBean;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.DAO.DaoGeneric;
+import br.com.DAO.DaoEmbalagem;
 import br.com.Model.Embalagens;
+import br.com.lazyDataTable.LazyEmbalagens;
 
 @ManagedBean(name = "EmbalagemBean")
-@ViewScoped
+@SessionScoped
 public class EmbalagemBean {
 
 	
 	private Embalagens embalagens = new Embalagens();
-	private DaoGeneric<Embalagens> daoGeneric = new DaoGeneric<Embalagens>();
-	private List<Embalagens> embalagensLista = new ArrayList<Embalagens>();
+	private DaoEmbalagem<Embalagens> daoEmbalagem = new DaoEmbalagem<Embalagens>();
+	private LazyEmbalagens<Embalagens> embalagensLista = new LazyEmbalagens<Embalagens>();
 	
 	
-	
+	@PostConstruct
+	public void init() {
+		embalagensLista.load(0, 8, null, null);
+		
+	}
 	
 	
 	public String salvar() {
 		
-		daoGeneric.salvar(embalagens);
+		daoEmbalagem.salvar(embalagens);
+		embalagensLista.list.add(embalagens);
+		
+		embalagens = new Embalagens();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informação", "Embalagem cadastrada com sucesso!"));
 		return "";
 	}
@@ -36,8 +42,32 @@ public class EmbalagemBean {
 		return "";
 	}
 	
+	public String removerEmbalagem(){
+		
+		daoEmbalagem.removerEmbalagem(embalagens);
+		embalagensLista.list.remove(embalagens);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação:", "Embalagem removida com sucesso!"));
+		return "";
+	}
 	
 	
+	public Embalagens editarEmbalagem() {
+		
+		try {
+			
+			String idEmbalagem = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idEmbalagem");
+			
+			FacesContext.getCurrentInstance().getExternalContext().redirect("cadEmbalagens.jsf");
+			
+			embalagens = daoEmbalagem.pesquisar(Long.valueOf(idEmbalagem), Embalagens.class);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		return embalagens;
+	}
 	
 	
 	
@@ -51,10 +81,11 @@ public class EmbalagemBean {
 	public void setEmbalagens(Embalagens embalagens) {
 		this.embalagens = embalagens;
 	}
-	public List<Embalagens> getEmbalagensLista() {
+	
+	
+	public LazyEmbalagens<Embalagens> getEmbalagensLista() {
 		return embalagensLista;
 	}
-	
 	
 	
 	

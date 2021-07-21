@@ -71,6 +71,8 @@
 	box-shadow:         5px 5px 5px 2px rgba(50, 50, 50, 0.77);
 }
 
+
+
 .ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider {
 	background-color: #84DD63 !important;
 }

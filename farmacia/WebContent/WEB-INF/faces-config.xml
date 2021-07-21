@@ -7,7 +7,10 @@
     
     <navigation-rule>
 		<from-view-id>/index.xhtml</from-view-id>
-		
+		<navigation-case>
+		<from-outcome>cadFuncionarios</from-outcome>
+		<to-view-id>/cadFunc.jsf</to-view-id>
+		</navigation-case>
 
 	</navigation-rule>
 

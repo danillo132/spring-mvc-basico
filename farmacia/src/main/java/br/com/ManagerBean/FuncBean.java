@@ -10,10 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -23,6 +28,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.primefaces.component.inputtext.InputText;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.LazyDataModel;
 
@@ -39,6 +45,7 @@ import br.com.repository.IDaoFuncionarioimpl;
 @ViewScoped
 public class FuncBean {
 
+	
 	
 	private Funcionarios funcionarios = new Funcionarios();
 	private IDaoFuncionario daoFuncionario = new IDaoFuncionarioimpl();
@@ -97,8 +104,26 @@ public class FuncBean {
 		
 		daoFunc.salvar(funcionarios);
 		funcionariosLista.list.add(funcionarios);
+		funcionarios = new Funcionarios();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Funcionário cadastrado com sucesso!"));
 		return "";
+	}
+	
+	public Funcionarios editarFunc() {
+		
+		try {
+		FacesContext context = FacesContext.getCurrentInstance();
+		String IdFunc = context.getExternalContext().getRequestParameterMap().get("idFunc");
+		
+		
+		context.getExternalContext().redirect("cadFunc.jsf");
+		
+		
+		 funcionarios = daoFunc.pesquisar(Long.valueOf(IdFunc), Funcionarios.class);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return funcionarios;
 	}
 	
 	
@@ -116,7 +141,10 @@ public class FuncBean {
 	
 	
 	
-	public String logar() {
+	
+	
+	
+	public String logar()  {
 		
 		
 		try {
@@ -139,7 +167,10 @@ public class FuncBean {
 				return "home.jsf";
 			}
 		} catch (Exception e) {
+			
+			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Login ou senha incorretos"));
+			
 			return "index.jsf";
 		}
 		
@@ -152,10 +183,7 @@ public class FuncBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 
-		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-		HttpSession session = request.getSession();
-		session.removeAttribute("funcionariologado");
-		session.invalidate();
+		externalContext.invalidateSession();
 
 		return "index.jsf";
 	}

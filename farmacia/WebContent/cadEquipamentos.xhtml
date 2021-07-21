@@ -33,53 +33,33 @@
 			<p:panelGrid columns="4"  styleClass="painel">
 			
 								
-				<p:outputLabel id="tipoEmba">Tipo de Embalagem:</p:outputLabel>
-				<p:selectOneMenu value="#{EmbalagemBean.embalagens.tipoEmbalagem}" style="width: 193px;" >
+				<p:outputLabel id="nome">Nome:</p:outputLabel>
+				<p:inputText value="#{EquipamentosBean.equipamentos.nome}" required="true" requiredMessage="Informe o nome!"></p:inputText>
+				
+				
+				<p:outputLabel id="funcao">Função:</p:outputLabel>
+				<p:selectOneMenu value="#{EquipamentosBean.equipamentos.funcao}" style="width: 193px;" >
 				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true"  />
-				<f:selectItem itemLabel="Pote" itemValue="Pote de cápsulas"  />
-				<f:selectItem itemLabel="Bisnaga" itemValue="Bisnagas"/>
-				<f:selectItem itemLabel="Sachê" itemValue="Sachê"/>
-				<f:selectItem itemLabel="Garrafa" itemValue="Pote para líquidos"/>
+				<f:selectItem itemLabel="Separação" itemValue="Separação"  />
+				<f:selectItem itemLabel="Pesagem" itemValue="Pesagem"/>
+				<f:selectItem itemLabel="Encapsulação" itemValue="Encapsulação"/>
+				<f:selectItem itemLabel="Agitação" itemValue="Agitação"/>
+				<f:selectItem itemLabel="Análise" itemValue="Análise"/>
+				<f:selectItem itemLabel="Amostra" itemValue="Amostra"/>
+				<f:selectItem itemLabel="Aparagem" itemValue="Aparagem"/>
+				<f:selectItem itemLabel="Estocar" itemValue="Estocar"/>
 				</p:selectOneMenu>
 				
 				<p:outputLabel id="qtd">Quantidade:</p:outputLabel>
-				<p:inputNumber value="#{EmbalagemBean.embalagens.quantidade}"    thousandSeparator="," decimalSeparator="." required="true" requiredMessage="Informe a quantidade!"></p:inputNumber>
+				<p:inputNumber value="#{EquipamentosBean.equipamentos.quantidade}" decimalSeparator="." thousandSeparator="," required="true" requiredMessage="Informe o sobrenome!"></p:inputNumber>
 				
-				
-				<p:outputLabel id="tipo">Tipo de produto:</p:outputLabel>
-				<p:selectOneMenu value="#{EmbalagemBean.embalagens.tipoProduto}" style="width: 193px;" >
-				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true"  />
-				<f:selectItem itemLabel="Cápsulas" itemValue="Cápsulas"  />
-				<f:selectItem itemLabel="Comprimidos" itemValue="Comprimidos"/>
-				<f:selectItem itemLabel="Produto em Pó" itemValue="Produto em Pó"/>
-				<f:selectItem itemLabel="Líquido" itemValue="Líquido"/>
-				<f:selectItem itemLabel="Gel" itemValue="Líquido"/>
-				</p:selectOneMenu>
-				
-			
-				
-				
-				
-				
-				
-				<p:outputLabel id="Capacidade">Capacidade:</p:outputLabel>
-				<p:inputText value="#{EmbalagemBean.embalagens.capacidade}"  placeholder="Gramas/número" required="true" requiredMessage="Informe a capacidade!"></p:inputText>
-				
-			
-				
-				
-				<p:outputLabel>Tamanho:</p:outputLabel>
-				 <p:selectOneRadio id="tamanho" value="#{EmbalagemBean.embalagens.tamanho}" unselectable="true">
-            <f:selectItem itemLabel="Pequeno" itemValue="Pequeno"/>
-            <f:selectItem itemLabel="Médio" itemValue="Médio"/>
-            <f:selectItem itemLabel="Grande" itemValue="Grande"/>
-        </p:selectOneRadio>			
-				
+				<p:outputLabel id="uso">Em uso:</p:outputLabel>
+				<p:inputText value="#{EquipamentosBean.equipamentos.emUso}" ></p:inputText>
 				
 				
 				
 				<p:outputLabel >Fornecedor:</p:outputLabel>
-				<p:autoComplete id="fornecedor" value="#{EmbalagemBean.embalagens.fornecedor}" completeMethod="#{FornecedoresBean.list}" scrollHeight="250"
+				<p:autoComplete id="fornecedor" value="#{EquipamentosBean.equipamentos.fornecedor}" completeMethod="#{FornecedoresBean.list}" scrollHeight="250"
                             />
 				<p:outputLabel></p:outputLabel>
 				<p:outputLabel></p:outputLabel>
@@ -88,8 +68,8 @@
 			</p:panelGrid>
 				<h:panelGroup >
 				
-				<p:commandButton value="Salvar" action="#{EmbalagemBean.salvar}" icon="pi pi-save" styleClass="corbotao" update="growl" ajax="false"></p:commandButton>
-				<p:commandButton value="Novo" action="#{EmbalagemBean.novo}"   icon="pi pi-user-plus" styleClass="corbotao" update="form_embalagem"></p:commandButton>
+				<p:commandButton value="Salvar" action="#{EquipamentosBean.salvar}" icon="pi pi-save" styleClass="corbotao" update="growl" ajax="false"></p:commandButton>
+				<p:commandButton value="Novo" action="#{EquipamentosBean.novo}"   icon="pi pi-user-plus" styleClass="corbotao" update="form_embalagem"></p:commandButton>
 				
 				</h:panelGroup>
 		</h:form>

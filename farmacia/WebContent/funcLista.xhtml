@@ -30,7 +30,7 @@
 
 		<h:form id="form_funclista" styleClass="formData">
 			
-			<p:dataTable id="dataFuncionarios" value="#{FuncBean.funcionariosLista}" var="funcionario" rows="10" paginator="true" lazy="true"
+			<p:dataTable id="dataFuncionarios" value="#{FuncBean.funcionariosLista}" var="funcionario" rows="10" paginator="true" lazy="true" 
 			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
 			
 			<f:facet name="header">
@@ -75,9 +75,8 @@
 				
 				<p:column>
 					<f:facet name="header" >Editar</f:facet>
-					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar" action="cadFunc.jsf"   styleClass="botaoeditar" >
-						<f:setPropertyActionListener value="#{funcionario}"
-							target="#{FuncBean.funcionarios}"></f:setPropertyActionListener>
+					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar" ajax="false"  action="#{FuncBean.editarFunc}"  styleClass="botaoeditar" >
+						<f:param name="idFunc" value="#{funcionario.id}"></f:param>
 					</p:commandButton>
 				</p:column>
 				

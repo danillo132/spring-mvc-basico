@@ -8,6 +8,7 @@
 	<class>br.com.Model.Fornecedores</class>
 	<class>br.com.Model.MateriaPrima</class>
 	<class>br.com.Model.Embalagens</class>
+	<class>br.com.Model.Equipamentos</class>
 	<properties>
 	
 	
