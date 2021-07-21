@@ -25,79 +25,9 @@
 	</div>
 	<p:growl id="growl" showDetail="true" />
 <p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
-	<br></br>
-	<div class="formularioData">
 
-		<h:form id="form_embalagemLista" styleClass="formData">
-			
-			<p:dataTable id="dataEstoqueEmbalagem" value="#{EmbalagemBean.embalagensLista}" var="embalagem" rows="10" paginator="true" lazy="true" 
-			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
-			
-			<f:facet name="header">
-			<div class="dataTitle" style="font-size: 20px;">
-						Lista de Embalagens
-						</div>
-						
-						<div>
-							<p:commandButton id="toggler" type="button" value="Colunas" icon="pi pi-align-justify" styleClass="botaoData" />
-							<p:columnToggler datasource="dataEstoqueEmbalagem" trigger="toggler" />
-						</div>
-			</f:facet>
-			<p:column>
-					<f:facet name="header">Tipo da Embalagem</f:facet>
-					<h:outputText value="#{embalagem.tipoEmbalagem}"></h:outputText>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header">Quantidade(UN)</f:facet>
-					<h:outputText value="#{embalagem.quantidade}"></h:outputText>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header">Tipo de produto</f:facet>
-					<h:outputText value="#{embalagem.tipoProduto}"></h:outputText>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header">Capacidade(Caps ou gramas)</f:facet>
-					<h:outputText value="#{embalagem.capacidade}"></h:outputText>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header">Tamamnho</f:facet>
-					<h:outputText value="#{embalagem.tamanho}"></h:outputText>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header">Fornecedor</f:facet>
-					<h:outputText value="#{embalagem.fornecedor}"></h:outputText>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header" >Editar</f:facet>
-					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar"   action="#{EmbalagemBean.editarEmbalagem}"  styleClass="botaoeditar" >
-						<f:param name="idEmbalagem" value="#{embalagem.id}"></f:param>
-					</p:commandButton>
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header">Deletar</f:facet>
-					<p:commandButton action="#{EmbalagemBean.removerEmbalagem}" value="Deletar"  icon="pi pi-trash"   update="dataEstoqueEmbalagem growl erro"  styleClass="botaodeletar" >
-					<p:confirm header="Confirmação" message="Tem certeza que deseja deletar?" icon="pi pi-exclamation-triangle"/>
-						<f:setPropertyActionListener value="#{embalagem}"
-							target="#{EmbalagemBean.embalagens}"></f:setPropertyActionListener>
-					</p:commandButton>
-				</p:column>
-				
-			</p:dataTable>
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
-            <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
-        </p:confirmDialog>
-		</h:form>
-	</div>
-	
-			<div class="formularioData">
+
+<div class="formularioData">
 
 		<h:form id="form_funclista" styleClass="formData">
 			
@@ -172,6 +102,147 @@
 		</h:form>
 <br></br>
 </div>
+
+
+	
+	<div class="formularioData">
+
+		<h:form id="form_embalagemLista" styleClass="formData">
+			
+			<p:dataTable id="dataEstoqueEmbalagem" value="#{EmbalagemBean.embalagensLista}" var="embalagem" rows="10" paginator="true" lazy="true" 
+			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
+			
+			<f:facet name="header">
+			<div class="dataTitle" style="font-size: 20px;">
+						Lista de Embalagens
+						</div>
+						
+						<div>
+							<p:commandButton id="toggler" type="button" value="Colunas" icon="pi pi-align-justify" styleClass="botaoData" />
+							<p:columnToggler datasource="dataEstoqueEmbalagem" trigger="toggler" />
+						</div>
+			</f:facet>
+			<p:column>
+					<f:facet name="header">Tipo da Embalagem</f:facet>
+					<h:outputText value="#{embalagem.tipoEmbalagem}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Quantidade(UN)</f:facet>
+					<h:outputText value="#{embalagem.quantidade}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Tipo de produto</f:facet>
+					<h:outputText value="#{embalagem.tipoProduto}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Capacidade(Caps ou gramas)</f:facet>
+					<h:outputText value="#{embalagem.capacidade}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Tamamnho</f:facet>
+					<h:outputText value="#{embalagem.tamanho}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Fornecedor</f:facet>
+					<h:outputText value="#{embalagem.fornecedor}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header" >Editar</f:facet>
+					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar"   action="#{EmbalagemBean.editarEmbalagem}"  styleClass="botaoeditar" >
+						<f:param name="idEmbalagem" value="#{embalagem.id}"></f:param>
+					</p:commandButton>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Deletar</f:facet>
+					<p:commandButton action="#{EmbalagemBean.removerEmbalagem}" value="Deletar"  icon="pi pi-trash"   update="dataEstoqueEmbalagem growl erro"  styleClass="botaodeletar" >
+					<p:confirm header="Confirmação" message="Tem certeza que deseja deletar?" icon="pi pi-exclamation-triangle"/>
+						<f:setPropertyActionListener value="#{embalagem}"
+							target="#{EmbalagemBean.embalagens}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
+            <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+		</h:form>
+	</div>
+	
+		
+	<div class="formularioData">
+
+		<h:form id="form_equipamentosLista" styleClass="formData">
+			
+			<p:dataTable id="dataEstoqueEquipamentos" value="#{EquipamentosBean.equipamentosLista}" var="equipamento" rows="10" paginator="true" lazy="true" 
+			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
+			
+			<f:facet name="header">
+			<div class="dataTitle" style="font-size: 20px;">
+						Lista de Equipamentos
+						</div>
+						
+						<div>
+							<p:commandButton id="toggler" type="button" value="Colunas" icon="pi pi-align-justify" styleClass="botaoData" />
+							<p:columnToggler datasource="dataEstoqueEquipamentos" trigger="toggler" />
+						</div>
+			</f:facet>
+			<p:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{equipamento.nome}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Função</f:facet>
+					<h:outputText value="#{equipamento.funcao}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Quantidade</f:facet>
+					<h:outputText value="#{equipamento.quantidade}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Em uso</f:facet>
+					<h:outputText value="#{equipamento.emUso}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Fornecedor</f:facet>
+					<h:outputText value="#{equipamento.fornecedor}"></h:outputText>
+				</p:column>
+				
+				
+				<p:column>
+					<f:facet name="header" >Editar</f:facet>
+					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar"   action="#{EquipamentosBean.editarEquipamento}"  styleClass="botaoeditar" >
+						<f:param name="idEquipamento" value="#{equipamento.id}"></f:param>
+					</p:commandButton>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Deletar</f:facet>
+					<p:commandButton action="#{EquipamentosBean.removerEquipamento}" value="Deletar"  icon="pi pi-trash"   update="dataEstoqueEquipamentos growl erro"  styleClass="botaodeletar" >
+					<p:confirm header="Confirmação" message="Tem certeza que deseja deletar?" icon="pi pi-exclamation-triangle"/>
+						<f:setPropertyActionListener value="#{equipamento}"
+							target="#{EquipamentosBean.equipamentos}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
+            <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+		</h:form>
+	</div>	
 
 </div>
 

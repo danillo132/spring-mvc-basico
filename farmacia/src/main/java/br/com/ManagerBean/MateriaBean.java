@@ -23,7 +23,7 @@ public class MateriaBean {
 	
 	@PostConstruct
 	public void init() {
-		materiaLista.load(0, 10, null, null);
+		materiaLista.load(0, 8, null, null);
 	}
 	
 	public String salvar() {
