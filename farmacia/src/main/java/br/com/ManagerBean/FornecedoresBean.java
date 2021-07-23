@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -19,32 +20,38 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.xml.bind.DatatypeConverter;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.LazyDataModel;
 
 import com.google.gson.Gson;
 
+import br.com.DAO.DaoFornecedores;
 import br.com.DAO.DaoGeneric;
 import br.com.Model.Fornecedores;
+import br.com.lazyDataTable.LazyFornecedores;
 
 @ManagedBean(name = "FornecedoresBean")
-@ViewScoped
+@SessionScoped
 public class FornecedoresBean {
 
 	
 	
 	private Fornecedores fornecedores = new Fornecedores();
-	private DaoGeneric<Fornecedores> daoGeneric = new DaoGeneric<Fornecedores>();
-	private List<Fornecedores> fornecedoresLista = new ArrayList<Fornecedores>();
-
+	private DaoFornecedores<Fornecedores> daoFornecedores = new DaoFornecedores<Fornecedores>();
 	
+	private LazyFornecedores<Fornecedores> fornecedoreslazy = new LazyFornecedores<Fornecedores>();
 	
+	@PostConstruct
+	public void init() {
+		fornecedoreslazy.load(0, 5, null, null);
+	}
 	
 	
 public List<String> list(String query){
 	String queryLowerCase = query.toLowerCase();
 		List<String> autocomplete = new ArrayList<>();
-		fornecedoresLista = daoGeneric.listar(Fornecedores.class);
+		fornecedoreslazy.list = daoFornecedores.listar(Fornecedores.class);
 		
-		for (Fornecedores string : fornecedoresLista) {
+		for (Fornecedores string : fornecedoreslazy.list) {
 			autocomplete.add(string.getNomeEmpresa());
 		}
 		
@@ -53,7 +60,9 @@ public List<String> list(String query){
 	
 	public String salvar() {
 		
-		daoGeneric.salvar(fornecedores);
+		daoFornecedores.salvar(fornecedores);
+		fornecedoreslazy.list.add(fornecedores);
+		fornecedores = new Fornecedores();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Fornecedor salvo com sucesso!"));
 		
 		return "";
@@ -66,6 +75,33 @@ public List<String> list(String query){
 		return "";
 	}
 	
+	public String removerFornecedor() {
+		try {
+		daoFornecedores.removerFornecedor(fornecedores);
+		fornecedoreslazy.list.remove(fornecedores);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Fornecedor removido com sucesso!"));
+		}catch(Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: ", "Não foi possível realizar a remoção."));
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	public Fornecedores editarForne() {
+		
+		try {
+			String idForne = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idForne");
+			
+			FacesContext.getCurrentInstance().getExternalContext().redirect("cadForne.jsf");
+			fornecedores = daoFornecedores.pesquisar(Long.valueOf(idForne), Fornecedores.class);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return fornecedores;
+	}
 	
 	
 	
@@ -128,9 +164,14 @@ public void pesquisaCep(AjaxBehaviorEvent event) {
 	public void setFornecedores(Fornecedores fornecedores) {
 		this.fornecedores = fornecedores;
 	}
-	public List<Fornecedores> getFornecedoresLista() {
-		return fornecedoresLista;
+
+
+	public LazyFornecedores<Fornecedores> getFornecedoreslazy() {
+		return fornecedoreslazy;
 	}
+
+
+	
 	
 	
 	

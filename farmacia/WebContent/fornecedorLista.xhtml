@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="cadFunc.css"></h:outputStylesheet>
+	<title>Todos funcionários</title>
+</h:head>
+
+<h:body style="height: 100%;
+   margin: 0;">
+
+<div id="conteudo" class="content">
+
+
+
+	<ui:include src="/menu.xhtml" />
+	<div class="titulo">
+	<p:commandButton icon="pi pi-list" value="Menu" type="button" onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
+		<p:outputLabel styleClass="title">Todos Funcionários</p:outputLabel>
+	</div>
+	<p:growl id="growl" showDetail="true" />
+<p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
+	<br></br>
+	<div class="formularioData">
+
+		<h:form id="form_fornecedorLista" styleClass="formData">
+			
+			<p:dataTable id="dataFornecedores" value="#{FornecedoresBean.fornecedoreslazy}" var="fornecedor" rows="10" paginator="true" lazy="true" 
+			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
+			
+			<f:facet name="header">
+			<div class="dataTitle" style="font-size: 20px;">
+						Lista de Funcionários
+						</div>
+						
+						<div>
+							<p:commandButton id="toggler" type="button" value="Colunas" icon="pi pi-align-justify" styleClass="botaoData" />
+							<p:columnToggler datasource="dataFornecedores" trigger="toggler" />
+						</div>
+			</f:facet>
+			<p:column>
+					<f:facet name="header">Nome da empresa</f:facet>
+					<h:outputText value="#{fornecedor.nomeEmpresa}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">CNPJ</f:facet>
+					<h:outputText value="#{fornecedor.cnpj}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Tipo fornecedor</f:facet>
+					<h:outputText value="#{fornecedor.tipoFornecedor}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">CEP</f:facet>
+					<h:outputText value="#{fornecedor.cep}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Estado</f:facet>
+					<h:outputText value="#{fornecedor.uf}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Contato</f:facet>
+					<h:outputText value="#{fornecedor.telefoneFornecedor}"></h:outputText>
+				</p:column>
+				
+				
+				
+				<p:column>
+					<f:facet name="header" >Editar</f:facet>
+					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar" ajax="false"  action="#{FornecedoresBean.editarForne}"  styleClass="botaoeditar" >
+						<f:param name="idForne" value="#{fornecedor.id}"></f:param>
+					</p:commandButton>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Deletar</f:facet>
+					<p:commandButton action="#{FornecedoresBean.removerFornecedor}" value="Deletar"  icon="pi pi-trash"   update="dataFornecedores growl erro"  styleClass="botaodeletar" >
+						<f:setPropertyActionListener value="#{fornecedor}"
+							target="#{FornecedoresBean.fornecedores}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				
+			</p:dataTable>
+			
+		</h:form>
+	</div>
+<br></br>
+</div>
+
+
+
+</h:body>
+</html>

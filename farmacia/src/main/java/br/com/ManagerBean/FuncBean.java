@@ -42,7 +42,7 @@ import br.com.repository.IDaoFuncionario;
 import br.com.repository.IDaoFuncionarioimpl;
 
 @ManagedBean(name = "FuncBean")
-@ViewScoped
+@SessionScoped
 public class FuncBean {
 
 	
