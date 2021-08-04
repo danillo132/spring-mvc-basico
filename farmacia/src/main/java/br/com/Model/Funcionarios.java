@@ -43,6 +43,13 @@ public class Funcionarios implements Serializable {
 	private String uf;
 	private String telefoneFixo;
 	private String celular;
+	private Integer clientesCadastrados;
+	private Integer pedidosCadastrados;
+	private Integer orcamentosCotados;
+	private Integer pedidosEntregues;
+	
+	
+	
 	
 	@Column(columnDefinition = "text")
 	private String imagem;
@@ -141,6 +148,15 @@ public class Funcionarios implements Serializable {
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
+	
+	
+	
+	public Integer getClientesCadastrados() {
+		return clientesCadastrados;
+	}
+	public void setClientesCadastrados(Integer clientesCadastrados) {
+		this.clientesCadastrados = clientesCadastrados;
+	}
 	public String getComplemento() {
 		return complemento;
 	}
@@ -162,6 +178,25 @@ public class Funcionarios implements Serializable {
 	
 	
 	
+	
+	public Integer getPedidosCadastrados() {
+		return pedidosCadastrados;
+	}
+	public void setPedidosCadastrados(Integer pedidosCadastrados) {
+		this.pedidosCadastrados = pedidosCadastrados;
+	}
+	public Integer getOrcamentosCotados() {
+		return orcamentosCotados;
+	}
+	public void setOrcamentosCotados(Integer orcamentosCotados) {
+		this.orcamentosCotados = orcamentosCotados;
+	}
+	public Integer getPedidosEntregues() {
+		return pedidosEntregues;
+	}
+	public void setPedidosEntregues(Integer pedidosEntregues) {
+		this.pedidosEntregues = pedidosEntregues;
+	}
 	public String getLocalidade() {
 		return localidade;
 	}

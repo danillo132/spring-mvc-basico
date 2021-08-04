@@ -29,8 +29,10 @@ import com.google.gson.Gson;
 
 import br.com.DAO.DaoClientes;
 import br.com.DAO.DaoFunc;
+import br.com.DAO.DaoOrcamentos;
 import br.com.Model.Clientes;
 import br.com.Model.Funcionarios;
+import br.com.Model.Orcamentos;
 import br.com.lazyDataTable.LazyDataTable;
 import br.com.repository.IDaoFuncionario;
 import br.com.repository.IDaoFuncionarioimpl;
@@ -42,13 +44,15 @@ public class FuncBean {
 	
 	
 	private Funcionarios funcionarios = new Funcionarios();
+	private Clientes clientes = new Clientes();
 	private IDaoFuncionario daoFuncionario = new IDaoFuncionarioimpl();
 	private LazyDataTable<Funcionarios> funcionariosLista = new LazyDataTable<Funcionarios>();
 	private DaoFunc<Funcionarios> daoFunc = new DaoFunc<Funcionarios>();
+	private DaoOrcamentos<Orcamentos> daoOrcamentos = new DaoOrcamentos<Orcamentos>();
 	private DaoClientes<Clientes> daoClientes  = new DaoClientes<Clientes>();
 	private List<Funcionarios> listaAtendentes = new ArrayList<Funcionarios>();
 	private BarChartModel barChartModel = new BarChartModel();
-	
+	private List<Clientes> clientesLista = new ArrayList<Clientes>();
 	
 	
 	@PostConstruct
@@ -142,6 +146,8 @@ public class FuncBean {
 	
 	
 	public Integer qtdclientes() {
+		int clienteTotal = 0;
+		try {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 
@@ -151,8 +157,44 @@ public class FuncBean {
 		Funcionarios funcionarioUser = (Funcionarios) session.getAttribute("funcionariologado");
 
 		funcionarios = daoFunc.pesquisar(funcionarioUser.getId(), Funcionarios.class);
-		Integer clienteTotal = daoClientes.contarClientes(funcionarios.getId());
+		 clienteTotal = daoClientes.contarClientes(funcionarios.getId());
+		 funcionarios.setClientesCadastrados(clienteTotal);
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return clienteTotal;
+	}
+	
+	public Integer qtdOrcamentos() {
+		int orcamentosTotal = 0;
+		
+		try {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+
+		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+		HttpSession session = request.getSession();
+
+		Funcionarios funcionarioUser = (Funcionarios) session.getAttribute("funcionariologado");
+
+		funcionarios = daoFunc.pesquisar(funcionarioUser.getId(), Funcionarios.class);
+		clientesLista = daoClientes.pesquisarClientes(funcionarios.getId());
+		
+		
+		for (Clientes cliente : clientesLista) {
+			clientes = daoClientes.pesquisar(cliente.getId(), Clientes.class);
+			
+			orcamentosTotal += daoOrcamentos.contarOrcamentos(clientes.getId());
+		}
+		
+		
+		 funcionarios.setOrcamentosCotados(orcamentosTotal);
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return orcamentosTotal;
 	}
 	
 	
@@ -191,7 +233,8 @@ public class FuncBean {
 
 				session.setAttribute("funcionariologado", funcionariosUser);
 				
-				
+				qtdOrcamentos();
+				qtdclientes();
 				
 				return "home.jsf";
 			}
