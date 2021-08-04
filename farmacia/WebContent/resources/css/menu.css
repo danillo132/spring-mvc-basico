@@ -22,3 +22,7 @@
 	border-color: #84DD63 !important;
 }
 
+.ui-menuitem-link:hover {
+    border-radius: 5px !important;
+}
+

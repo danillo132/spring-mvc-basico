@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="cadFunc.css"></h:outputStylesheet>
+	<title>Orçamentos</title>
+</h:head>
+
+<h:body style="height: 100%;
+   margin: 0;">
+
+<div id="conteudo" class="content">
+
+
+
+	<ui:include src="/menu.xhtml" />
+	<div class="titulo">
+	<p:commandButton icon="pi pi-list" value="Menu" type="button" onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
+		<p:outputLabel styleClass="title">Orçamentos cadastrados</p:outputLabel>
+	</div>
+	<p:growl id="growl" showDetail="true" />
+<p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
+	<br></br>
+	<div class="formulario">
+
+		<h:form id="form_orcamento" styleClass="form1">
+
+			<p:panelGrid columns="4"  styleClass="painel">
+			
+					<p:outputLabel id="nomecliente">Nome do cliente:</p:outputLabel>
+				<p:outputLabel value="#{orcamentosBean.clientes.nome}" ></p:outputLabel>
+				
+				<p:outputLabel id="sobrenomecliente">Sobrenome do cliente:</p:outputLabel>
+				<p:outputLabel value="#{orcamentosBean.clientes.sobrenome}"></p:outputLabel>
+				
+				
+				<p:outputLabel id="cpfcliente">CPF do cliente:</p:outputLabel>
+				<p:outputLabel value="#{orcamentosBean.clientes.cpf}" ></p:outputLabel>			
+				
+				
+				<p:outputLabel id="nomemedico">Nome do médico:</p:outputLabel>
+				<p:inputText value="#{orcamentosBean.orcamentos.nomeMedico}" required="true" requiredMessage="Informe o nome do médico!"></p:inputText>
+			
+				<p:outputLabel id="crmmedico">CRM do médico:</p:outputLabel>
+				<p:inputMask value="#{orcamentosBean.orcamentos.crm}" mask="99999999-9/BR" validateMask="true"  ></p:inputMask>
+				
+				<p:outputLabel id="tipo">Tipo de medicamento:</p:outputLabel>
+				<p:selectOneMenu value="#{orcamentosBean.orcamentos.tipoMedicamento}" style="width: 193px;" >
+				<f:selectItem itemLabel="[--Selecione--]" noSelectionOption="true"  />
+				<f:selectItem itemLabel="Fitoterápico" itemValue="Fitoterápico"  />
+				<f:selectItem itemLabel="Alopático" itemValue="Alopático"/>
+				<f:selectItem itemLabel="Homeopático" itemValue="Homeopático"/>
+				<f:selectItem itemLabel="Controlado" itemValue="Controlado"/>
+				<f:selectItem itemLabel="Genérico" itemValue="Genérico"/>
+				<f:selectItem itemLabel="Manipulado" itemValue="Manipulado"/>
+				</p:selectOneMenu>
+				
+			
+				
+				<p:outputLabel id="realizacao">Data de realização:</p:outputLabel>
+				<p:inputMask value="#{orcamentosBean.orcamentos.dataInicial}" mask="99/99/9999" validateMask="true" required="true" requiredMessage="Informe a validade!">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00"></f:convertDateTime>
+				</p:inputMask>
+				
+				<p:outputLabel id="entrega">Data de entrega:</p:outputLabel>
+				<p:inputMask value="#{orcamentosBean.orcamentos.dataFinal}" mask="99/99/9999" validateMask="true" required="true" requiredMessage="Informe a validade!">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00"></f:convertDateTime>
+				</p:inputMask>
+				
+			
+					
+				<p:outputLabel >Fármaco 1:</p:outputLabel>
+				<p:autoComplete id="farmaco1" value="#{orcamentosBean.orcamentos.farmaco1}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem1}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 2:</p:outputLabel>
+				<p:autoComplete id="farmaco2" value="#{orcamentosBean.orcamentos.farmaco2}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem2}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 3:</p:outputLabel>
+				<p:autoComplete id="farmaco3" value="#{orcamentosBean.orcamentos.farmaco3}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem3}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 4:</p:outputLabel>
+				<p:autoComplete id="farmaco4" value="#{orcamentosBean.orcamentos.farmaco4}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem4}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 5:</p:outputLabel>
+				<p:autoComplete id="farmaco5" value="#{orcamentosBean.orcamentos.farmaco5}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem5}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 6:</p:outputLabel>
+				<p:autoComplete id="farmaco6" value="#{orcamentosBean.orcamentos.farmaco6}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem6}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 7:</p:outputLabel>
+				<p:autoComplete id="farmaco7" value="#{orcamentosBean.orcamentos.farmaco7}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem7}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 8:</p:outputLabel>
+				<p:autoComplete id="farmaco8" value="#{orcamentosBean.orcamentos.farmaco8}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem8}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 9:</p:outputLabel>
+				<p:autoComplete id="farmaco9" value="#{orcamentosBean.orcamentos.farmaco9}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem9}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 10:</p:outputLabel>
+				<p:autoComplete id="farmaco10" value="#{orcamentosBean.orcamentos.farmaco10}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem10}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 11:</p:outputLabel>
+				<p:autoComplete id="farmaco11" value="#{orcamentosBean.orcamentos.farmaco11}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem11}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 12:</p:outputLabel>
+				<p:autoComplete id="farmaco12" value="#{orcamentosBean.orcamentos.farmaco12}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem12}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 13:</p:outputLabel>
+				<p:autoComplete id="farmaco13" value="#{orcamentosBean.orcamentos.farmaco13}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem13}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 14:</p:outputLabel>
+				<p:autoComplete id="farmaco14" value="#{orcamentosBean.orcamentos.farmaco14}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem14}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 15:</p:outputLabel>
+				<p:autoComplete id="farmaco15" value="#{orcamentosBean.orcamentos.farmaco15}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem15}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 16:</p:outputLabel>
+				<p:autoComplete id="farmaco16" value="#{orcamentosBean.orcamentos.farmaco16}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem16}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 17:</p:outputLabel>
+				<p:autoComplete id="farmaco17" value="#{orcamentosBean.orcamentos.farmaco17}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem17}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 18:</p:outputLabel>
+				<p:autoComplete id="farmaco18" value="#{orcamentosBean.orcamentos.farmaco18}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem18}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 19:</p:outputLabel>
+				<p:autoComplete id="farmaco19" value="#{orcamentosBean.orcamentos.farmaco19}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem19}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 20:</p:outputLabel>
+				<p:autoComplete id="farmaco20" value="#{orcamentosBean.orcamentos.farmaco20}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem20}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 21:</p:outputLabel>
+				<p:autoComplete id="farmaco21" value="#{orcamentosBean.orcamentos.farmaco21}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem21}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel >Fármaco 22:</p:outputLabel>
+				<p:autoComplete id="farmaco22" value="#{orcamentosBean.orcamentos.farmaco22}" completeMethod="#{MateriaBean.listarFarmaco}" scrollHeight="250"/>
+				
+				<p:outputLabel>Dosagem:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.dosagem22}" decimalSeparator="." thousandSeparator="," placeholder="Miligramas"></p:inputNumber>
+				
+				<p:outputLabel>Preço total:</p:outputLabel>
+				<p:inputNumber value="#{orcamentosBean.orcamentos.precoTotal}" decimalSeparator="." thousandSeparator="," ></p:inputNumber>
+				
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel></p:outputLabel>
+				
+				
+			</p:panelGrid>
+				<h:panelGroup >
+				
+				<p:commandButton value="Salvar" action="#{orcamentosBean.salvar}" icon="pi pi-save" styleClass="corbotao" update="growl" ajax="false"></p:commandButton>
+				<p:commandButton value="Novo" action="#{orcamentosBean.novo}"    icon="pi pi-plus-circle" styleClass="corbotao" update="form_orcamento"></p:commandButton>
+				<p:commandButton value="Voltar" action="clienteLista.jsf"   icon="pi pi-arrow-circle-left" styleClass="corbotao" ajax="false" immediate="true"></p:commandButton>
+				
+				
+				</h:panelGroup>
+		</h:form>
+	</div>
+<br></br>
+
+<div class="formularioData">
+
+		<h:form id="form_orcamentoslista" styleClass="formData">
+			
+			<p:dataTable id="dataOrcamentos" value="#{orcamentosBean.orcamentosLista}" var="orcamento" rows="10" paginator="true" lazy="true" 
+			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
+			
+			<f:facet name="header">
+			<div class="dataTitle" style="font-size: 20px;">
+						Lista de orçamentos do cliente
+						</div>
+						
+						<div>
+							<p:commandButton id="toggler" type="button" value="Colunas" icon="pi pi-align-justify" styleClass="botaoData" />
+							<p:columnToggler datasource="dataOrcamentos" trigger="toggler" />
+						</div>
+			</f:facet>
+			<p:column>
+					<f:facet name="header">Médico</f:facet>
+					<h:outputText value="#{orcamento.nomeMedico}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Data de realização</f:facet>
+					<h:outputText value="#{orcamento.dataInicial}">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Data de entrega</f:facet>
+					<h:outputText value="#{orcamento.dataFinal}">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Tipo de medicamento</f:facet>
+					<h:outputText value="#{orcamento.tipoMedicamento}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Preço Total</f:facet>
+					<h:outputText value="#{orcamento.precoTotal}"></h:outputText>
+				</p:column>
+				
+				
+				<p:column>
+				<f:facet name="header">Confirmar pedido</f:facet>
+				<p:commandButton value="Confirmar" action="#{PedidosBean.confirmarPedido}"   icon="pi pi-check-circle" styleClass="corbotao" update="growl">
+					<f:param name="idPedido" value="#{orcamento.id}"></f:param>
+				</p:commandButton>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header" >Editar</f:facet>
+					<p:commandButton  value="Editar" icon="pi pi-pencil" id="botaoeditar"     styleClass="botaoeditar" update="form_orcamento">
+						<f:setPropertyActionListener value="#{orcamento}"
+							target="#{orcamentosBean.orcamentos}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Deletar</f:facet>
+					<p:commandButton action="#{orcamentosBean.removerOrcamento}" value="Deletar"  icon="pi pi-trash"   update="dataOrcamentos growl erro"  styleClass="botaodeletar" >
+					<p:confirm header="Confirmação" message="Tem certeza que deseja deletar?" icon="pi pi-exclamation-triangle"/>
+						<f:setPropertyActionListener value="#{orcamento}"
+							target="#{orcamentosBean.orcamentos}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				
+				
+				
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
+            <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+		</h:form>
+	</div>	
+</div>
+
+
+
+</h:body>
+</html>

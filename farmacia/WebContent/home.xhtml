@@ -15,27 +15,70 @@
 <h:body style="height: 100%;
    margin: 0;">
 
-<div id="conteudo" class="content">
+	<div id="conteudo" class="content">
 
 
 
-	<ui:include src="/menu.xhtml" />
-	<div class="titulo">
-	<p:commandButton icon="pi pi-list" value="Menu" type="button" onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
-		<p:outputLabel styleClass="title">Home</p:outputLabel>
-	</div>
-	<p:growl id="growl" showDetail="true" />
-<p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
-	<br></br>
-	<div class="formulario">
+		<ui:include src="/menu.xhtml" />
+		<div class="titulo">
+			<p:commandButton icon="pi pi-list" value="Menu" type="button"
+				onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
+			<p:outputLabel styleClass="title">Home</p:outputLabel>
+		</div>
+		<p:growl id="growl" showDetail="true" />
+		<p:growl id="erro" showDetail="true" styleClass="ui-button-danger"
+			style="width: 10rem" />
+		<br></br>
+		<div class="painelgrid">
+			<div class="paineisgrid">
+				<div class="painel1">
+					<i class="pi pi-money-bill"> </i> <span class="paineltitle">Orçamentos</span>
+					<i class="pi pi-chevron-circle-up"> </i>
+					<div class="painelnumeros">
+						<p:outputLabel styleClass="numeros">832</p:outputLabel>
+					</div>
+					<div class="subtitlePainel">Orçamentos cotados por você</div>
+				</div>
 
-		<h:form id="form_cliente" styleClass="form1">
+				<div class="painel2">
+					<i class="pi pi-book"> </i> <span class="paineltitle">Pedidos</span>
+					<i class="pi pi-chevron-circle-up"> </i>
+					<div class="painelnumeros">
+						<p:outputLabel styleClass="numeros">832</p:outputLabel>
+					</div>
+					<div class="subtitlePainel">Pedidos cadastrados por você</div>
+				</div>
 
+
+				<div class="painel3">
+					<i class="pi pi-users"> </i> <span class="paineltitle">Clientes</span>
+					<i class="pi pi-chevron-circle-up"> </i>
+					<div class="painelnumeros">
+						<p:outputLabel styleClass="numeros">832</p:outputLabel>
+					</div>
+					<div class="subtitlePainel">Clientes cadastrados por você</div>
+				</div>
+
+				<div class="painel4">
+					<i class="pi pi-check-circle"> </i> <span class="paineltitle">Fórmulas
+						entregues</span> <i class="pi pi-chevron-circle-up"> </i>
+					<div class="painelnumeros">
+						<p:outputLabel styleClass="numeros">832</p:outputLabel>
+					</div>
+					<div class="subtitlePainel">Fórmulas entregues por você</div>
+				</div>
+				
+				
+			</div>
 			
-		</h:form>
+			<div class="formularioGrafico">
+			<p:graphicImage url="resources/img/graph.jpg"  styleClass="imageGraph"></p:graphicImage>
+				<p:chart type="bar" model="#{FuncBean.barChartModel}" style="width: 70%; height: 450px; "/>
+			</div>
+			<br></br>
+		</div>
+		<br></br>
 	</div>
-<br></br>
-</div>
 
 
 

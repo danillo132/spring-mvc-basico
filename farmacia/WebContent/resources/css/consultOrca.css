@@ -14,7 +14,7 @@
 	background-color:  #FFFFFF;
 	width: 100%;
 	
-	background-color: #F5F4F6;
+	background-color: #f8f4f4;
 }
 
 .titulo{
@@ -46,7 +46,7 @@
 	
 	margin-left: 22%;
 	width: 60%;
-	
+	height: 120px;
 	background-color: #FFFFFF;
 	margin-bottom: 100px;
 	border-radius: 5px;
@@ -72,6 +72,20 @@
 	box-shadow:         5px 5px 5px 2px rgba(50, 50, 50, 0.77);
 }
 
+.inputPesquisa{
+	width: 600px;
+}
+
+.ui-inputgroup{
+	width: 600px !important;
+	margin-top: 40px;
+	margin-left: 40px;
+}
+
+.botaoPesquisa{
+	background-color: #84DD63 !important;
+	border-color:  #84DD63 !important;
+}
 
 
 .ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider {
@@ -112,6 +126,8 @@
 	
 }
 
+
+
 .botoes{
 	display: inline;
 	margin-right: 10px;
@@ -119,7 +135,9 @@
 }
 
 
-
+.dialogoutput{
+	font-size: 16px !important;
+}
 
 
 .ui-fileupload-buttonbar.ui-widget-header {

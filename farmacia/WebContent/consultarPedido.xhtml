@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet library="css" name="consultOrca.css"></h:outputStylesheet>
+	<title>Pedidos</title>
+</h:head>
+
+<h:body style="height: 100%;
+   margin: 0;">
+
+<div id="conteudo" class="content">
+
+
+
+	<ui:include src="/menu.xhtml" />
+	<div class="titulo">
+	<p:commandButton icon="pi pi-list" value="Menu" type="button" onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
+		<p:outputLabel styleClass="title">Consulta pedidos do cliente</p:outputLabel>
+	</div>
+	<p:growl id="growl" showDetail="true" />
+<p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
+	<br></br>
+	<div class="formulario">
+
+		<h:form id="form_pedido" styleClass="form1">
+
+			
+			
+					<div class="ui-inputgroup">
+                    
+                    <p:inputMask value="#{PedidosBean.campoPesquisa}" placeholder="Pesquisar pelo CPF" styleClass="inputPesquisa" mask="999.999.999-99" validateMask="true"/>
+                    <p:commandButton value="Pesquisar" actionListener="#{PedidosBean.pesquisaPedido}" update="form_consultaPedido erro" styleClass="botaoPesquisa"/>
+                </div>
+				
+				
+			
+				
+		</h:form>
+	</div>
+
+
+<div class="formularioData">
+
+		<h:form id="form_consultaPedido" styleClass="formData">
+			
+			<p:dataTable id="datapedidos" value="#{PedidosBean.pedidosLista}" var="pedido" rows="10" paginator="true" lazy="true" 
+			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
+			
+			<f:facet name="header">
+			<div class="dataTitle" style="font-size: 20px;">
+						Lista de pedidos feitos
+						</div>
+						
+						<div>
+							<p:commandButton id="toggler" type="button" value="Colunas" icon="pi pi-align-justify" styleClass="botaoData" />
+							<p:columnToggler datasource="datapedidos" trigger="toggler" />
+						</div>
+			</f:facet>
+			<p:column>
+					<f:facet name="header">Médico</f:facet>
+					<h:outputText value="#{pedido.medico}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Data de realização</f:facet>
+					<h:outputText value="#{pedido.dataPedido}">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Data de entrega</f:facet>
+					<h:outputText value="#{pedido.dataEntrega}">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00"></f:convertDateTime>
+					</h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Tipo de medicamento</f:facet>
+					<h:outputText value="#{pedido.medicamentoTipo}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Preço Total</f:facet>
+					<h:outputText value="#{pedido.preco}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Status</f:facet>
+					<h:outputText value="#{pedido.status}"></h:outputText>
+				</p:column>
+				
+				
+				
+				
+				
+				<p:column>
+					<f:facet name="header">Visualizar</f:facet>
+					<p:commandButton  value="Visualizar"  icon="pi pi-search"  update=":form_consultaPedido:dialogPedido" oncomplete="PF('dialogPedido').show()"  styleClass="botaoeditar" >
+				
+						<f:setPropertyActionListener value="#{pedido}"
+							target="#{PedidosBean.pedidos}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				
+				
+				
+			</p:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350" >
+            <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+        
+        <p:dialog header="Pedido"  modal="true" position="center" id="dialogPedido" widgetVar="dialogPedido" width="600px" resizable="false" >
+        
+         <p:scrollPanel  style="width:550px;height:400px">
+        <p:panelGrid columns="4"  styleClass="painel">
+			
+					<p:outputLabel id="nomecliente" styleClass="dialogoutput">Nome do cliente:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.clienteNome}" styleClass="dialogoutput" ></p:outputLabel>
+				
+				<p:outputLabel id="sobrenomecliente" styleClass="dialogoutput">Sobrenome do cliente:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.clienteSobrenome}" styleClass="dialogoutput"></p:outputLabel>
+				
+				
+				<p:outputLabel id="cpfcliente" styleClass="dialogoutput">CPF do cliente:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.cpfCliente}"  styleClass="dialogoutput"></p:outputLabel>			
+				
+				
+				<p:outputLabel id="nomemedico" styleClass="dialogoutput">Nome do médico:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.medico}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel id="crmmedico" styleClass="dialogoutput">CRM do médico:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.crm}" styleClass="dialogoutput"></p:outputLabel>
+			
+				
+				
+				<p:outputLabel id="tipo" styleClass="dialogoutput">Tipo de medicamento:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.medicamentoTipo}" styleClass="dialogoutput"></p:outputLabel>
+				
+			
+				
+				<p:outputLabel id="realizacao" styleClass="dialogoutput">Data de realização:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.dataPedido}" styleClass="dialogoutput">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00"></f:convertDateTime>
+				</p:outputLabel>
+				
+				<p:outputLabel id="entrega" styleClass="dialogoutput">Data de entrega:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.dataEntrega}" styleClass="dialogoutput">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-03:00"></f:convertDateTime>
+				</p:outputLabel>
+				
+				
+			
+					
+				<p:outputLabel styleClass="dialogoutput">Fármaco 1:</p:outputLabel>
+				<p:outputLabel id="materiaprima1" value="#{PedidosBean.pedidos.materiaprima1}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade1}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 2:</p:outputLabel>
+				<p:outputLabel id="materiaprima2" value="#{PedidosBean.pedidos.materiaprima2}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade2}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 3:</p:outputLabel>
+				<p:outputLabel id="materiaprima3" value="#{PedidosBean.pedidos.materiaprima3}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade3}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 4:</p:outputLabel>
+				<p:outputLabel id="materiaprima4" value="#{PedidosBean.pedidos.materiaprima4}"  styleClass="dialogoutput"/>
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade4}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 5:</p:outputLabel>
+				<p:outputLabel id="materiaprima5" value="#{PedidosBean.pedidos.materiaprima5}" />
+				
+				<p:outputLabel>quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade5}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 6:</p:outputLabel>
+				<p:outputLabel id="materiaprima6" value="#{PedidosBean.pedidos.materiaprima6}" styleClass="dialogoutput"> </p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade6}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 7:</p:outputLabel>
+				<p:outputLabel id="materiaprima7" value="#{PedidosBean.pedidos.materiaprima7}" styleClass="dialogoutput"/>
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade7}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput" >Fármaco 8:</p:outputLabel>
+				<p:outputLabel id="materiaprima8" value="#{PedidosBean.pedidos.materiaprima8}" styleClass="dialogoutput"/>
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade8}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput" >Fármaco 9:</p:outputLabel>
+				<p:outputLabel id="materiaprima9" value="#{PedidosBean.pedidos.materiaprima9}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade9}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 10:</p:outputLabel>
+				<p:outputLabel id="materiaprima10" value="#{PedidosBean.pedidos.materiaprima10}" styleClass="dialogoutput"/>
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade10}"  styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 11:</p:outputLabel>
+				<p:outputLabel id="materiaprima11" value="#{PedidosBean.pedidos.materiaprima11}" styleClass="dialogoutput"  />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade11}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 12:</p:outputLabel>
+				<p:outputLabel id="materiaprima12" value="#{PedidosBean.pedidos.materiaprima12}" styleClass="dialogoutput"/>
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade12}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 13:</p:outputLabel>
+				<p:outputLabel id="materiaprima13" value="#{PedidosBean.pedidos.materiaprima13}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade13}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 14:</p:outputLabel>
+				<p:outputLabel id="materiaprima14" value="#{PedidosBean.pedidos.materiaprima14}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade14}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 15:</p:outputLabel>
+				<p:outputLabel id="materiaprima15" value="#{PedidosBean.pedidos.materiaprima15}" styleClass="dialogoutput"/>
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade15}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel >Fármaco 16:</p:outputLabel>
+				<p:outputLabel id="materiaprima16" value="#{PedidosBean.pedidos.materiaprima16}" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade16}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 17:</p:outputLabel>
+				<p:outputLabel id="materiaprima17" value="#{PedidosBean.pedidos.materiaprima17}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade17}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 18:</p:outputLabel>
+				<p:outputLabel id="materiaprima18" value="#{PedidosBean.pedidos.materiaprima18}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade18}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 19:</p:outputLabel>
+				<p:outputLabel id="materiaprima19" value="#{PedidosBean.pedidos.materiaprima19}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade19}" styleClass="dialogoutput" ></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 20:</p:outputLabel>
+				<p:outputLabel id="materiaprima20" value="#{PedidosBean.pedidos.materiaprima20}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade20}"  styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 21:</p:outputLabel>
+				<p:outputLabel id="materiaprima21" value="#{PedidosBean.pedidos.materiaprima21}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade21}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Fármaco 22:</p:outputLabel>
+				<p:outputLabel id="materiaprima22" value="#{PedidosBean.pedidos.materiaprima22}" styleClass="dialogoutput" />
+				
+				<p:outputLabel styleClass="dialogoutput">quantidade:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.quantidade22}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel styleClass="dialogoutput">Preço total:</p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.preco}" styleClass="dialogoutput"></p:outputLabel>
+				
+				<p:outputLabel></p:outputLabel>
+				<p:outputLabel></p:outputLabel>
+				
+				
+			</p:panelGrid>
+        </p:scrollPanel>
+        <h:panelGroup>
+        
+        <p:commandButton value="Entregar" action="#{PedidosBean.entregarPedido}" immediate="true" icon="pi pi-check-square" update="datapedidos growl"  styleClass="corbotao">
+        <f:param name="idPed" value="#{PedidosBean.pedidos.id}"></f:param>
+        </p:commandButton>
+        </h:panelGroup>
+        
+        </p:dialog>
+        
+        
+		</h:form>
+	</div>	
+</div>
+
+
+
+</h:body>
+</html>

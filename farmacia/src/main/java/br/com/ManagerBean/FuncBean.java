@@ -10,32 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.primefaces.component.inputtext.InputText;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 
 import com.google.gson.Gson;
 
+import br.com.DAO.DaoClientes;
 import br.com.DAO.DaoFunc;
-import br.com.DAO.DaoGeneric;
+import br.com.Model.Clientes;
 import br.com.Model.Funcionarios;
 import br.com.lazyDataTable.LazyDataTable;
 import br.com.repository.IDaoFuncionario;
@@ -51,8 +45,9 @@ public class FuncBean {
 	private IDaoFuncionario daoFuncionario = new IDaoFuncionarioimpl();
 	private LazyDataTable<Funcionarios> funcionariosLista = new LazyDataTable<Funcionarios>();
 	private DaoFunc<Funcionarios> daoFunc = new DaoFunc<Funcionarios>();
-	
-	
+	private DaoClientes<Clientes> daoClientes  = new DaoClientes<Clientes>();
+	private List<Funcionarios> listaAtendentes = new ArrayList<Funcionarios>();
+	private BarChartModel barChartModel = new BarChartModel();
 	
 	
 	
@@ -60,7 +55,17 @@ public class FuncBean {
 	public void carregaFuncionarios() {
 
 		funcionariosLista.load(0, 10, null, null);
+		ChartSeries atendentes = new ChartSeries();
+		 listaAtendentes =  carregarAtendentes();
 		
+		for (Funcionarios funcionarios : listaAtendentes) {
+			atendentes.set(funcionarios.getNome(), funcionarios.getSalario());
+		}
+		
+		
+		barChartModel.addSeries(atendentes);
+		
+		barChartModel.setTitle("Salário atendentes");
 	}
 	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
@@ -124,6 +129,30 @@ public class FuncBean {
 			e.printStackTrace();
 		}
 		return funcionarios;
+	}
+	
+	
+	public List<Funcionarios> carregarAtendentes(){
+		
+		listaAtendentes =  daoFunc.graficoFunc("Atendente");
+		
+		return listaAtendentes;
+				
+	}
+	
+	
+	public Integer qtdclientes() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = context.getExternalContext();
+
+		HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+		HttpSession session = request.getSession();
+
+		Funcionarios funcionarioUser = (Funcionarios) session.getAttribute("funcionariologado");
+
+		funcionarios = daoFunc.pesquisar(funcionarioUser.getId(), Funcionarios.class);
+		Integer clienteTotal = daoClientes.contarClientes(funcionarios.getId());
+		return clienteTotal;
 	}
 	
 	
@@ -224,6 +253,10 @@ public class FuncBean {
 	}
 	
 	
+	
+	public BarChartModel getBarChartModel() {
+		return barChartModel;
+	}
 	
 	public LazyDataTable<Funcionarios> getFuncionariosLista() {
 		return funcionariosLista;

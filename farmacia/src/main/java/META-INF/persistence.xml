@@ -9,6 +9,8 @@
 	<class>br.com.Model.MateriaPrima</class>
 	<class>br.com.Model.Embalagens</class>
 	<class>br.com.Model.Equipamentos</class>
+	<class>br.com.Model.Orcamentos</class>
+	<class>br.com.Model.Pedidos</class>
 	<properties>
 	
 	

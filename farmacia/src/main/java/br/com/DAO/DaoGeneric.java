@@ -30,6 +30,14 @@ public class DaoGeneric<E> {
 		return e;
 	}
 	
+	public E pesquisaCpf(String campoPesquisa, Class<E> entidade) {
+		entityManager.clear();
+		
+		E e =  (E) entityManager.createQuery("from " + entidade.getSimpleName()+ " where cpf like '%"+campoPesquisa+"%'").getSingleResult();
+		
+		return e;
+	}
+	
 	
 	public void Deletar(E entidade) throws Exception {
 		

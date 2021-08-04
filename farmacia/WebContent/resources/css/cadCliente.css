@@ -5,6 +5,9 @@
 @font-face {
 	font-family: 'Roboto', sans-serif;
 	src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
+	
+	font-family: 'Montserrat', sans-serif;
+	src: url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 }
 
 
@@ -16,6 +19,154 @@
 	
 	background-color: #F5F4F6;
 }
+
+
+
+.painelgrid{
+	display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -0.5rem;
+    margin-left: 0.3rem;
+    margin-top: 70px;
+   
+    width: 99%;
+    height: 100vh;
+}
+
+.paineisgrid{
+	display: -webkit-box;
+    display: -ms-flexbox;
+    display: inline-flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -0.5rem;
+    margin-left: 0.3rem;
+    margin-top: 0.5rem;
+ 
+    width: 99%;
+    height: 120px;
+}
+
+.painel1{
+	margin-right: 15px;
+    margin-left: 0.9rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    background-color: #48a4f4;
+    width: 300px;
+    padding: 10px;
+    height: 120px;
+    border-radius: 5px;
+}
+
+.painel2{
+	margin-right: 15px;
+    margin-left: 0.9rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    background-color: #8054c4;
+    width: 300px;
+    padding: 10px;
+    height: 120px;
+    border-radius: 5px;
+}
+
+
+.painel3{
+	margin-right: 15px;
+    margin-left: 0.9rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    background-color: #ffb404;
+    width: 300px;
+    padding: 10px;
+    height: 120px;
+    border-radius: 5px;
+}
+
+.pi-money-bill{
+	color: #FFFFFF;
+	float: right;
+	font-size: 32px;
+}
+
+.pi-book{
+	color: #FFFFFF;
+	float: right;
+	font-size: 32px;
+}
+
+.pi-users{
+	color: #FFFFFF;
+	float: right;
+	font-size: 32px;
+}
+
+.pi-check-circle{
+	color: #FFFFFF;
+	float: right;
+	font-size: 32px;
+}
+
+.paineltitle{
+	margin-top: 2px;
+	margin-bottom: 8px;
+    display: inline-block;
+    font-size: 20px;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.pi-chevron-circle-up{
+	color: #FFFFFF;
+	font-size: 20px;
+	margin-top: 4px;
+}
+
+.painelnumeros{
+    margin-bottom: 12px;
+    
+	
+	 color: #FFFFFF;
+}
+
+.numeros{
+	  font-family: 'Montserrat', sans-serif !important;
+	   font-size: 28px !important;
+	    color: #FFFFFF;
+	    
+}
+
+.subtitlePainel{
+	border-color: #BBDEFB;
+    color: #BBDEFB;
+        font-size: 13px;
+    border-left: 4px solid;
+    margin-left: -16px;
+    padding-left: 12px;
+     font-family: 'Montserrat', sans-serif !important;
+     font-size: 14px;
+    
+}
+
+
+.painel4{
+	margin-right: 15px;
+    margin-left: 0.9rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    background-color: #84DD63;
+    width: 300px;
+    padding: 10px;
+    height: 120px;
+    border-radius: 5px;
+}
+
+
+
 
 .titulo{
 	width: 100%;
@@ -54,6 +205,26 @@
 	box-shadow:         5px 5px 5px 2px rgba(50, 50, 50, 0.77);
 	
 		
+}
+
+.imageGraph{
+	width: 30%;
+	height: 400px;
+}
+
+.formularioGrafico{
+	display:flex;
+	position: relative;
+	margin-top: 70px !important;
+	
+	margin-left: 5%;
+	width: 70%;
+	background-color: #FFFFFF;
+	margin-bottom: 100px;
+	border-radius: 5px;
+	-webkit-box-shadow: 5px 5px 5px 2px rgba(50, 50, 50, 0.77);
+	-moz-box-shadow:    5px 5px 5px  2px rgba(50, 50, 50, 0.77);
+	box-shadow:         5px 5px 5px 2px rgba(50, 50, 50, 0.77);
 }
 
 .form1{

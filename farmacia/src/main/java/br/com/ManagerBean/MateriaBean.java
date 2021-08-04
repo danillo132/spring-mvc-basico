@@ -1,6 +1,9 @@
 package br.com.ManagerBean;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.DAO.DaoMateria;
+import br.com.Model.Fornecedores;
 import br.com.Model.MateriaPrima;
 import br.com.lazyDataTable.LazyMateriaPrima;
 
@@ -55,6 +59,19 @@ public class MateriaBean {
 		
 		return "";
 	}
+	
+	public List<String> listarFarmaco(String query){
+		String queryLowerCase = query.toLowerCase();
+			List<String> autocomplete = new ArrayList<>();
+			materiaLista.list = daoMateria.listar(MateriaPrima.class);
+			
+			for (MateriaPrima string : materiaLista.list) {
+				autocomplete.add(string.getNome());
+			}
+			
+			return autocomplete.stream().filter(t -> t.toLowerCase().startsWith(queryLowerCase)).collect(Collectors.toList());
+		}
+	
 	
 	
 	public MateriaPrima editarMateria() {

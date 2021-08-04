@@ -1,8 +1,10 @@
 package br.com.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Clientes implements Serializable {
@@ -45,6 +48,11 @@ public class Clientes implements Serializable {
 	
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private Funcionarios funcionarios;
+	
+	@OneToMany(mappedBy = "clientes", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Orcamentos> orcamentos = new ArrayList<Orcamentos>();
+	
+	
 	
 	public Long getId() {
 		return id;
@@ -166,6 +174,18 @@ public class Clientes implements Serializable {
 	public void setFuncionarios(Funcionarios funcionarios) {
 		this.funcionarios = funcionarios;
 	}
+	
+	
+	
+	public List<Orcamentos> getOrcamentos() {
+		return orcamentos;
+	}
+	public void setOrcamentos(List<Orcamentos> orcamentos) {
+		this.orcamentos = orcamentos;
+	}
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
