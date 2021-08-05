@@ -187,7 +187,7 @@
 	
 	font-size: 30px !important;
 	font-family: 'Roboto', sans-serif !important;
-	margin-left: 30%;
+	margin-left: 35%;
 	font-weight: bold;
 	color: #FFFFFF;
 	
@@ -220,8 +220,23 @@
 	position: relative;
 	margin-top: 70px !important;
 	
-	margin-left: 5%;
-	width: 70%;
+	margin-left: 15px;
+	width: 55%;
+	background-color: #FFFFFF;
+	margin-bottom: 100px;
+	border-radius: 5px;
+	-webkit-box-shadow: 5px 5px 5px 2px rgba(50, 50, 50, 0.77);
+	-moz-box-shadow:    5px 5px 5px  2px rgba(50, 50, 50, 0.77);
+	box-shadow:         5px 5px 5px 2px rgba(50, 50, 50, 0.77);
+}
+
+.formularioequipe{
+	display:flex;
+	position: relative;
+	margin-top: 70px !important;
+	
+	margin-left: 15px;
+	width: 40%;
 	background-color: #FFFFFF;
 	margin-bottom: 100px;
 	border-radius: 5px;
@@ -276,6 +291,11 @@
 	border: none !important;
 	margin: 10px 10px 10px 0 !important;
 	
+}
+
+.botaoData{
+	background-color: #84DD63 !important;
+	border-color: #84DD63 !important;
 }
 
 .botaoMenu{

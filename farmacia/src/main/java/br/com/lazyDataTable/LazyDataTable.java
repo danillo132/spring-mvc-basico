@@ -33,6 +33,21 @@ public class LazyDataTable<T> extends LazyDataModel<Funcionarios> {
 		
 		return list;
 	}
+	
+	public List<Funcionarios> loadFuncaoFuncionarios(int first, int pageSize, Map<String, SortMeta> sortBy,
+			Map<String, FilterMeta> filterBy, String funcao) {
+		
+		list = daoFunc.getEntityManager().createQuery(getSql()).setFirstResult(first).setMaxResults(pageSize).getResultList();
+		
+		sql = " from Funcionarios where funcao like '"+funcao+"'";
+		
+		setPageSize(pageSize);
+		
+		Integer qtdDados = Integer.parseInt(daoFunc.getEntityManager().createQuery("select count(1) " +getSql()).getSingleResult().toString());
+		setRowCount(qtdDados);
+		
+		return list;
+	}
 
 	
 	

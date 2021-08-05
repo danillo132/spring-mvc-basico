@@ -44,7 +44,7 @@
 					<i class="pi pi-book"> </i> <span class="paineltitle">Pedidos</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel styleClass="numeros" value="832"></p:outputLabel>
+						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.pedidosCadastrados}"></p:outputLabel>
 					</div>
 					<div class="subtitlePainel">Pedidos cadastrados por você</div>
 				</div>
@@ -63,7 +63,7 @@
 					<i class="pi pi-check-circle"> </i> <span class="paineltitle">Fórmulas
 						entregues</span> <i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel styleClass="numeros" value="832"></p:outputLabel>
+						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.pedidosEntregues}"></p:outputLabel>
 					</div>
 					<div class="subtitlePainel">Fórmulas entregues por você</div>
 				</div>
@@ -72,8 +72,52 @@
 			</div>
 			
 			<div class="formularioGrafico">
-			<p:graphicImage url="resources/img/graph.jpg"  styleClass="imageGraph"></p:graphicImage>
-				<p:chart type="bar" model="#{FuncBean.barChartModel}" style="width: 70%; height: 450px; "/>
+			<p:graphicImage url="resources/img/graficos.jpg"  styleClass="imageGraph"></p:graphicImage>
+				<p:barChart model="#{FuncBean.barChart}" style="width: 100%; height: 450px;" />
+			</div>
+			
+			<div class="formularioequipe">
+			
+				<p:dataTable id="dataequipe" value="#{FuncBean.funcaoFuncionarios}" var="funcionario" rows="4" paginator="true" lazy="true" 
+			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
+			
+			<f:facet name="header">
+			<div class="dataTitle" style="font-size: 20px;">
+						Equipe de atendentes
+						</div>
+						
+						<div>
+							<p:commandButton id="toggler" type="button" value="Colunas" icon="pi pi-align-justify" styleClass="botaoData" />
+							<p:columnToggler datasource="dataequipe" trigger="toggler" />
+						</div>
+			</f:facet>
+			<p:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{funcionario.nome}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Sobrenome</f:facet>
+					<h:outputText value="#{funcionario.sobrenome}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Idade</f:facet>
+					<h:outputText value="#{funcionario.idade}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Sexo</f:facet>
+					<h:outputText value="#{funcionario.sexo}"></h:outputText>
+				</p:column>
+				
+				
+				
+				
+				
+				
+			</p:dataTable>
+				
 			</div>
 			<br></br>
 		</div>

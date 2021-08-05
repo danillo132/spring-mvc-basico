@@ -14,4 +14,19 @@ public class DaoPedidos<E> extends DaoGeneric<Pedidos> {
 		
 	}
 	
+	public Integer contarPedidos(Long idCliente) {
+		getEntityManager().getTransaction().begin();
+		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from Pedidos where clientes_id = " + idCliente).getSingleResult().toString()); 
+		getEntityManager().getTransaction().commit();
+		return total;
+	}
+	
+	public Integer contarPedidosEntregues(Long idCliente) {
+		getEntityManager().getTransaction().begin();
+		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from Pedidos where status like '%Entregue%' and clientes_id  = " + idCliente).getSingleResult().toString()); 
+		getEntityManager().getTransaction().commit();
+		return total;
+	}
+	
+	
 }
