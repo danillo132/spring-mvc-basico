@@ -29,7 +29,7 @@ public class MateriaPrima implements Serializable {
 	
 	private Boolean controlada;
 	private String fornecedor;
-	
+	private Integer qtdTotalEstoque;
 	
 	public void setId(Long id) {
 		this.id = id;
@@ -75,6 +75,17 @@ public class MateriaPrima implements Serializable {
 	}
 	public void setFornecedor(String fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+	
+	
+	
+
+	public Integer getQtdTotalEstoque() {
+		return qtdTotalEstoque;
+	}
+
+	public void setQtdTotalEstoque(Integer qtdTotalEstoque) {
+		this.qtdTotalEstoque = qtdTotalEstoque;
 	}
 
 	@Override

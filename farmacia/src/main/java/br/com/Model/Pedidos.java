@@ -77,6 +77,7 @@ public class Pedidos implements Serializable {
 	private String clienteNome;
 	private String clienteSobrenome;
 	private String cpfCliente;
+	private Integer statusEntregueTotal;
 	
 	
 	
@@ -326,6 +327,17 @@ public class Pedidos implements Serializable {
 
 	public void setQuantidade10(Double quantidade10) {
 		this.quantidade10 = quantidade10;
+	}
+	
+	
+	
+
+	public Integer getStatusEntregueTotal() {
+		return statusEntregueTotal;
+	}
+
+	public void setStatusEntregueTotal(Integer statusEntregueTotal) {
+		this.statusEntregueTotal = statusEntregueTotal;
 	}
 
 	public String getMateriaprima11() {

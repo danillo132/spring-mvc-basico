@@ -42,7 +42,7 @@
 					<p:inputText value="#{FuncBean.funcionarios.login}" required="true"
 						requiredMessage="Informe o login!" styleClass="corinput"></p:inputText>
 					<p:outputLabel styleClass="labellogin">Senha:</p:outputLabel>
-					<p:password  value="#{FuncBean.funcionarios.senha}" required="true" requiredMessage="Informe a senha!"
+					<p:password  value="#{FuncBean.funcionarios.senha}" required="true" requiredMessage="Informe a senha!" toggleMask="true" style="width: 193px !important;"
 						styleClass="corinput"></p:password>
 				</p:panelGrid>
 				<p:commandButton value="Entrar" action="#{FuncBean.logar}" styleClass="buttonlogin" update="erro" ajax="false"></p:commandButton>

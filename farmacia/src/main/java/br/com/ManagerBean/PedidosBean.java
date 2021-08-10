@@ -2,6 +2,7 @@ package br.com.ManagerBean;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -30,6 +31,12 @@ public class PedidosBean {
 	private LazyPedidos<Pedidos> pedidosLista = new LazyPedidos<Pedidos>();
 	private LazyOrcamentos<Orcamentos> orcamentoslista = new LazyOrcamentos<Orcamentos>();
 	private String campoPesquisa;
+	
+	
+	@PostConstruct
+	public void init() {
+		pedidosEntregue();
+	}
 	
 	
 	
@@ -130,6 +137,15 @@ public class PedidosBean {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	
+	public void pedidosEntregue() {
+		int qtdTotalEntregues = 0;
+		
+		qtdTotalEntregues = daoPedidos.contarStatusEntregue();
+		pedidos.setStatusEntregueTotal(qtdTotalEntregues);
 		
 	}
 

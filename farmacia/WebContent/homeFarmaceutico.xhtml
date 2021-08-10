@@ -32,40 +32,40 @@
 		<div class="painelgrid">
 			<div class="paineisgrid">
 				<div class="painel1">
-					<i class="pi pi-money-bill"> </i> <span class="paineltitle" >Orçamentos</span>
+					<i class="pi pi-table"> </i> <span class="paineltitle" >Máterias-primas</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.orcamentosCotados}"></p:outputLabel>
+						<p:outputLabel styleClass="numeros" value="#{MateriaBean.materiaPrima.qtdTotalEstoque}"></p:outputLabel>
 					</div>
-					<div class="subtitlePainel">Orçamentos cotados por você</div>
+					<div class="subtitlePainel">Quantidade de máterias-primas no estoque</div>
 				</div>
 
 				<div class="painel2">
-					<i class="pi pi-book"> </i> <span class="paineltitle">Pedidos</span>
+					<i class="pi pi-inbox"> </i> <span class="paineltitle">Embalagens</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.pedidosCadastrados}"></p:outputLabel>
+						<p:outputLabel styleClass="numeros" value="#{EmbalagemBean.embalagens.qtdEmbalagensnoEstoque}"></p:outputLabel>
 					</div>
-					<div class="subtitlePainel">Pedidos cadastrados por você</div>
+					<div class="subtitlePainel">Quantidade de embalagens no estoque</div>
 				</div>
 
 
 				<div class="painel3">
-					<i class="pi pi-users"> </i> <span class="paineltitle">Clientes</span>
+					<i class="pi pi-shield"> </i> <span class="paineltitle">Equipamentos</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel value="#{FuncBean.funcionarios.clientesCadastrados}" styleClass="numeros"></p:outputLabel>
+						<p:outputLabel value="#{EquipamentosBean.equipamentos.qtdEquipamentosEstoque}" styleClass="numeros"></p:outputLabel>
 					</div>
-					<div class="subtitlePainel">Clientes cadastrados por você</div>
+					<div class="subtitlePainel">Equipamentos em estoque</div>
 				</div>
 
 				<div class="painel4">
 					<i class="pi pi-check-circle"> </i> <span class="paineltitle">Fórmulas
 						entregues</span> <i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.pedidosEntregues}"></p:outputLabel>
+						<p:outputLabel styleClass="numeros" value="#{PedidosBean.pedidos.statusEntregueTotal}"></p:outputLabel>
 					</div>
-					<div class="subtitlePainel">Fórmulas entregues por você</div>
+					<div class="subtitlePainel">Total de fórmulas entregues</div>
 				</div>
 				
 				
@@ -83,7 +83,7 @@
 			
 			<f:facet name="header">
 			<div class="dataTitle" style="font-size: 20px;">
-						Equipe de atendentes
+						Equipe de Farmacêuticos
 						</div>
 						
 						<div>

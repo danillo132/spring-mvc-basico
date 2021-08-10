@@ -20,7 +20,9 @@
 	<p:sidebar widgetVar="sidebar1" baseZIndex="10000">
 		<p:tieredMenu styleClass="menu">
 
-			<p:menuitem value="Home" icon="pi pi-home" url="home.jsf"></p:menuitem>
+			<p:menuitem value="Home" icon="pi pi-home" url="home.jsf" rendered="#{FuncBean.permiteAcesso('Atendente')}"/>
+			<p:menuitem value="Home" icon="pi pi-home" url="homeFarmaceutico.jsf" rendered="#{FuncBean.permiteAcesso('Farmacêutico')}"/>
+			<p:menuitem value="Home" icon="pi pi-home" url="homeGerente.jsf" rendered="#{FuncBean.permiteAcesso('Gerente')}"/>
 			<p:submenu label="Clientes" styleClass="submenu" icon="pi pi-user"
 				rendered="#{FuncBean.permiteAcesso('Atendente')}">
 

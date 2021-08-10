@@ -24,6 +24,7 @@ public class EquipamentosBean {
 	@PostConstruct
 	public void init() {
 		equipamentosLista.load(0, 8, null, null);
+		qtdEquipamentosnoEstoque();
 	}
 	
 	public String salvar() {
@@ -70,6 +71,16 @@ public Equipamentos editarEquipamento() {
 		
 		return equipamentos;
 	}
+
+
+public Integer qtdEquipamentosnoEstoque() {
+	int qtdTotalEquipamentos = 0;
+	
+	qtdTotalEquipamentos = daoEqui.contarEquipamentosEstoque();
+	equipamentos.setQtdEquipamentosEstoque(qtdTotalEquipamentos);
+	return qtdTotalEquipamentos;
+	
+}
 	
 	
 	public LazyEquipamentos<Equipamentos> getEquipamentosLista() {

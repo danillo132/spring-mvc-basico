@@ -23,6 +23,7 @@ public class Embalagens implements Serializable {
 	private String capacidade;
 	private String tamanho;
 	private String fornecedor;
+	private Integer qtdEmbalagensnoEstoque;
 	
 	
 	public Long getId() {
@@ -66,6 +67,15 @@ public class Embalagens implements Serializable {
 	}
 	public void setFornecedor(String fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+	
+	
+	
+	public Integer getQtdEmbalagensnoEstoque() {
+		return qtdEmbalagensnoEstoque;
+	}
+	public void setQtdEmbalagensnoEstoque(Integer qtdEmbalagensnoEstoque) {
+		this.qtdEmbalagensnoEstoque = qtdEmbalagensnoEstoque;
 	}
 	@Override
 	public int hashCode() {

@@ -23,7 +23,7 @@ public class EmbalagemBean {
 	@PostConstruct
 	public void init() {
 		embalagensLista.load(0, 8, null, null);
-		
+		qtdEmbalagensnoEstoque();
 	}
 	
 	
@@ -70,7 +70,14 @@ public class EmbalagemBean {
 	}
 	
 	
-	
+	public Integer qtdEmbalagensnoEstoque() {
+		int qtdTotalEmbalagem = 0;
+		
+		qtdTotalEmbalagem = daoEmbalagem.contarEmbalagensEstoque();
+		embalagens.setQtdEmbalagensnoEstoque(qtdTotalEmbalagem);
+		return qtdTotalEmbalagem;
+		
+	}
 	
 	
 	

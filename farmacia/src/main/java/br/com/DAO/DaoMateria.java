@@ -14,4 +14,11 @@ public class DaoMateria<E> extends DaoGeneric<MateriaPrima> {
 		
 	}
 	
+	public Integer contarMateriaEstoque() {
+		getEntityManager().getTransaction().begin();
+		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from MateriaPrima").getSingleResult().toString()); 
+		getEntityManager().getTransaction().commit();
+		return total;
+	}
+	
 }

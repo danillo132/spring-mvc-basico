@@ -13,4 +13,11 @@ public class DaoEmbalagem<E> extends DaoGeneric<Embalagens> {
 		
 		getEntityManager().getTransaction().commit();
 	}
+	
+	public Integer contarEmbalagensEstoque() {
+		getEntityManager().getTransaction().begin();
+		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from Embalagens").getSingleResult().toString()); 
+		getEntityManager().getTransaction().commit();
+		return total;
+	}
 }

@@ -36,6 +36,8 @@
     height: 100vh;
 }
 
+
+
 .paineisgrid{
 	display: -webkit-box;
     display: -ms-flexbox;
@@ -61,6 +63,9 @@
     height: 120px;
     border-radius: 5px;
 }
+
+
+
 
 .painel2{
 	margin-right: 15px;
@@ -110,6 +115,25 @@
 	float: right;
 	font-size: 32px;
 }
+
+.pi-table{
+	color: #FFFFFF;
+	float: right;
+	font-size: 32px;
+}
+
+.pi-shield{
+	color: #FFFFFF;
+	float: right;
+	font-size: 32px;
+}
+
+.pi-inbox{
+	color: #FFFFFF;
+	float: right;
+	font-size: 32px;
+}
+
 
 .paineltitle{
 	margin-top: 2px;

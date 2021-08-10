@@ -27,7 +27,8 @@ public class MateriaBean {
 	
 	@PostConstruct
 	public void init() {
-		materiaLista.load(0, 8, null, null);
+		materiaLista.load(0, 5, null, null);
+		qtdMaterianoEstoque();
 	}
 	
 	public String salvar() {
@@ -88,6 +89,18 @@ public class MateriaBean {
 		}
 		return materiaPrima;
 	}
+	
+	
+	public Integer qtdMaterianoEstoque() {
+		int qtdTotalMateria = 0;
+		
+		qtdTotalMateria = daoMateria.contarMateriaEstoque();
+		materiaPrima.setQtdTotalEstoque(qtdTotalMateria);
+		return qtdTotalMateria;
+		
+	}
+	
+	
 
 	public MateriaPrima getMateriaPrima() {
 		return materiaPrima;

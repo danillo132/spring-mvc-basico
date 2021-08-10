@@ -41,11 +41,17 @@ import org.primefaces.model.chart.ChartSeries;
 import com.google.gson.Gson;
 
 import br.com.DAO.DaoClientes;
+import br.com.DAO.DaoEmbalagem;
+import br.com.DAO.DaoEqui;
 import br.com.DAO.DaoFunc;
+import br.com.DAO.DaoMateria;
 import br.com.DAO.DaoOrcamentos;
 import br.com.DAO.DaoPedidos;
 import br.com.Model.Clientes;
+import br.com.Model.Embalagens;
+import br.com.Model.Equipamentos;
 import br.com.Model.Funcionarios;
+import br.com.Model.MateriaPrima;
 import br.com.Model.Orcamentos;
 import br.com.Model.Pedidos;
 import br.com.lazyDataTable.LazyDataTable;
@@ -70,17 +76,122 @@ public class FuncBean {
 	private List<Funcionarios> listaAtendentes = new ArrayList<Funcionarios>();
 	private List<Clientes> clientesLista = new ArrayList<Clientes>();
 	private BarChartModel BarChart = new BarChartModel();
+	private DaoMateria<MateriaPrima> DaoMateria = new DaoMateria<MateriaPrima>();
+	private DaoEmbalagem<Embalagens> daoEmbalagem  = new DaoEmbalagem<Embalagens>();
+	private DaoEqui<Equipamentos> daoequi = new DaoEqui<Equipamentos>();
+	
 	
 	
 	@PostConstruct
 	public void carregaFuncionarios() {
 
 		 funcionariosLista.load(0, 10, null, null);
-		funcaoFuncionarios.loadFuncaoFuncionarios(0, 4, null, null, "Atendente");
+		 
+		 
+			 
+			 
+			
+		
+		
+		
+		
 		 graficoAtendente();
+		 graficoFarmaceutico();
 	
 	}
 	
+	
+	public void graficoFarmaceutico() {
+		 ChartData data = new ChartData();
+	        
+	        BarChartDataSet barDataSet = new BarChartDataSet();
+	        barDataSet.setLabel("Gráfico do Estoque");
+	        
+	        int materiasTotal = 0;
+	        int embalagensTotal = 0;
+	        int equipamentosTotal = 0;
+	        int formulasEntregues = 0;
+	        List<String> produtosEstoque = new ArrayList<String>();
+	        List<Number> totalEstoque = new ArrayList<Number>();
+	        
+	        produtosEstoque.add("Matérias-primas");
+	        produtosEstoque.add("Embalagens");
+	        produtosEstoque.add("Equipamentos");
+	        produtosEstoque.add("Fórmulas entregues");
+	        
+	        materiasTotal = DaoMateria.contarMateriaEstoque();
+	        totalEstoque.add(materiasTotal);
+	        
+	        embalagensTotal = daoEmbalagem.contarEmbalagensEstoque();
+	        totalEstoque.add(embalagensTotal);
+	        
+	        equipamentosTotal = daoequi.contarEquipamentosEstoque();
+	        totalEstoque.add(equipamentosTotal);
+	        
+	        formulasEntregues = daoPedidos.contarStatusEntregue();
+	        totalEstoque.add(formulasEntregues);
+	        
+	        data.setLabels(produtosEstoque);
+	        barDataSet.setData(totalEstoque);
+	     
+	       
+	        
+	        List<String> bgColor = new ArrayList<>();
+	        bgColor.add("rgba(255, 99, 132, 0.2)");
+	        bgColor.add("rgba(255, 159, 64, 0.2)");
+	        bgColor.add("rgba(255, 205, 86, 0.2)");
+	        bgColor.add("rgba(75, 192, 192, 0.2)");
+	        bgColor.add("rgba(54, 162, 235, 0.2)");
+	        bgColor.add("rgba(153, 102, 255, 0.2)");
+	        bgColor.add("rgba(201, 203, 207, 0.2)");
+	        barDataSet.setBackgroundColor(bgColor);
+	        
+	        List<String> borderColor = new ArrayList<>();
+	        borderColor.add("rgb(255, 99, 132)");
+	        borderColor.add("rgb(255, 159, 64)");
+	        borderColor.add("rgb(255, 205, 86)");
+	        borderColor.add("rgb(75, 192, 192)");
+	        borderColor.add("rgb(54, 162, 235)");
+	        borderColor.add("rgb(153, 102, 255)");
+	        borderColor.add("rgb(201, 203, 207)");
+	        barDataSet.setBorderColor(borderColor);
+	        barDataSet.setBorderWidth(1);
+	        
+	        data.addChartDataSet(barDataSet);
+	        
+	       
+	        
+
+	        //Data
+	        BarChart.setData(data);
+	        
+	        //Options
+	        BarChartOptions options = new BarChartOptions();
+	        CartesianScales cScales = new CartesianScales();
+	        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+	        CartesianLinearTicks ticks = new CartesianLinearTicks();
+	        ticks.setBeginAtZero(true);
+	        linearAxes.setTicks(ticks);
+	        cScales.addYAxesData(linearAxes);
+	        options.setScales(cScales);
+	        
+	        Title title = new Title();
+	        title.setDisplay(true);
+	        title.setText("Gráfico");
+	        options.setTitle(title);
+
+	        Legend legend = new Legend();
+	        legend.setDisplay(true);
+	        legend.setPosition("top");
+	        LegendLabel legendLabels = new LegendLabel();
+	        legendLabels.setFontStyle("bold");
+	        legendLabels.setFontColor("#2980B9");
+	        legendLabels.setFontSize(24);
+	        legend.setLabels(legendLabels);
+	        options.setLegend(legend);
+
+	        BarChart.setOptions(options);
+	}
 	
 	public void graficoAtendente() {
 		 ChartData data = new ChartData();
@@ -340,7 +451,7 @@ public class FuncBean {
 			Funcionarios funcionariosUser = daoFuncionario.consultarFuncionario(funcionarios.getLogin(), funcionarios.getSenha());
 			
 			
-			if (funcionariosUser != null) {
+			if (funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Atendente")) {
 
 				// Adicionar o usuario na sessao usuariologado
 				FacesContext context = FacesContext.getCurrentInstance();
@@ -351,10 +462,32 @@ public class FuncBean {
 
 				session.setAttribute("funcionariologado", funcionariosUser);
 				
+				funcaoFuncionarios.loadFuncaoFuncionarios(0, 4, null, null, "Atendente");
 				
 				carregarPaineisAtendente();
 				
 				return "home.jsf";
+			}else if(funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Farmacêutico")) {
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = context.getExternalContext();
+
+				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+				HttpSession session = request.getSession();
+
+				session.setAttribute("funcionariologado", funcionariosUser);
+				
+				 funcaoFuncionarios.loadFuncaoFuncionarios(0, 4, null, null, "Farmacêutico");
+				
+				return "homeFarmaceutico.jsf";
+			}else if(funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Gerente")) {
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = context.getExternalContext();
+
+				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+				HttpSession session = request.getSession();
+
+				session.setAttribute("funcionariologado", funcionariosUser);
+				return "homeGerente.jsf";
 			}
 		} catch (Exception e) {
 			

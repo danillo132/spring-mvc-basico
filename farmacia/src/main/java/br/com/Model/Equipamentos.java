@@ -21,6 +21,9 @@ public class Equipamentos implements Serializable {
 	private Double quantidade;
 	private String emUso;
 	private String fornecedor;
+	private Integer qtdEquipamentosEstoque;
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -58,6 +61,15 @@ public class Equipamentos implements Serializable {
 	}
 	public void setFornecedor(String fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+	
+	
+	
+	public Integer getQtdEquipamentosEstoque() {
+		return qtdEquipamentosEstoque;
+	}
+	public void setQtdEquipamentosEstoque(Integer qtdEquipamentosEstoque) {
+		this.qtdEquipamentosEstoque = qtdEquipamentosEstoque;
 	}
 	@Override
 	public int hashCode() {

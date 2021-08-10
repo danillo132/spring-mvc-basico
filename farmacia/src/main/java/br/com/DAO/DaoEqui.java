@@ -14,4 +14,11 @@ public class DaoEqui<E> extends DaoGeneric<Equipamentos> {
 		
 		getEntityManager().getTransaction().commit();
 	}
+	
+	public Integer contarEquipamentosEstoque() {
+		getEntityManager().getTransaction().begin();
+		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from Equipamentos").getSingleResult().toString()); 
+		getEntityManager().getTransaction().commit();
+		return total;
+	}
 }
