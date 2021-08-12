@@ -1,7 +1,6 @@
 package br.com.ManagerBean;
 
 import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,21 +9,11 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.primefaces.model.charts.ChartData;
-import org.primefaces.model.charts.axes.cartesian.CartesianScales;
-import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
-import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
-import org.primefaces.model.charts.bar.BarChartDataSet;
-import org.primefaces.model.charts.bar.BarChartModel;
-import org.primefaces.model.charts.bar.BarChartOptions;
-import org.primefaces.model.charts.optionconfig.legend.Legend;
-import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
-import org.primefaces.model.charts.optionconfig.title.Title;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -33,10 +22,20 @@ import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.primefaces.component.barchart.BarChart;
 import org.primefaces.event.FileUploadEvent;
-
-import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.axes.cartesian.CartesianScales;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
+import org.primefaces.model.charts.bar.BarChartDataSet;
+import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.model.charts.bar.BarChartOptions;
+import org.primefaces.model.charts.line.LineChartDataSet;
+import org.primefaces.model.charts.line.LineChartModel;
+import org.primefaces.model.charts.line.LineChartOptions;
+import org.primefaces.model.charts.optionconfig.legend.Legend;
+import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
+import org.primefaces.model.charts.optionconfig.title.Title;
 
 import com.google.gson.Gson;
 
@@ -74,20 +73,23 @@ public class FuncBean {
 	private DaoPedidos<Pedidos> daoPedidos = new DaoPedidos<Pedidos>();
 	private DaoClientes<Clientes> daoClientes  = new DaoClientes<Clientes>();
 	private List<Funcionarios> listaAtendentes = new ArrayList<Funcionarios>();
+	private List<Funcionarios> listaFunc = new ArrayList<Funcionarios>();
 	private List<Clientes> clientesLista = new ArrayList<Clientes>();
 	private BarChartModel BarChart = new BarChartModel();
+	private BarChartModel BarChartFarmaceutico = new BarChartModel();
 	private DaoMateria<MateriaPrima> DaoMateria = new DaoMateria<MateriaPrima>();
 	private DaoEmbalagem<Embalagens> daoEmbalagem  = new DaoEmbalagem<Embalagens>();
 	private DaoEqui<Equipamentos> daoequi = new DaoEqui<Equipamentos>();
+	private LineChartModel lineChart = new LineChartModel();
 	
 	
 	
 	@PostConstruct
 	public void carregaFuncionarios() {
 
-		 funcionariosLista.load(0, 10, null, null);
+		 funcionariosLista.load(0, 6, null, null);
 		 
-		 
+		
 			 
 			 
 			
@@ -97,6 +99,7 @@ public class FuncBean {
 		
 		 graficoAtendente();
 		 graficoFarmaceutico();
+		
 	
 	}
 	
@@ -163,7 +166,7 @@ public class FuncBean {
 	        
 
 	        //Data
-	        BarChart.setData(data);
+	        BarChartFarmaceutico.setData(data);
 	        
 	        //Options
 	        BarChartOptions options = new BarChartOptions();
@@ -190,7 +193,7 @@ public class FuncBean {
 	        legend.setLabels(legendLabels);
 	        options.setLegend(legend);
 
-	        BarChart.setOptions(options);
+	        BarChartFarmaceutico.setOptions(options);
 	}
 	
 	public void graficoAtendente() {
@@ -279,6 +282,65 @@ public class FuncBean {
 
 	        BarChart.setOptions(options);
 	}
+	
+	public void graficoSalarioFuncionarios() {
+		
+        ChartData data = new ChartData();
+        
+        LineChartDataSet dataSet = new LineChartDataSet();
+        List<Object> values = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
+      
+        dataSet.setFill(false);
+        dataSet.setLabel("Salário");
+        dataSet.setBorderColor("rgb(75, 192, 192)");
+        dataSet.setLineTension(0.1);
+        data.addChartDataSet(dataSet);
+        
+        
+        listaFunc = daoFunc.listar(Funcionarios.class);
+        
+        for (Funcionarios funclista : listaFunc) {
+			
+        	values.add(funclista.getSalario());
+        	labels.add(funclista.getNome());
+		}
+        
+        dataSet.setData(values);
+        data.setLabels(labels);
+        
+        //Options
+        LineChartOptions options = new LineChartOptions();        
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText("Salário de todos funcionários");
+        options.setTitle(title);
+        
+        lineChart.setOptions(options);
+        lineChart.setData(data);
+	}
+	
+	
+	public void painelGerente() {
+		int totalAtivos = 0;
+		int totalMateria = 0;
+		int totalEmbalagem = 0;
+		int totalequi = 0;
+		int totalEstoque = 0;
+		totalAtivos = daoFunc.contarTotalFuncionarios();
+		funcionarios.setTotalFuncionariosAtivos(totalAtivos);
+		
+		totalMateria  = DaoMateria.contarMateriaEstoque();
+		totalEmbalagem = daoEmbalagem.contarEmbalagensEstoque();
+		totalequi = daoequi.contarEquipamentosEstoque();
+		totalEstoque = totalEmbalagem + totalMateria + totalequi;
+		funcionarios.setTotalEstoque(totalEstoque);
+		
+		
+		
+		
+	}
+	
 	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
 		
@@ -444,7 +506,7 @@ public class FuncBean {
 	
 	
 	
-	public String logar()  {
+public String logar(){
 		
 		
 		try {
@@ -462,7 +524,7 @@ public class FuncBean {
 
 				session.setAttribute("funcionariologado", funcionariosUser);
 				
-				funcaoFuncionarios.loadFuncaoFuncionarios(0, 4, null, null, "Atendente");
+				funcaoFuncionarios.loadFuncaoFuncionarios(0, 5, null, null, "Atendente");
 				
 				carregarPaineisAtendente();
 				
@@ -487,6 +549,8 @@ public class FuncBean {
 				HttpSession session = request.getSession();
 
 				session.setAttribute("funcionariologado", funcionariosUser);
+				
+				 painelGerente();
 				return "homeGerente.jsf";
 			}
 		} catch (Exception e) {
@@ -556,6 +620,10 @@ public class FuncBean {
 		return BarChart;
 	}
 	
+	public BarChartModel getBarChartFarmaceutico() {
+		return BarChartFarmaceutico;
+	}
+	
 	public LazyDataTable<Funcionarios> getFuncionariosLista() {
 		return funcionariosLista;
 	}
@@ -567,6 +635,10 @@ public class FuncBean {
 	
 	public Funcionarios getFuncionarios() {
 		return funcionarios;
+	}
+	
+	public LineChartModel getLineChart() {
+		return lineChart;
 	}
 	
 }

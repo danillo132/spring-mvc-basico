@@ -51,7 +51,7 @@ public class ClienBean {
 
 		funcionario = daoFuncionario.pesquisar(funcionarioUser.getId(), Funcionarios.class);
 		clientesLista.load(0, 5, null, null);
-
+		contarTotalClientes();
 	}
 
 	public String salvar() {
@@ -113,6 +113,15 @@ public class ClienBean {
 
 		String imagem = "data:image/jpg;base64," + DatatypeConverter.printBase64Binary(image.getFile().getContent());
 		clientes.setImagem(imagem);
+	}
+	
+	
+	public void contarTotalClientes() {
+		int totaldeClientes = 0;
+		
+		totaldeClientes = daoCliente.contarTotalClientes();
+		clientes.setTotalClientes(totaldeClientes);
+		
 	}
 
 	public void pesquisaCep(AjaxBehaviorEvent event) {

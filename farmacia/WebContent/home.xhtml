@@ -9,6 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<h:outputStylesheet library="css" name="cadCliente.css"></h:outputStylesheet>
 	<h:outputStylesheet name="resources/primeflex-master/primeflex.min.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="#{resource['resources/img/iconepg.ico']}"/>
 	<title>Home page</title>
 </h:head>
 
@@ -73,7 +74,7 @@
 			
 			<div class="formularioGrafico">
 			<p:graphicImage url="resources/img/graficos.jpg"  styleClass="imageGraph"></p:graphicImage>
-				<p:barChart model="#{FuncBean.barChart}" style="width: 100%; height: 450px;" />
+				<p:barChart model="#{FuncBean.barChart}" style="width: 100% !important; height: 450px; " />
 			</div>
 			
 			<div class="formularioequipe">

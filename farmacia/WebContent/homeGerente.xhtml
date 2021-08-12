@@ -32,58 +32,57 @@
 		<div class="painelgrid">
 			<div class="paineisgrid">
 				<div class="painel1">
-					<i class="pi pi-money-bill"> </i> <span class="paineltitle" >Orçamentos</span>
+					<i class="pi pi-money-bill"> </i> <span class="paineltitle" >Funcionários</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.orcamentosCotados}"></p:outputLabel>
+						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.totalFuncionariosAtivos}"></p:outputLabel>
 					</div>
-					<div class="subtitlePainel">Orçamentos cotados por você</div>
+					<div class="subtitlePainel">Total de funcionários ativos</div>
 				</div>
 
 				<div class="painel2">
-					<i class="pi pi-book"> </i> <span class="paineltitle">Pedidos</span>
+					<i class="pi pi-book"> </i> <span class="paineltitle">Clientes</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.pedidosCadastrados}"></p:outputLabel>
+						<p:outputLabel styleClass="numeros" value="#{ClienBean.clientes.totalClientes}"></p:outputLabel>
 					</div>
-					<div class="subtitlePainel">Pedidos cadastrados por você</div>
+					<div class="subtitlePainel">Total de clientes ativos</div>
 				</div>
 
 
 				<div class="painel3">
-					<i class="pi pi-users"> </i> <span class="paineltitle">Clientes</span>
+					<i class="pi pi-users"> </i> <span class="paineltitle">Estoque</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel value="#{FuncBean.funcionarios.clientesCadastrados}" styleClass="numeros"></p:outputLabel>
+						<p:outputLabel value="#{FuncBean.funcionarios.totalEstoque}" styleClass="numeros"></p:outputLabel>
 					</div>
-					<div class="subtitlePainel">Clientes cadastrados por você</div>
+					<div class="subtitlePainel">Quantidade de materiais em estoque</div>
 				</div>
 
 				<div class="painel4">
 					<i class="pi pi-check-circle"> </i> <span class="paineltitle">Fórmulas
 						entregues</span> <i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
-						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.pedidosEntregues}"></p:outputLabel>
+						<p:outputLabel styleClass="numeros" value="#{PedidosBean.pedidos.statusEntregueTotal}"></p:outputLabel>
 					</div>
-					<div class="subtitlePainel">Fórmulas entregues por você</div>
+					<div class="subtitlePainel">Fórmulas entregues</div>
 				</div>
 				
 				
 			</div>
 			
-			<div class="formularioGrafico">
-			<p:graphicImage url="resources/img/graficos.jpg"  styleClass="imageGraph"></p:graphicImage>
-				<p:barChart model="#{FuncBean.barChart}" style="width: 100%; height: 450px;" />
+			<div class="formularioGraficoSalario">
+				<p:lineChart model="#{FuncBean.lineChart}"  style="width: 100%; height: 450px; margin-left: 23% !important;"></p:lineChart>
 			</div>
 			
-			<div class="formularioequipe">
+			<div class="formularioequipe" style="width: 100% !important;">
 			
-				<p:dataTable id="dataequipe" value="#{FuncBean.funcaoFuncionarios}" var="funcionario" rows="4" paginator="true" lazy="true" 
+				<p:dataTable id="dataequipe" value="#{FuncBean.funcionariosLista}" var="funcionario" rows="4" paginator="true" lazy="true" 
 			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
 			
 			<f:facet name="header">
 			<div class="dataTitle" style="font-size: 20px;">
-						Equipe de atendentes
+						Todos funcionários
 						</div>
 						
 						<div>
@@ -111,6 +110,20 @@
 					<h:outputText value="#{funcionario.sexo}"></h:outputText>
 				</p:column>
 				
+					<p:column>
+					<f:facet name="header">Função</f:facet>
+					<h:outputText value="#{funcionario.funcao}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">E-mail</f:facet>
+					<h:outputText value="#{funcionario.email}"></h:outputText>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">Celular</f:facet>
+					<h:outputText value="#{funcionario.celular}"></h:outputText>
+				</p:column>
 				
 				
 				
@@ -121,6 +134,7 @@
 			</div>
 			<br></br>
 		</div>
+		<br></br>
 		<br></br>
 	</div>
 

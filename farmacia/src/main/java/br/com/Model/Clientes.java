@@ -41,6 +41,7 @@ public class Clientes implements Serializable {
 	private String telefoneFixo;
 	private String celular;
 	private Boolean ativo;
+	private Integer totalClientes;
 	
 	
 	@Column(columnDefinition = "text")
@@ -107,6 +108,14 @@ public class Clientes implements Serializable {
 	}
 	public void setNumeroCasa(String numeroCasa) {
 		this.numeroCasa = numeroCasa;
+	}
+	
+	
+	public Integer getTotalClientes() {
+		return totalClientes;
+	}
+	public void setTotalClientes(Integer totalClientes) {
+		this.totalClientes = totalClientes;
 	}
 	public String getBairro() {
 		return bairro;

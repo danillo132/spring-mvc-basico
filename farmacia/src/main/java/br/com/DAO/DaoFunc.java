@@ -23,5 +23,14 @@ public class DaoFunc<E> extends DaoGeneric<Funcionarios> {
 		getEntityManager().getTransaction().commit();
 		return funcs;
 	}
+	
+	public Integer contarTotalFuncionarios() {
+		getEntityManager().getTransaction().begin();
+		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from Funcionarios where ativo = TRUE").getSingleResult().toString()); 
+		getEntityManager().getTransaction().commit();
+		return total;
+	}
+	
+	
 
 }

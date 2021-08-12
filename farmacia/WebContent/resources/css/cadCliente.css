@@ -31,7 +31,8 @@
     margin-right: -0.5rem;
     margin-left: 0.3rem;
     margin-top: 70px;
-   
+   margin-bottom: 20px !important;
+   padding-bottom: 100px;
     width: 99%;
     height: 100vh;
 }
@@ -254,6 +255,21 @@
 	box-shadow:         5px 5px 5px 2px rgba(50, 50, 50, 0.77);
 }
 
+.formularioGraficoSalario{
+	display:flex;
+	position: relative;
+	margin-top: 70px !important;
+	
+	margin-left: 15px;
+	width: 100%;
+	background-color: #FFFFFF;
+	margin-bottom: 50px;
+	border-radius: 5px;
+	-webkit-box-shadow: 5px 5px 5px 2px rgba(50, 50, 50, 0.77);
+	-moz-box-shadow:    5px 5px 5px  2px rgba(50, 50, 50, 0.77);
+	box-shadow:         5px 5px 5px 2px rgba(50, 50, 50, 0.77);
+}
+
 .formularioequipe{
 	display:flex;
 	position: relative;
@@ -328,6 +344,10 @@
 	background-color: transparent !important;
 	border: none !important;
 	margin-left: 5px !important; 
+}
+
+.datatablefunc{
+	height: 450px !important;
 }
 
 

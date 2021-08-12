@@ -47,6 +47,8 @@ public class Funcionarios implements Serializable {
 	private Integer pedidosCadastrados;
 	private Integer orcamentosCotados;
 	private Integer pedidosEntregues;
+	private Integer totalFuncionariosAtivos;
+	private Integer totalEstoque;
 	
 	
 	
@@ -151,6 +153,21 @@ public class Funcionarios implements Serializable {
 	
 	
 	
+	
+	
+	
+	public Integer getTotalEstoque() {
+		return totalEstoque;
+	}
+	public void setTotalEstoque(Integer totalEstoque) {
+		this.totalEstoque = totalEstoque;
+	}
+	public Integer getTotalFuncionariosAtivos() {
+		return totalFuncionariosAtivos;
+	}
+	public void setTotalFuncionariosAtivos(Integer totalFuncionariosAtivos) {
+		this.totalFuncionariosAtivos = totalFuncionariosAtivos;
+	}
 	public Integer getClientesCadastrados() {
 		return clientesCadastrados;
 	}
