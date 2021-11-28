@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -44,8 +46,15 @@ public class Clientes implements Serializable {
 	private Integer totalClientes;
 	
 	
-	@Column(columnDefinition = "text")
-	private String imagem;
+
+	@Column(columnDefinition = "text") // tipo text grava arquivos em base 64
+	private String fotoIconBase64;
+
+	private String extensao; // Extensao jpg, png, jpg, etc
+
+	@Lob // Gravar arquivos no banco de dados
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] fotoIconbase64original;
 	
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private Funcionarios funcionarios;
@@ -166,17 +175,28 @@ public class Clientes implements Serializable {
 		this.ativo = ativo;
 	}
 	
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
+	
+	
+	
+	
+	public String getFotoIconBase64() {
+		return fotoIconBase64;
 	}
-	
-	public String getImagem() {
-		return imagem;
+	public void setFotoIconBase64(String fotoIconBase64) {
+		this.fotoIconBase64 = fotoIconBase64;
 	}
-	
-	
-	
-	
+	public String getExtensao() {
+		return extensao;
+	}
+	public void setExtensao(String extensao) {
+		this.extensao = extensao;
+	}
+	public byte[] getFotoIconbase64original() {
+		return fotoIconbase64original;
+	}
+	public void setFotoIconbase64original(byte[] fotoIconbase64original) {
+		this.fotoIconbase64original = fotoIconbase64original;
+	}
 	public Funcionarios getFuncionarios() {
 		return funcionarios;
 	}

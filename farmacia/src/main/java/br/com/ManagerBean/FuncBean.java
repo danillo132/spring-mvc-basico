@@ -1,13 +1,24 @@
 package br.com.ManagerBean;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.primefaces.model.charts.donut.DonutChartModel;
+import org.primefaces.model.charts.donut.DonutChartOptions;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -17,11 +28,17 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.xml.bind.DatatypeConverter;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.primefaces.PrimeFaces;
+import org.primefaces.component.donutchart.DonutChart;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.charts.ChartData;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
@@ -30,12 +47,14 @@ import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
 import org.primefaces.model.charts.bar.BarChartDataSet;
 import org.primefaces.model.charts.bar.BarChartModel;
 import org.primefaces.model.charts.bar.BarChartOptions;
+import org.primefaces.model.charts.donut.DonutChartDataSet;
 import org.primefaces.model.charts.line.LineChartDataSet;
 import org.primefaces.model.charts.line.LineChartModel;
 import org.primefaces.model.charts.line.LineChartOptions;
 import org.primefaces.model.charts.optionconfig.legend.Legend;
 import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
 import org.primefaces.model.charts.optionconfig.title.Title;
+import org.primefaces.model.file.UploadedFile;
 
 import com.google.gson.Gson;
 
@@ -49,6 +68,7 @@ import br.com.DAO.DaoPedidos;
 import br.com.Model.Clientes;
 import br.com.Model.Embalagens;
 import br.com.Model.Equipamentos;
+import br.com.Model.Fornecedores;
 import br.com.Model.Funcionarios;
 import br.com.Model.MateriaPrima;
 import br.com.Model.Orcamentos;
@@ -56,6 +76,7 @@ import br.com.Model.Pedidos;
 import br.com.lazyDataTable.LazyDataTable;
 import br.com.repository.IDaoFuncionario;
 import br.com.repository.IDaoFuncionarioimpl;
+import service.RelatorioService;
 
 @ManagedBean(name = "FuncBean")
 @SessionScoped
@@ -81,6 +102,11 @@ public class FuncBean {
 	private DaoEmbalagem<Embalagens> daoEmbalagem  = new DaoEmbalagem<Embalagens>();
 	private DaoEqui<Equipamentos> daoequi = new DaoEqui<Equipamentos>();
 	private LineChartModel lineChart = new LineChartModel();
+	private DonutChartModel donutChart = new DonutChartModel();
+	private DonutChartModel donutFuncao = new DonutChartModel();
+	private RelatorioService relatorioService = new RelatorioService();
+	
+	private UploadedFile arquivofoto;
 	
 	
 	
@@ -90,17 +116,11 @@ public class FuncBean {
 		 funcionariosLista.load(0, 6, null, null);
 		 
 		
-			 
-			 
-			
-		
-		
-		
 		
 		 graficoAtendente();
 		 graficoFarmaceutico();
-		
-	
+		 graficoSalarioFuncionarios();
+		 graficosGerente();	
 	}
 	
 	
@@ -195,6 +215,9 @@ public class FuncBean {
 
 	        BarChartFarmaceutico.setOptions(options);
 	}
+	
+	
+	
 	
 	public void graficoAtendente() {
 		 ChartData data = new ChartData();
@@ -321,6 +344,71 @@ public class FuncBean {
 	}
 	
 	
+	public void graficosGerente() {
+		
+		 ChartData data = new ChartData();
+		 DonutChartOptions options = new DonutChartOptions();
+	        DonutChartDataSet dataSet = new DonutChartDataSet();
+	        List<Number> values = new ArrayList<>();
+	        values.add(daoFunc.contarTotalFuncionarios());
+	        values.add(daoFunc.contarTotalFuncionariosInativos());
+	        dataSet.setData(values);
+	        
+	        Title title = new Title();
+	        title.setDisplay(true);
+	        title.setText("Funcionários");
+	        options.setTitle(title);
+	        
+	        List<String> bgColors = new ArrayList<>();
+	        bgColors.add("rgb(132, 221, 99)");
+	        bgColors.add("rgb(255, 99, 132)");
+	       
+	        dataSet.setBackgroundColor(bgColors);
+	        
+	        data.addChartDataSet(dataSet);
+	        List<String> labels = new ArrayList<>();
+	        labels.add("Ativos");
+	        labels.add("Inativos");
+	        data.setLabels(labels);
+	       
+	        donutChart.setOptions(options);
+	        donutChart.setData(data);
+	        
+	        
+ChartData data1 = new ChartData();
+	        
+	        DonutChartDataSet dataSet1 = new DonutChartDataSet();
+	        DonutChartOptions options1 = new DonutChartOptions();
+	        List<Number> Valores = new ArrayList<>();
+	        Valores.add(daoFunc.contarTotalFuncionariosFuncao("Atendente"));
+	        Valores.add(daoFunc.contarTotalFuncionariosFuncao("Farmacêutico"));
+	        Valores.add(daoFunc.contarTotalFuncionariosFuncao("Gerente"));
+	        dataSet1.setData(Valores);
+	        
+	        List<String> coresGrafico = new ArrayList<>();
+	        coresGrafico.add("rgb(132, 221, 99)");
+	        coresGrafico.add("rgb(255, 99, 132)");
+	        coresGrafico.add("rgb(255, 134, 0)");
+	        dataSet1.setBackgroundColor(coresGrafico);
+	        
+	        Title title1 = new Title();
+	        title1.setDisplay(true);
+	        title1.setText("Funcionários");
+	        options1.setTitle(title1);
+	        
+	        data1.addChartDataSet(dataSet1);
+	        List<String> FuncoesNome = new ArrayList<>();
+	        FuncoesNome.add("Atendentes");
+	        FuncoesNome.add("Farmacêuticos");
+	        FuncoesNome.add("Gerentes");
+	        data1.setLabels(FuncoesNome);
+	        
+	        donutFuncao.setOptions(options1);
+	        donutFuncao.setData(data1);
+		
+	}
+	
+	
 	public void painelGerente() {
 		int totalAtivos = 0;
 		int totalMateria = 0;
@@ -340,6 +428,95 @@ public class FuncBean {
 		
 		
 	}
+	
+	
+	
+	
+public String logar(){
+		
+		
+		
+			Funcionarios funcionariosUser = daoFuncionario.consultarFuncionario(funcionarios.getLogin(), funcionarios.getSenha());
+			
+			
+			if (funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Atendente")) {
+
+				// Adicionar o usuario na sessao usuariologado
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = context.getExternalContext();
+
+				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+				HttpSession session = request.getSession();
+
+				session.setAttribute("funcionariologado", funcionariosUser);
+				
+				funcaoFuncionarios.loadFuncaoFuncionarios(0, 5, null, null, "Atendente");
+				
+				carregarPaineisAtendente();
+				
+				
+				
+				return "home.jsf";
+			}else if(funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Farmacêutico")) {
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = context.getExternalContext();
+
+				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+				HttpSession session = request.getSession();
+
+				session.setAttribute("funcionariologado", funcionariosUser);
+				funcionariosUser.getFotoIconBase64();
+				
+				 funcaoFuncionarios.loadFuncaoFuncionarios(0, 4, null, null, "Farmacêutico");
+				
+				return "homeFarmaceutico.jsf";
+			}else if(funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Gerente")) {
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = context.getExternalContext();
+
+				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+				HttpSession session = request.getSession();
+
+				session.setAttribute("funcionariologado", funcionariosUser);
+				
+				 painelGerente();
+				return "homeGerente.jsf";
+			}
+			else {
+				
+			
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Login ou senha incorretos"));
+			
+			return "index.jsf";
+		
+			}
+		
+				
+		
+	}
+
+
+
+	public String iconPerfil() {
+		
+		Funcionarios funcionariosUser = daoFuncionario.consultarFuncionario(funcionarios.getLogin(), funcionarios.getSenha());
+		
+		
+		
+		
+		return  funcionariosUser.getFotoIconBase64();
+	}
+
+
+public String consultarEmail() throws Exception {
+	
+	 funcionarios =  daoFuncionario.consultarEmail(funcionarios.getEmail());
+	System.out.println(funcionarios);
+	
+	
+	return "RedefinirSenha2.jsf";
+}
 	
 	
 	public void pesquisaCep(AjaxBehaviorEvent event) {
@@ -379,6 +556,13 @@ public class FuncBean {
 	
 	
 	public String salvar() {
+		
+		
+
+		
+			
+			
+			
 		
 		
 		daoFunc.salvar(funcionarios);
@@ -501,78 +685,32 @@ public class FuncBean {
 		return funcionarioUser.getFuncao().equals(acesso);
 	}
 	
+
 	
 	
 	
 	
 	
-public String logar(){
-		
-		
-		try {
-			Funcionarios funcionariosUser = daoFuncionario.consultarFuncionario(funcionarios.getLogin(), funcionarios.getSenha());
-			
-			
-			if (funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Atendente")) {
+	
 
-				// Adicionar o usuario na sessao usuariologado
-				FacesContext context = FacesContext.getCurrentInstance();
-				ExternalContext externalContext = context.getExternalContext();
-
-				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-				HttpSession session = request.getSession();
-
-				session.setAttribute("funcionariologado", funcionariosUser);
-				
-				funcaoFuncionarios.loadFuncaoFuncionarios(0, 5, null, null, "Atendente");
-				
-				carregarPaineisAtendente();
-				
-				return "home.jsf";
-			}else if(funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Farmacêutico")) {
-				FacesContext context = FacesContext.getCurrentInstance();
-				ExternalContext externalContext = context.getExternalContext();
-
-				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-				HttpSession session = request.getSession();
-
-				session.setAttribute("funcionariologado", funcionariosUser);
-				
-				 funcaoFuncionarios.loadFuncaoFuncionarios(0, 4, null, null, "Farmacêutico");
-				
-				return "homeFarmaceutico.jsf";
-			}else if(funcionariosUser != null && funcionariosUser.getFuncao().equalsIgnoreCase("Gerente")) {
-				FacesContext context = FacesContext.getCurrentInstance();
-				ExternalContext externalContext = context.getExternalContext();
-
-				HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-				HttpSession session = request.getSession();
-
-				session.setAttribute("funcionariologado", funcionariosUser);
-				
-				 painelGerente();
-				return "homeGerente.jsf";
-			}
-		} catch (Exception e) {
-			
-			
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Login ou senha incorretos"));
-			
-			return "index.jsf";
-		}
-		
-		
-			return "";	
-		
-	}
 	
 	public String deslogar() {
+		try {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = context.getExternalContext();
 
-		externalContext.invalidateSession();
 
-		return "index.jsf";
+		
+		
+		externalContext.invalidateSession();
+		
+		FacesContext.getCurrentInstance().getExternalContext().redirect("index.jsf");
+				
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+
+		return "";
 	}
 	
 	
@@ -604,11 +742,185 @@ public String logar(){
 	}
 	
 	
-	public void upload(FileUploadEvent image) {
+	public void relatorioFunc() {
+		try {
+			
+			String tipoExportar = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("tipoExportar");
+			List<Funcionarios> funcs = daoFunc.listar(Funcionarios.class);
+			
+			List dados = new ArrayList();
+			dados.add(funcs);
+			
+			String fileUrl = relatorioService.gerarRelatorio(dados, new HashMap(), "funcionarios", "funcionarios");
+			
+			File donwloadFIle = new File(fileUrl);
+			FileInputStream inputStream = new FileInputStream(donwloadFIle);
+			
 		
-		String imagem = "data:image/jpg;base64," + DatatypeConverter.printBase64Binary(image.getFile().getContent());
-		funcionarios.setImagem(imagem);
+			
+			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+			
+		
+			response.setContentLength((int) donwloadFIle.length());
+			String headerKey = "Content-Disposition";
+			String headerValue = String.format("attachment; filename=\"%s\"", donwloadFIle.getName());
+			response.setHeader(headerKey, headerValue);
+			
+			OutputStream outputStream = response.getOutputStream();
+			
+			byte[] buffer = new byte[4096];
+			int byteReader = -1;
+			
+			
+			while((byteReader = inputStream.read(buffer)) != -1) {
+				outputStream.write(buffer,0,byteReader);
+				
+				
+			}
+			
+			inputStream.close();
+			outputStream.close();
+			
+		}catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
 	}
+	
+	public void download() throws IOException {
+		
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		
+		String fileDownload = params.get("FiledownloadId");
+		
+		Funcionarios funcionarioDownload = daoFunc.pesquisar(Long.valueOf(fileDownload), Funcionarios.class);
+		
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.addHeader("Content-disposition", "attachment; filename="+funcionarioDownload.getNome()+"."+ funcionarioDownload.getExtensao());
+		response.setContentType("application/octet-stream");
+		response.setContentLength(funcionarioDownload.getFotoIconbase64original().length);
+		response.getOutputStream().write(funcionarioDownload.getFotoIconbase64original());
+		response.getOutputStream().flush();
+		FacesContext.getCurrentInstance().responseComplete();
+	}
+	
+	
+	
+	public void upload(FileUploadEvent event) throws IOException {
+		
+		arquivofoto = event.getFile();
+		//Inicio processamento da imagem
+
+			if(arquivofoto != null) {
+				
+				byte[] imagemByte = getByte(arquivofoto.getInputStream());
+				funcionarios.setFotoIconbase64original(imagemByte); //Salva a imagem original
+				
+				//Transforma em bufferimage (Miniatura)
+				
+				BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+				
+				
+				//Pega o tipo de imagem
+				
+				int type = bufferedImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+				
+				int largura = 200;
+				int altura  = 200;
+				
+				//Criando a miniaura
+				
+				BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+				Graphics2D g = resizedImage.createGraphics();
+				g.drawImage(bufferedImage, 0, 0, largura, altura, null);
+				g.dispose();
+				
+				
+				// Escrever novamente a imagem em tamanho menor 
+				
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				
+				String extensao = arquivofoto.getContentType().split("\\/")[1]; // Retorna: image/png
+				ImageIO.write(resizedImage, extensao, baos);
+				
+				String miniImagem = "data:"+ arquivofoto.getContentType() + ";base64,"+ DatatypeConverter.printBase64Binary(baos.toByteArray());
+				
+				funcionarios.setFotoIconBase64(miniImagem);
+				funcionarios.setExtensao(extensao);
+			}else {
+				
+				
+				byte[] imagemByte = getByte(arquivofoto.getInputStream());
+				funcionarios.setFotoIconbase64original(imagemByte); //Salva a imagem original
+				
+				//Transforma em bufferimage (Miniatura)
+				
+				BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+				
+				
+				//Pega o tipo de imagem
+				
+				int type = bufferedImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+				
+				int largura = 200;
+				int altura  = 200;
+				
+				//Criando a miniaura
+				
+				BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+				Graphics2D g = resizedImage.createGraphics();
+				g.drawImage(bufferedImage, 0, 0, largura, altura, null);
+				g.dispose();
+				
+				
+				// Escrever novamente a imagem em tamanho menor 
+				
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				
+				String extensao = arquivofoto.getContentType().split("\\/")[1]; // Retorna: image/png
+				ImageIO.write(resizedImage, extensao, baos);
+				
+				String miniImagem = "data:"+ arquivofoto.getContentType() + ";base64,"+ DatatypeConverter.printBase64Binary(baos.toByteArray());
+				
+				funcionarios.setFotoIconBase64(miniImagem);
+				funcionarios.setExtensao(extensao);
+			}
+		
+		
+		
+	}
+	
+
+	
+	private byte[] getByte(InputStream is) throws IOException {
+		
+		int len;
+		int size = 1024;
+		byte[] buf = null;
+		
+		if(is instanceof ByteArrayInputStream) {
+			
+			size = is.available();
+			buf = new byte[size];
+			len = is.read(buf, 0, size);
+			
+		}else {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			buf = new byte[size];
+			
+			while((len = is.read(buf, 0, size)) != -1) {
+				bos.write(buf, 0, len);
+			}
+			
+			buf = bos.toByteArray();
+		}
+		
+		return buf;
+	}
+	
+	
+	
 	
 	
 	public LazyDataTable<Funcionarios> getFuncaoFuncionarios() {
@@ -640,5 +952,24 @@ public String logar(){
 	public LineChartModel getLineChart() {
 		return lineChart;
 	}
+	
+	public DonutChartModel getDonutChart() {
+		return donutChart;
+	}
+	
+	public DonutChartModel getDonutFuncao() {
+		return donutFuncao;
+	}
+	
+	public void setArquivofoto(UploadedFile arquivofoto) {
+		this.arquivofoto = arquivofoto;
+	}
+	
+	public UploadedFile getArquivofoto() {
+		return arquivofoto;
+	}
+	
+	
+	
 	
 }

@@ -13,6 +13,19 @@
 	
 }
 
+.fundoverde{
+	display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+   background-color: #84DD63;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+}
+
+
 .Titulo {
 	font-size: 30px !important;
 	font-family: 'Roboto', sans-serif !important;
@@ -32,8 +45,23 @@
 	
 }
 
+.TituloRedefinicao{
+	font-size: 34px !important;
+	font-family: 'Roboto', sans-serif !important;
+	margin-left: 16%;
+	font-weight: bold;
+	color: #E8EDDF;
+	
+}
+
 .labellogin{
 	font-size: 20px !important;
+	font-family: 'Roboto', sans-serif !important;
+	color: #E8EDDF;
+}
+
+.labelredefinir{
+	font-size: 26px !important;
 	font-family: 'Roboto', sans-serif !important;
 	color: #E8EDDF;
 }
@@ -49,6 +77,15 @@
 	background-color:  #121212;
 	width: 100%;
 	height: 100vh;
+}
+
+.botoesredefinir{
+	position: relative;
+	justify-content: center;
+	margin-left: 50px;
+	display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
 }
 
 .eye{
@@ -69,6 +106,15 @@
 	height: 100vh;
 	position: relative; 
 	float: right;
+}
+
+.Redefinir{
+	background-color:  #84DD63;
+	width: 60%;
+	height: 50%;
+	position: relative; 
+	float: none;
+	margin-top: 7%;
 }
 
 
@@ -126,6 +172,24 @@
 	
 }
 
+.ui-widget.corinputredefinir{
+	background-color: transparent !important;
+	border-style: solid !important;
+	border-color: #E8EDDF !important;
+	border-top: none !important;
+	border-right: none !important;
+	border-left: none !important;
+	border-width: 3px !important;
+	font-size: 18px !important;
+	border-radius: 1px !important;
+	font-family: 'Roboto', sans-serif !important;
+	width: 386px !important;
+ 	color: #E8EDDF;
+	
+}
+
+
+
 .ui-button.buttonlogin{
 	width: 250px;
 	height: 45px;
@@ -136,6 +200,21 @@
 	font-family: 'Roboto', sans-serif !important;
 	font-size: 14px !important;
 	color: #84DD63;
+	font-weight: bold;
+	margin-bottom: 10px !important;
+	
+}
+
+.ui-button.buttonredefinir{
+	width: 200px;
+	height: 60px;
+	border-radius: 5px !important;
+	background-color: #E8EDDF !important;
+	border: none !important;
+	font-family: 'Roboto', sans-serif !important;
+	font-size: 14px !important;
+	color: #84DD63;
+	margin-right: 5px !important;
 	font-weight: bold;
 	margin-bottom: 10px !important;
 	

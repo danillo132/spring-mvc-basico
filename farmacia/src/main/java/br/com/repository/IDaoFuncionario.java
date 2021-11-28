@@ -7,4 +7,6 @@ public interface IDaoFuncionario {
 	
 	
 	Funcionarios consultarFuncionario(String login, String senha);
+	
+	Funcionarios consultarEmail(String email);
 }

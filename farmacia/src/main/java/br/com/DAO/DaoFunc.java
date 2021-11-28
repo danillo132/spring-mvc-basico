@@ -31,6 +31,29 @@ public class DaoFunc<E> extends DaoGeneric<Funcionarios> {
 		return total;
 	}
 	
+	public Integer contarTotalFuncionariosInativos() {
+		getEntityManager().getTransaction().begin();
+		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from Funcionarios where ativo = FALSE").getSingleResult().toString()); 
+		getEntityManager().getTransaction().commit();
+		return total;
+	}
+	
+	public Integer contarTotalFuncionariosFuncao(String funcao) {
+		getEntityManager().getTransaction().begin();
+		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from Funcionarios where funcao like '"+funcao+"'").getSingleResult().toString()); 
+		getEntityManager().getTransaction().commit();
+		return total;
+	}
+	
+	public Boolean pesquisaImagem(Long id) {
+		getEntityManager().getTransaction().begin();
+		
+		Boolean imagemAtiva = (Boolean) getEntityManager().createQuery("select case when fotoIconBase64 is null then 'FALSE' else 'TRUE' end from Funcionarios where id = " + id).getSingleResult();
+		
+		
+		return imagemAtiva;
+	}
+	
 	
 
 }

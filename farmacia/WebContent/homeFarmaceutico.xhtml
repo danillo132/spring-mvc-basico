@@ -24,6 +24,7 @@
 			<p:commandButton icon="pi pi-list" value="Menu" type="button"
 				onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
 			<p:outputLabel styleClass="title">Home</p:outputLabel>
+			
 		</div>
 		<p:growl id="growl" showDetail="true" />
 		<p:growl id="erro" showDetail="true" styleClass="ui-button-danger"
@@ -77,7 +78,7 @@
 			</div>
 			
 			<div class="formularioequipe">
-			
+			<h:form>
 				<p:dataTable id="dataequipe" value="#{FuncBean.funcaoFuncionarios}" var="funcionario" rows="4" paginator="true" lazy="true" 
 			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
 			
@@ -93,7 +94,11 @@
 			</f:facet>
 			<p:column>
 					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{funcionario.nome}"></h:outputText>
+					<h:commandLink actionListener="#{FuncBean.download}">
+					<h:graphicImage value="#{funcionario.fotoIconBase64}" styleClass="miniaturadata" rendered="#{!empty funcionario.fotoIconBase64}"></h:graphicImage>
+					<f:param value="#{funcionario.id}" name="FiledownloadId"></f:param>
+					</h:commandLink>
+					<h:outputText value="#{funcionario.nome}" style="position: relative; float: right; margin-top: 10px;"></h:outputText>
 				</p:column>
 				
 				<p:column>
@@ -117,7 +122,7 @@
 				
 				
 			</p:dataTable>
-				
+				</h:form>
 			</div>
 			<br></br>
 		</div>

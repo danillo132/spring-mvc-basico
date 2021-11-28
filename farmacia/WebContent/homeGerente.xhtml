@@ -24,6 +24,7 @@
 			<p:commandButton icon="pi pi-list" value="Menu" type="button"
 				onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
 			<p:outputLabel styleClass="title">Home</p:outputLabel>
+			<p:graphicImage styleClass="miniaturadata"  style="float: right !important;"></p:graphicImage>
 		</div>
 		<p:growl id="growl" showDetail="true" />
 		<p:growl id="erro" showDetail="true" styleClass="ui-button-danger"
@@ -32,7 +33,7 @@
 		<div class="painelgrid">
 			<div class="paineisgrid">
 				<div class="painel1">
-					<i class="pi pi-money-bill"> </i> <span class="paineltitle" >Funcionários</span>
+					<i class="pi pi-id-card"> </i> <span class="paineltitle" >Funcionários</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
 						<p:outputLabel styleClass="numeros" value="#{FuncBean.funcionarios.totalFuncionariosAtivos}"></p:outputLabel>
@@ -41,7 +42,7 @@
 				</div>
 
 				<div class="painel2">
-					<i class="pi pi-book"> </i> <span class="paineltitle">Clientes</span>
+					<i class="pi pi-users"> </i> <span class="paineltitle">Clientes</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
 						<p:outputLabel styleClass="numeros" value="#{ClienBean.clientes.totalClientes}"></p:outputLabel>
@@ -51,7 +52,7 @@
 
 
 				<div class="painel3">
-					<i class="pi pi-users"> </i> <span class="paineltitle">Estoque</span>
+					<i class="pi pi-table"> </i> <span class="paineltitle">Estoque</span>
 					<i class="pi pi-chevron-circle-up"> </i>
 					<div class="painelnumeros">
 						<p:outputLabel value="#{FuncBean.funcionarios.totalEstoque}" styleClass="numeros"></p:outputLabel>
@@ -76,9 +77,9 @@
 			</div>
 			
 			<div class="formularioequipe" style="width: 100% !important;">
-			
-				<p:dataTable id="dataequipe" value="#{FuncBean.funcionariosLista}" var="funcionario" rows="4" paginator="true" lazy="true" 
-			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
+			<h:form>
+				<p:dataTable id="dataequipe" value="#{FuncBean.funcionariosLista}" var="funcionario" rows="3" paginator="true" lazy="true" 
+			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc" style="overflow: visible !important;">
 			
 			<f:facet name="header">
 			<div class="dataTitle" style="font-size: 20px;">
@@ -92,8 +93,16 @@
 			</f:facet>
 			<p:column>
 					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{funcionario.nome}"></h:outputText>
+					<h:commandLink actionListener="#{FuncBean.download}">
+					<h:graphicImage value="#{funcionario.fotoIconBase64}" styleClass="miniaturadata" rendered="#{!empty funcionario.fotoIconBase64}"></h:graphicImage>
+					<f:param value="#{funcionario.id}" name="FiledownloadId"></f:param>
+					</h:commandLink>
+					<h:outputText value="#{funcionario.nome}" style="position: relative; float: right; margin-top: 10px;"></h:outputText>
+					
+					
 				</p:column>
+				
+				
 				
 				<p:column>
 					<f:facet name="header">Sobrenome</f:facet>
@@ -130,7 +139,7 @@
 				
 				
 			</p:dataTable>
-				
+				</h:form>
 			</div>
 			<br></br>
 		</div>

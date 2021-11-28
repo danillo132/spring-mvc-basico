@@ -30,10 +30,17 @@
 
 		<h:form id="form_clientelista" styleClass="formData">
 			
-			<p:dataTable id="dataClientes" value="#{ClienBean.clientesLista}" var="cliente" rows="10" paginator="true" lazy="true" 
+			<p:dataTable id="dataClientes" value="#{ClienBean.clientesLista}" var="cliente" rows="5" paginator="true" lazy="true" 
 			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
 			
 			<f:facet name="header">
+			 <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2 botaoData">
+                    <p:dataExporter type="pdf" target="dataClientes" fileName="Clientes"/>
+                </p:commandButton>
+                
+                 <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2 botaoData">
+                    <p:dataExporter type="xls" target="dataClientes" fileName="Clientes"/>
+                </p:commandButton>
 			<div class="dataTitle" style="font-size: 20px;">
 						Lista de Clientes
 						</div>
@@ -45,7 +52,11 @@
 			</f:facet>
 			<p:column>
 					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{cliente.nome}"></h:outputText>
+					<h:commandLink actionListener="#{ClienBean.download}">
+					<h:graphicImage value="#{cliente.fotoIconBase64}" styleClass="miniaturadata" rendered="#{!empty cliente.fotoIconBase64}"></h:graphicImage>
+					<f:param value="#{cliente.id}" name="FiledownloadId"></f:param>
+					</h:commandLink>		
+					<h:outputText value="#{cliente.nome}" style="position: relative; float: right; margin-top: 10px;"></h:outputText>
 				</p:column>
 				
 				<p:column>
@@ -74,28 +85,28 @@
 				
 				
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header" >Orçamentos</f:facet>
 					<p:commandButton  value="Orçamentos" icon="pi pi-money-bill" id="botaoOrcamentos" ajax="false"  action="#{orcamentosBean.orcamentoCliente}"  styleClass="botaoeditar" >
 						<f:param name="idCliente" value="#{cliente.id}"></f:param>
 					</p:commandButton>
 				</p:column>
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header" >Receitas</f:facet>
 					<p:commandButton  value="Receitas" icon="pi pi-book" id="botaReceitas" ajax="false"  action="#{FuncBean.editarFunc}"  styleClass="botaoeditar" >
 						<f:param name="idCliente" value="#{cliente.id}"></f:param>
 					</p:commandButton>
 				</p:column>
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header" >Editar</f:facet>
 					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar" ajax="false"  action="#{ClienBean.editarCliente}"  styleClass="botaoeditar" >
 						<f:param name="idCliente" value="#{cliente.id}"></f:param>
 					</p:commandButton>
 				</p:column>
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header">Deletar</f:facet>
 					<p:commandButton action="#{ClienBean.removerCliente}" value="Deletar"  icon="pi pi-trash"   update="dataClientes growl erro"  styleClass="botaodeletar" >
 					<p:confirm header="Confirmação" message="Todas os orçamentos e receitas do cliente serão apagados, tem certeza?" icon="pi pi-exclamation-triangle"/>

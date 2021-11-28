@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Funcionarios implements Serializable {
@@ -43,18 +46,38 @@ public class Funcionarios implements Serializable {
 	private String uf;
 	private String telefoneFixo;
 	private String celular;
+	
+	@Transient
 	private Integer clientesCadastrados;
+	
+	@Transient
 	private Integer pedidosCadastrados;
+	
+	@Transient
 	private Integer orcamentosCotados;
+	
+	@Transient
 	private Integer pedidosEntregues;
+	
+	@Transient
 	private Integer totalFuncionariosAtivos;
+	
+	@Transient
 	private Integer totalEstoque;
 	
 	
 	
 	
-	@Column(columnDefinition = "text")
-	private String imagem;
+
+	
+	@Column(columnDefinition = "text") // tipo text grava arquivos em base 64
+	private String fotoIconBase64;
+
+	private String extensao; // Extensao jpg, png, jpg, etc
+
+	@Lob // Gravar arquivos no banco de dados
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] fotoIconbase64original;
 	
 	
 	@OneToMany(mappedBy = "funcionarios", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -242,16 +265,28 @@ public class Funcionarios implements Serializable {
 	
 	
 	
-	public String getImagem() {
-		return imagem;
+	
+	
+	
+	
+	public String getFotoIconBase64() {
+		return fotoIconBase64;
 	}
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
+	public void setFotoIconBase64(String fotoIconBase64) {
+		this.fotoIconBase64 = fotoIconBase64;
 	}
-	
-	
-	
-	
+	public String getExtensao() {
+		return extensao;
+	}
+	public void setExtensao(String extensao) {
+		this.extensao = extensao;
+	}
+	public byte[] getFotoIconbase64original() {
+		return fotoIconbase64original;
+	}
+	public void setFotoIconbase64original(byte[] fotoIconbase64original) {
+		this.fotoIconbase64original = fotoIconbase64original;
+	}
 	public List<Clientes> getClientes() {
 		return clientes;
 	}

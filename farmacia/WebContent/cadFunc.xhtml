@@ -29,15 +29,15 @@
 	<br></br>
 	<div class="formulario">
 
-		<h:form id="form_func" styleClass="form1">
+		<h:form id="form_func" styleClass="form1" enctype="multipart/form-data">
 
 			<p:panelGrid columns="4"  styleClass="painel">
 			<p:outputLabel value="Foto:"></p:outputLabel>
 			
-			<h:graphicImage id="imagem" value="#{FuncBean.funcionarios.imagem}" styleClass="Imagem"></h:graphicImage>
+			<h:graphicImage id="imagem" value="#{FuncBean.funcionarios.fotoIconBase64}" styleClass="Imagem"></h:graphicImage>
 				
 				
-				<p:fileUpload mode="simple" auto="true" update="imagem"  skinSimple="true" label="Adicionar"  listener="#{FuncBean.upload}" ></p:fileUpload>
+				<p:fileUpload mode="simple" auto="true" update="imagem" value="#{FuncBean.arquivofoto}"  skinSimple="true" label="Adicionar"  listener="#{FuncBean.upload}" ></p:fileUpload>
 				<p:outputLabel></p:outputLabel>
 				
 				<p:outputLabel id="nome">Nome:</p:outputLabel>

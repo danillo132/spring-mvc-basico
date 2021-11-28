@@ -8,7 +8,7 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<h:outputStylesheet library="css" name="cadFunc.css"></h:outputStylesheet>
-	<title>Todos funcionários</title>
+	<title>Todos fornecedores</title>
 </h:head>
 
 <h:body style="height: 100%;
@@ -21,7 +21,7 @@
 	<ui:include src="/menu.xhtml" />
 	<div class="titulo">
 	<p:commandButton icon="pi pi-list" value="Menu" type="button" onclick="PF('sidebar1').show()" styleClass="botaoMenu" />
-		<p:outputLabel styleClass="title">Todos Funcionários</p:outputLabel>
+		<p:outputLabel styleClass="title">Todos Fornecedores</p:outputLabel>
 	</div>
 	<p:growl id="growl" showDetail="true" />
 <p:growl id="erro" showDetail="true" styleClass="ui-button-danger" style="width: 10rem"/>
@@ -30,12 +30,12 @@
 
 		<h:form id="form_fornecedorLista" styleClass="formData">
 			
-			<p:dataTable id="dataFornecedores" value="#{FornecedoresBean.fornecedoreslazy}" var="fornecedor" rows="5" paginator="true" lazy="true" 
+			<p:dataTable id="dataFornecedores" value="#{FornecedoresBean.fornecedoreslazy}" var="fornecedor" rows="4" paginator="true" lazy="true" 
 			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
 			
 			<f:facet name="header">
 			<div class="dataTitle" style="font-size: 20px;">
-						Lista de Funcionários
+						Lista de Fornecedores
 						</div>
 						
 						<div>
@@ -45,7 +45,12 @@
 			</f:facet>
 			<p:column>
 					<f:facet name="header">Nome da empresa</f:facet>
-					<h:outputText value="#{fornecedor.nomeEmpresa}"></h:outputText>
+					<h:commandLink actionListener="#{FornecedoresBean.download}">
+					<h:graphicImage value="#{fornecedor.fotoIconBase64}" styleClass="miniaturadata" rendered="#{!empty fornecedor.fotoIconBase64}">
+					</h:graphicImage>
+					<f:param value="#{fornecedor.id}" name="FiledownloadId"></f:param>
+					</h:commandLink>
+					<h:outputText value="#{fornecedor.nomeEmpresa}" style="margin-left: 10px !important; position: relative; float: right; margin-top: 10px;"></h:outputText>
 				</p:column>
 				
 				<p:column>

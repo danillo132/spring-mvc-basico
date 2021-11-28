@@ -16,8 +16,6 @@
 	display: block;
 	background-color:  #FFFFFF;
 	width: 100%;
-	
-	background-color: #F5F4F6;
 }
 
 
@@ -31,11 +29,12 @@
     margin-right: -0.5rem;
     margin-left: 0.3rem;
     margin-top: 70px;
-   margin-bottom: 20px !important;
+   
    padding-bottom: 100px;
     width: 99%;
     height: 100vh;
 }
+
 
 
 
@@ -135,6 +134,12 @@
 	font-size: 32px;
 }
 
+.pi-id-card{
+	color: #FFFFFF;
+	float: right;
+	font-size: 32px;
+}
+
 
 .paineltitle{
 	margin-top: 2px;
@@ -156,6 +161,14 @@
     
 	
 	 color: #FFFFFF;
+}
+
+.miniaturadata{
+	width: 45px !important;
+	height: 45px !important;
+	border-radius: 100% !important;
+	position: relative !important;
+	display: inline-flex !important;
 }
 
 .numeros{
@@ -348,6 +361,7 @@
 
 .datatablefunc{
 	height: 450px !important;
+	overflow: auto;
 }
 
 

@@ -57,6 +57,14 @@
 		
 }
 
+.miniaturadata{
+	width: 45px !important;
+	height: 45px !important;
+	border-radius: 100% !important;
+	position: relative !important;
+	display: inline-flex !important;
+}
+
 .formularioData{
 	display:flex;
 	position: relative;

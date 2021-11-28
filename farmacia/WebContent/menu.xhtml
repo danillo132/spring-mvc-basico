@@ -49,15 +49,15 @@
 				icon="pi pi-folder-open"
 				rendered="#{FuncBean.permiteAcesso('Gerente')}">
 				<p:submenu label="Clientes" styleClass="submenu" icon="pi pi-user">
-					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf"
-						styleClass="submenu" />
+					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf" 
+						styleClass="submenu"></p:menuitem>
 					<p:menuitem value="Gerar Excel" icon="pi pi-file-excel"
 						styleClass="submenu" />
 				</p:submenu>
 				<p:submenu label="Funcionários" styleClass="submenu"
 					icon="pi pi-id-card">
 					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf"
-						styleClass="submenu" />
+						styleClass="submenu" action="#{FuncBean.relatorioFunc}" ><f:param value="PDF" name="tipoExportar"></f:param> </p:menuitem>
 					<p:menuitem value="Gerar Excel" icon="pi pi-file-excel"
 						styleClass="submenu" />
 				</p:submenu>
@@ -76,8 +76,8 @@
 			<p:submenu label="Gráficos" styleClass="submenu"
 				icon="pi pi-chart-bar"
 				rendered="#{FuncBean.permiteAcesso('Gerente')}">
-				<p:menuitem value="Clientes" icon="pi pi-user" styleClass="submenu"  />
-				<p:menuitem value="Receitas" icon="pi pi-shopping-cart"
+				<p:menuitem value="Clientes" icon="pi pi-user" styleClass="submenu" url="GraficosCliente.jsf"  />
+				<p:menuitem value="Empresa" icon="pi pi-shopping-cart" url="Graficos.jsf"
 					styleClass="submenu" />
 			</p:submenu>
 
@@ -113,7 +113,7 @@
 				rendered="#{FuncBean.permiteAcesso('Gerente')}"></p:menuitem>
 
 			<p:divider style="background-color: black !important;" />
-			<p:menuitem value="Sair" url="index.jsf"
+			<p:menuitem value="Sair" 
 				action="#{FuncBean.deslogar}" icon="pi pi-fw pi-power-off"></p:menuitem>
 
 

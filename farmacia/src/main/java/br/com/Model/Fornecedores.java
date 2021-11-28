@@ -2,11 +2,14 @@ package br.com.Model;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Fornecedores implements Serializable {
@@ -32,18 +35,38 @@ public class Fornecedores implements Serializable {
 	private String uf;
 	private String telefoneFornecedor;
 	
-	@Column(columnDefinition = "text")
-	private String imagem;
+	
+	@Column(columnDefinition = "text") // tipo text grava arquivos em base 64
+	private String fotoIconBase64;
+
+	private String extensao; // Extensao jpg, png, jpg, etc
+
+	@Lob // Gravar arquivos no banco de dados
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] fotoIconbase64original;
 	
 	
 	
 	
 	
-	public String getImagem() {
-		return imagem;
+	
+	public String getFotoIconBase64() {
+		return fotoIconBase64;
 	}
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
+	public void setFotoIconBase64(String fotoIconBase64) {
+		this.fotoIconBase64 = fotoIconBase64;
+	}
+	public String getExtensao() {
+		return extensao;
+	}
+	public void setExtensao(String extensao) {
+		this.extensao = extensao;
+	}
+	public byte[] getFotoIconbase64original() {
+		return fotoIconbase64original;
+	}
+	public void setFotoIconbase64original(byte[] fotoIconbase64original) {
+		this.fotoIconbase64original = fotoIconbase64original;
 	}
 	public Long getId() {
 		return id;

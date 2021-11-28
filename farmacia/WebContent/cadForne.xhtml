@@ -29,15 +29,15 @@
 	<br></br>
 	<div class="formulario">
 
-		<h:form id="form_fornecedor" styleClass="form1">
+		<h:form id="form_fornecedor" styleClass="form1" enctype="multipart/form-data">
 
 			<p:panelGrid columns="4"  styleClass="painel">
 			<p:outputLabel value="Foto:"></p:outputLabel>
 			
-			<h:graphicImage id="imagem" value="#{FornecedoresBean.fornecedores.imagem}" styleClass="Imagem"></h:graphicImage>
+			<h:graphicImage id="imagem" value="#{FornecedoresBean.fornecedores.fotoIconBase64}" styleClass="Imagem"></h:graphicImage>
 				
 				
-				<p:fileUpload mode="simple" auto="true" update="imagem"  skinSimple="true" label="Adicionar"  listener="#{FornecedoresBean.upload}" ></p:fileUpload>
+				<p:fileUpload mode="simple" auto="true" update="imagem" value="#{FornecedoresBean.arquivofoto}"  skinSimple="true" label="Adicionar"  listener="#{FornecedoresBean.upload}" ></p:fileUpload>
 				<p:outputLabel></p:outputLabel>
 				
 				<p:outputLabel id="nome">Nome da empresa:</p:outputLabel>

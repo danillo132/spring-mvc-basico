@@ -43,7 +43,9 @@ public class FilterAutenticacao implements Filter {
 		
 		if(!url.equalsIgnoreCase("index.jsf") && funcionarioLogado == null) {
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsf");
+			
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsf");
 			dispatcher.forward(request, response);
 			return;
 			
@@ -55,7 +57,7 @@ public class FilterAutenticacao implements Filter {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

@@ -30,11 +30,20 @@
 <div class="formularioData">
 
 		<h:form id="form_funclista" styleClass="formData">
-			
+				
 			<p:dataTable id="dataEstoqueMateria" value="#{MateriaBean.materiaLista}" var="materia" rows="5" paginator="true" lazy="true" 
 			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
 			
 			<f:facet name="header">
+			
+			 <p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2 botaoData" style="margin-right: 10px !important;">
+                    <p:dataExporter type="pdf" target="dataEstoqueMateria" fileName="Materia-prima"/>
+                </p:commandButton>
+                
+                 <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2 botaoData">
+                    <p:dataExporter type="xls" target="dataEstoqueMateria" fileName="Materia-prima"/>
+                </p:commandButton>
+			
 			<div class="dataTitle" style="font-size: 20px;">
 						Lista de Matérias-primas
 						</div>
@@ -78,14 +87,14 @@
 					<h:outputText value="#{materia.fornecedor}"></h:outputText>
 				</p:column>
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header" >Editar</f:facet>
 					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar"   action="#{MateriaBean.editarMateria}"  styleClass="botaoeditar" >
 						<f:param name="idMateria" value="#{materia.id}"></f:param>
 					</p:commandButton>
 				</p:column>
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header">Deletar</f:facet>
 					<p:commandButton action="#{MateriaBean.removerMateria}" value="Deletar"  icon="pi pi-trash"   update="dataEstoqueMateria growl erro"  styleClass="botaodeletar" >
 					<p:confirm header="Confirmação" message="Tem certeza que deseja deletar?" icon="pi pi-exclamation-triangle"/>
@@ -113,6 +122,14 @@
 			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
 			
 			<f:facet name="header">
+			
+			<p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2 botaoData" style="margin-right: 10px !important;">
+                    <p:dataExporter type="pdf" target="dataEstoqueEmbalagem" fileName="Embalagens"/>
+                </p:commandButton>
+                
+                 <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2 botaoData">
+                    <p:dataExporter type="xls" target="dataEstoqueEmbalagem" fileName="Embalagens"/>
+                </p:commandButton>
 			<div class="dataTitle" style="font-size: 20px;">
 						Lista de Embalagens
 						</div>
@@ -152,14 +169,14 @@
 					<h:outputText value="#{embalagem.fornecedor}"></h:outputText>
 				</p:column>
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header" >Editar</f:facet>
 					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar"   action="#{EmbalagemBean.editarEmbalagem}"  styleClass="botaoeditar" >
 						<f:param name="idEmbalagem" value="#{embalagem.id}"></f:param>
 					</p:commandButton>
 				</p:column>
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header">Deletar</f:facet>
 					<p:commandButton action="#{EmbalagemBean.removerEmbalagem}" value="Deletar"  icon="pi pi-trash"   update="dataEstoqueEmbalagem growl erro"  styleClass="botaodeletar" >
 					<p:confirm header="Confirmação" message="Tem certeza que deseja deletar?" icon="pi pi-exclamation-triangle"/>
@@ -185,6 +202,14 @@
 			paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink}" styleClass="datatablefunc">
 			
 			<f:facet name="header">
+			
+			<p:commandButton value="PDF" styleClass="p-mr-2 p-mb-2 botaoData" style="margin-right: 10px !important;">
+                    <p:dataExporter type="pdf" target="dataEstoqueEquipamentos" fileName="Equipamentos"/>
+                </p:commandButton>
+                
+                 <p:commandButton value="XLS" styleClass="p-mr-2 p-mb-2 botaoData">
+                    <p:dataExporter type="xls" target="dataEstoqueEquipamentos" fileName="Equipamentos"/>
+                </p:commandButton>
 			<div class="dataTitle" style="font-size: 20px;">
 						Lista de Equipamentos
 						</div>
@@ -220,14 +245,14 @@
 				</p:column>
 				
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header" >Editar</f:facet>
 					<p:commandButton  value="Editar" icon="pi pi-user-edit" id="botaoeditar"   action="#{EquipamentosBean.editarEquipamento}"  styleClass="botaoeditar" >
 						<f:param name="idEquipamento" value="#{equipamento.id}"></f:param>
 					</p:commandButton>
 				</p:column>
 				
-				<p:column>
+				<p:column exportable="false">
 					<f:facet name="header">Deletar</f:facet>
 					<p:commandButton action="#{EquipamentosBean.removerEquipamento}" value="Deletar"  icon="pi pi-trash"   update="dataEstoqueEquipamentos growl erro"  styleClass="botaodeletar" >
 					<p:confirm header="Confirmação" message="Tem certeza que deseja deletar?" icon="pi pi-exclamation-triangle"/>
