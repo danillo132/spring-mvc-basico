@@ -22,10 +22,10 @@ public class Pedidos implements Serializable {
 
 	private String medico;
 	@Temporal(TemporalType.DATE)
-	private Date dataPedido;
+	private Date datapedido;
 
 	@Temporal(TemporalType.DATE)
-	private Date dataEntrega;
+	private Date dataentrega;
 	private String crm;
 	private String medicamentoTipo;
 	private String materiaprima1;
@@ -72,11 +72,11 @@ public class Pedidos implements Serializable {
 	private Double quantidade21;
 	private String materiaprima22;
 	private Double quantidade22;
-	private Double Preco;
+	private Double preco;
 	private String status;
-	private String clienteNome;
+	private String clientenome;
 	private String clienteSobrenome;
-	private String cpfCliente;
+	private String cpfcliente;
 	private Integer statusEntregueTotal;
 	
 	
@@ -94,12 +94,11 @@ public class Pedidos implements Serializable {
 		this.crm = crm;
 	}
 
-	public String getClienteNome() {
-		return clienteNome;
+	public String getClientenome() {
+		return clientenome;
 	}
-
-	public void setClienteNome(String clienteNome) {
-		this.clienteNome = clienteNome;
+	public void setClientenome(String clientenome) {
+		this.clientenome = clientenome;
 	}
 
 	public String getClienteSobrenome() {
@@ -110,13 +109,7 @@ public class Pedidos implements Serializable {
 		this.clienteSobrenome = clienteSobrenome;
 	}
 
-	public String getCpfCliente() {
-		return cpfCliente;
-	}
-
-	public void setCpfCliente(String cpfCliente) {
-		this.cpfCliente = cpfCliente;
-	}
+	
 
 	public void setStatus(String status) {
 		this.status = status;
@@ -145,21 +138,9 @@ public class Pedidos implements Serializable {
 		this.medico = medico;
 	}
 
-	public Date getDataPedido() {
-		return dataPedido;
-	}
 
-	public void setDataPedido(Date dataPedido) {
-		this.dataPedido = dataPedido;
-	}
 
-	public Date getDataEntrega() {
-		return dataEntrega;
-	}
-
-	public void setDataEntrega(Date dataEntrega) {
-		this.dataEntrega = dataEntrega;
-	}
+	
 
 	public String getMedicamentoTipo() {
 		return medicamentoTipo;
@@ -439,6 +420,40 @@ public class Pedidos implements Serializable {
 	public String getMateriaprima17() {
 		return materiaprima17;
 	}
+	
+	
+
+	public Date getDatapedido() {
+		return datapedido;
+	}
+
+	public void setDatapedido(Date datapedido) {
+		this.datapedido = datapedido;
+	}
+
+	public Date getDataentrega() {
+		return dataentrega;
+	}
+
+	public void setDataentrega(Date dataentrega) {
+		this.dataentrega = dataentrega;
+	}
+
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public String getCpfcliente() {
+		return cpfcliente;
+	}
+
+	public void setCpfcliente(String cpfcliente) {
+		this.cpfcliente = cpfcliente;
+	}
 
 	public void setMateriaprima17(String materiaprima17) {
 		this.materiaprima17 = materiaprima17;
@@ -532,13 +547,7 @@ public class Pedidos implements Serializable {
 		this.quantidade22 = quantidade22;
 	}
 
-	public Double getPreco() {
-		return Preco;
-	}
-
-	public void setPreco(Double preco) {
-		Preco = preco;
-	}
+	
 
 	public Clientes getClientes() {
 		return clientes;
@@ -575,10 +584,10 @@ public class Pedidos implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pedidos [id=" + id + ", medico=" + medico + ", dataPedido=" + dataPedido + ", dataEntrega="
-				+ dataEntrega + ", medicamentoTipo=" + medicamentoTipo + ", materiaprima1=" + materiaprima1
-				+ ", quantidade1=" + quantidade1 + ", materiaprima2=" + materiaprima2 + ", quantidade2=" + quantidade2
-				+ ", materiaprima3=" + materiaprima3 + ", quantidade3=" + quantidade3 + ", materiaprima4="
+		return "Pedidos [id=" + id + ", medico=" + medico + ", datapedido=" + datapedido + ", dataentrega="
+				+ dataentrega + ", crm=" + crm + ", medicamentoTipo=" + medicamentoTipo + ", materiaprima1="
+				+ materiaprima1 + ", quantidade1=" + quantidade1 + ", materiaprima2=" + materiaprima2 + ", quantidade2="
+				+ quantidade2 + ", materiaprima3=" + materiaprima3 + ", quantidade3=" + quantidade3 + ", materiaprima4="
 				+ materiaprima4 + ", quantidade4=" + quantidade4 + ", materiaprima5=" + materiaprima5 + ", quantidade5="
 				+ quantidade5 + ", materiaprima6=" + materiaprima6 + ", quantidade6=" + quantidade6 + ", materiaprima7="
 				+ materiaprima7 + ", quantidade7=" + quantidade7 + ", materiaprima8=" + materiaprima8 + ", quantidade8="
@@ -593,10 +602,12 @@ public class Pedidos implements Serializable {
 				+ quantidade18 + ", materiaprima19=" + materiaprima19 + ", quantidade19=" + quantidade19
 				+ ", materiaprima20=" + materiaprima20 + ", quantidade20=" + quantidade20 + ", materiaprima21="
 				+ materiaprima21 + ", quantidade21=" + quantidade21 + ", materiaprima22=" + materiaprima22
-				+ ", quantidade22=" + quantidade22 + ", Preco=" + Preco + ", status=" + status + ", clienteNome="
-				+ clienteNome + ", clienteSobrenome=" + clienteSobrenome + ", cpfCliente=" + cpfCliente + ", clientes="
-				+ clientes + "]";
+				+ ", quantidade22=" + quantidade22 + ", preco=" + preco + ", status=" + status + ", clientenome="
+				+ clientenome + ", clienteSobrenome=" + clienteSobrenome + ", cpfcliente=" + cpfcliente
+				+ ", statusEntregueTotal=" + statusEntregueTotal + ", clientes=" + clientes + "]";
 	}
+
+	
 
 	
 	

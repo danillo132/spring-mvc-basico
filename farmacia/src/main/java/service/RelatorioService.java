@@ -1,6 +1,9 @@
 package service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +11,14 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
+import br.com.Model.Funcionarios;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -23,77 +31,48 @@ public class RelatorioService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private HttpServletResponse response;
+	private FacesContext context;
+	private ByteArrayOutputStream baos;
+	private InputStream stream;
 	
-	private static final String FOLDER_RELATORIOS = "/br.com.Relatorios";
-	private static final String SUBREPORT_DIR = "SUBREPORT_DIR";
-	private  String SEPARATOR = File.separator;
-	private  String caminhoArquivoRelatorio = null;
-	private JRExporter exporter = null;
-	private String caminhoSubReport_Dir = "";
-	private File arquivoGerado = null;
+	public RelatorioService() {
+		this.context = FacesContext.getCurrentInstance();
+		this.response = (HttpServletResponse) context.getExternalContext().getResponse();
+		
+	}
 	
-	
-	public String gerarRelatorio(List<?> listaDataBeanCollection, HashMap parametrosRelatorio,
-			String nomeRelatorioJasper,String nomeRelatorioSaida) throws Exception {
-		
-		//Cria a lista de collection dataSource de beans QUE CARREGAM OS DADOS PARA O RELATORIO
-		JRBeanCollectionDataSource jrbcds = new JRBeanCollectionDataSource(listaDataBeanCollection, false);
-		
-		String caminhoRelatorio = "C:\\Users\\danil\\git\\repositorioPadrao\\farmacia\\src\\main\\java\\br\\com\\Relatorios";
-		
-		File file = new File(caminhoRelatorio + SEPARATOR + nomeRelatorioJasper + ".jasper");
-		
-		if(caminhoRelatorio == null || (caminhoRelatorio != null && caminhoRelatorio.isEmpty())
-				|| !file.exists()) {
-			
-			caminhoRelatorio = this.getClass().getResource(FOLDER_RELATORIOS).getPath();
-			SEPARATOR = "";
+	public void gerarRelatorio(List<?> funcionarios,String classe) throws IOException {
+		stream = this.getClass().getResourceAsStream("/br/com/Relatorios/"+classe+".jasper");
+		Map<String, Object> params = new HashMap<String, Object>();
+		baos = new ByteArrayOutputStream();
+		ServletOutputStream servletOutputStream = response.getOutputStream();
+		try {
+			JasperReport report = (JasperReport) JRLoader.loadObject(stream);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, new JRBeanCollectionDataSource(funcionarios));
 			
 			
+			JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
+			
+		
+			response.reset();
+		
+			response.setContentType("application/pdf");
+			response.setContentLength(baos.size());
+			response.setHeader("Content-disposition", "inline; filename = relatorio.pdf");
+			servletOutputStream.write(baos.toByteArray());
+			servletOutputStream.flush();
+			servletOutputStream.close();
+			
+			context.responseComplete();
+		} catch (JRException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		//caminho para imagens
-		parametrosRelatorio.put("REPORT_PARAMETERS_IMG", caminhoRelatorio);
 		
-		
-		//caminho completo até o relatório compilado indicado
-		String caminhoArquivosJasper =  caminhoRelatorio + SEPARATOR + nomeRelatorioJasper + ".jasper";
-		
-		//faz o carregamento do relatorio
-		
-		JasperReport relatorioJasper  = (JasperReport) JRLoader.loadObjectFromFile(caminhoArquivosJasper);
-		
-		caminhoSubReport_Dir = caminhoRelatorio + SEPARATOR;
-		parametrosRelatorio.put(SUBREPORT_DIR, caminhoSubReport_Dir);
-		
-		
-		//carrega o arquivo
-		
-		JasperPrint impressoraJasper = JasperFillManager.fillReport(relatorioJasper, parametrosRelatorio, jrbcds);
-		
-		
-		exporter = new JRPdfExporter();
-				
-		//caminho relatorio exportado
-		
-		caminhoArquivoRelatorio = caminhoRelatorio + SEPARATOR + nomeRelatorioSaida + ".pdf";
-		
-		
-		//criar novo arquivo exportado
-		
-		arquivoGerado = new File(caminhoArquivoRelatorio);
-		
-		
-		//prepara a impressão
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, impressoraJasper);
-		
-		exporter.setParameter(JRExporterParameter.OUTPUT_FILE, arquivoGerado);
-		
-		//executa a exportação
-		exporter.exportReport();
-		
-		arquivoGerado.deleteOnExit();
-		
-		return caminhoArquivoRelatorio;
 	}
 	
 }

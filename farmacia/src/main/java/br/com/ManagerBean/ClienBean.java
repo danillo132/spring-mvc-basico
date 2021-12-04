@@ -61,6 +61,7 @@ import br.com.Model.Orcamentos;
 import br.com.Model.Pedidos;
 import br.com.emails.EnviarEmail;
 import br.com.lazyDataTable.LazyClientes;
+import service.RelatorioService;
 
 @ManagedBean(name = "ClienBean")
 @SessionScoped
@@ -78,6 +79,7 @@ public class ClienBean {
 	private List<Clientes> listaClientes = new ArrayList<Clientes>();
 	private DonutChartModel donutChart = new DonutChartModel();
 	private DonutChartModel donutChartCidades = new DonutChartModel();
+	private RelatorioService relatorioService = new RelatorioService();
 	
 	private UploadedFile arquivofoto;
 
@@ -399,6 +401,24 @@ StringBuilder stringBuilderTextoEmail = new StringBuilder();
 				stringBuilderTextoEmail.toString());
 		
 		email.enviaEmail(true);
+	}
+	
+	public void relatorioCliente() {
+		try {
+			
+			List<Clientes> clientes = daoCliente.listar(Clientes.class);
+			
+			
+			
+			relatorioService.gerarRelatorio(clientes,"clientes");
+			
+			
+			
+		}catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

@@ -16,6 +16,7 @@ import br.com.Model.Orcamentos;
 import br.com.Model.Pedidos;
 import br.com.lazyDataTable.LazyOrcamentos;
 import br.com.lazyDataTable.LazyPedidos;
+import service.RelatorioService;
 
 @ManagedBean(name = "PedidosBean")
 @SessionScoped
@@ -31,6 +32,7 @@ public class PedidosBean {
 	private LazyPedidos<Pedidos> pedidosLista = new LazyPedidos<Pedidos>();
 	private LazyOrcamentos<Orcamentos> orcamentoslista = new LazyOrcamentos<Orcamentos>();
 	private String campoPesquisa;
+	private RelatorioService relatorioService = new RelatorioService();
 	
 	
 	@PostConstruct
@@ -49,8 +51,8 @@ public class PedidosBean {
 		pedidos.setClientes(orcamentos.getClientes());
 		pedidos.setMedico(orcamentos.getNomeMedico());
 		pedidos.setCrm(orcamentos.getCrm());
-		pedidos.setDataPedido(orcamentos.getDataInicial());
-		pedidos.setDataEntrega(orcamentos.getDataFinal());
+		pedidos.setDatapedido(orcamentos.getDataInicial());
+		pedidos.setDataentrega(orcamentos.getDataFinal());
 		pedidos.setMedicamentoTipo(orcamentos.getTipoMedicamento());
 		pedidos.setMateriaprima1(orcamentos.getFarmaco1());
 		pedidos.setQuantidade1(orcamentos.getDosagem1());
@@ -98,9 +100,9 @@ public class PedidosBean {
 		pedidos.setQuantidade22(orcamentos.getDosagem22());
 		pedidos.setPreco(orcamentos.getPrecoTotal());
 		pedidos.setStatus("Não entregue");
-		pedidos.setClienteNome(orcamentos.getClientes().getNome());
+		pedidos.setClientenome(orcamentos.getClientes().getNome());
 		pedidos.setClienteSobrenome(orcamentos.getClientes().getSobrenome());
-		pedidos.setCpfCliente(orcamentos.getClientes().getCpf());
+		pedidos.setCpfcliente(orcamentos.getClientes().getCpf());
 		
 		daoPedidos.salvar(pedidos);
 		pedidosLista.list.add(pedidos);
@@ -189,6 +191,24 @@ public class PedidosBean {
 		}
 		
 		return "";
+	}
+	
+	public void relatorioReceitas() {
+		try {
+			
+			List<Pedidos> pedidos = daoPedidos.listar(Pedidos.class);
+			
+			
+			
+			relatorioService.gerarRelatorio(pedidos,"receitas");
+			
+			
+			
+		}catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

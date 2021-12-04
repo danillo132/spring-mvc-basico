@@ -1,7 +1,9 @@
 package br.com.Filter;
 
 import java.io.IOException;
+import java.util.Map;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -42,12 +44,14 @@ public class FilterAutenticacao implements Filter {
 		String url = req.getServletPath();
 		
 		if(!url.equalsIgnoreCase("index.jsf") && funcionarioLogado == null) {
+		
+			
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsf");
+				dispatcher.forward(request, response);
+				return;
 			
 			
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsf");
-			dispatcher.forward(request, response);
-			return;
 			
 		}else {
 			chain.doFilter(request, response);

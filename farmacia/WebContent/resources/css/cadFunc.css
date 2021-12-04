@@ -178,5 +178,13 @@
 	
 }
 
+@media (max-width: 576px){
+	
+	.form1{
+		display: block;
+	
+	}
+	}
+
 
 

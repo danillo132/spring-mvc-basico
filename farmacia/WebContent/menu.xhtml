@@ -50,26 +50,26 @@
 				rendered="#{FuncBean.permiteAcesso('Gerente')}">
 				<p:submenu label="Clientes" styleClass="submenu" icon="pi pi-user">
 					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf" 
-						styleClass="submenu"></p:menuitem>
-					<p:menuitem value="Gerar Excel" icon="pi pi-file-excel"
-						styleClass="submenu" />
+						styleClass="submenu" action="#{ClienBean.relatorioCliente}" ajax="false" target="_blank">
+						</p:menuitem>
+					
 				</p:submenu>
 				<p:submenu label="Funcionários" styleClass="submenu"
 					icon="pi pi-id-card">
 					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf"
-						styleClass="submenu" action="#{FuncBean.relatorioFunc}" ><f:param value="PDF" name="tipoExportar"></f:param> </p:menuitem>
-					<p:menuitem value="Gerar Excel" icon="pi pi-file-excel"
-						styleClass="submenu" />
+						styleClass="submenu" action="#{FuncBean.relatorioFunc}" ajax="false" target="_blank">
+							</p:menuitem>
+					
 				</p:submenu>
-
+					
 				<p:submenu label="Receitas" styleClass="submenu"
-					icon="pi pi-shopping-cart
-			">
+					icon="pi pi-shopping-cart">
 
 					<p:menuitem value="Gerar PDF" icon="pi pi-file-pdf"
-						styleClass="submenu" />
-					<p:menuitem value="Gerar Excel" icon="pi pi-file-excel"
-						styleClass="submenu" />
+						styleClass="submenu" action="#{PedidosBean.relatorioReceitas}" ajax="false" target="_blank">
+						</p:menuitem>
+						 
+					
 				</p:submenu>
 
 			</p:submenu>
@@ -89,7 +89,6 @@
 					<p:menuitem value="Cadastrar/atualizar embalagens" icon="pi pi-save" styleClass="submenu" url="cadEmbalagens.jsf"></p:menuitem>
 					<p:menuitem value="Cadastrar/atualizar equipamentos" icon="pi pi-save" styleClass="submenu" url="cadEquipamentos.jsf"></p:menuitem>
 					<p:menuitem value="Listar Estoque" icon="pi pi-list" url="estoqueLista.jsf" styleClass="submenu"></p:menuitem>
-					<p:menuitem value="Estoque produtos" icon="pi pi-list" styleClass="submenu"></p:menuitem>
 
 			</p:submenu>
 			<p:submenu label="Fornecedores" styleClass="submenu"

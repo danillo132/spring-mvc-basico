@@ -69,7 +69,7 @@
 				
 				<p:column>
 					<f:facet name="header">Data de realização</f:facet>
-					<h:outputText value="#{pedido.dataPedido}">
+					<h:outputText value="#{pedido.datapedido}">
 					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 					timeZone="GMT-03:00"></f:convertDateTime>
 					</h:outputText>
@@ -77,7 +77,7 @@
 				
 				<p:column>
 					<f:facet name="header">Data de entrega</f:facet>
-					<h:outputText value="#{pedido.dataEntrega}">
+					<h:outputText value="#{pedido.dataentrega}">
 					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 					timeZone="GMT-03:00"></f:convertDateTime>
 					</h:outputText>
@@ -125,14 +125,14 @@
         <p:panelGrid columns="4"  styleClass="painel">
 			
 					<p:outputLabel id="nomecliente" styleClass="dialogoutput">Nome do cliente:</p:outputLabel>
-				<p:outputLabel value="#{PedidosBean.pedidos.clienteNome}" styleClass="dialogoutput" ></p:outputLabel>
+				<p:outputLabel value="#{PedidosBean.pedidos.clientenome}" styleClass="dialogoutput" ></p:outputLabel>
 				
 				<p:outputLabel id="sobrenomecliente" styleClass="dialogoutput">Sobrenome do cliente:</p:outputLabel>
 				<p:outputLabel value="#{PedidosBean.pedidos.clienteSobrenome}" styleClass="dialogoutput"></p:outputLabel>
 				
 				
 				<p:outputLabel id="cpfcliente" styleClass="dialogoutput">CPF do cliente:</p:outputLabel>
-				<p:outputLabel value="#{PedidosBean.pedidos.cpfCliente}"  styleClass="dialogoutput"></p:outputLabel>			
+				<p:outputLabel value="#{PedidosBean.pedidos.cpfcliente}"  styleClass="dialogoutput"></p:outputLabel>			
 				
 				
 				<p:outputLabel id="nomemedico" styleClass="dialogoutput">Nome do médico:</p:outputLabel>
@@ -149,13 +149,13 @@
 			
 				
 				<p:outputLabel id="realizacao" styleClass="dialogoutput">Data de realização:</p:outputLabel>
-				<p:outputLabel value="#{PedidosBean.pedidos.dataPedido}" styleClass="dialogoutput">
+				<p:outputLabel value="#{PedidosBean.pedidos.datapedido}" styleClass="dialogoutput">
 				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 					timeZone="GMT-03:00"></f:convertDateTime>
 				</p:outputLabel>
 				
 				<p:outputLabel id="entrega" styleClass="dialogoutput">Data de entrega:</p:outputLabel>
-				<p:outputLabel value="#{PedidosBean.pedidos.dataEntrega}" styleClass="dialogoutput">
+				<p:outputLabel value="#{PedidosBean.pedidos.dataentrega}" styleClass="dialogoutput">
 				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 					timeZone="GMT-03:00"></f:convertDateTime>
 				</p:outputLabel>

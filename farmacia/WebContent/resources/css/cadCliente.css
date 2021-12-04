@@ -364,6 +364,53 @@
 	overflow: auto;
 }
 
+@media (max-width: 576px){
+	
+	.paineisgrid{
+			display: block !important;
+			width: 90% !important;
+	}
+	
+	.painel1{
+			width: 100% !important;
+		}
+		
+		.painel2{
+			width: 100% !important;
+		}
+		
+		.painel3{
+			width: 100% !important;
+		}
+		
+		.painel4{
+			width: 100% !important;
+		}
+		
+		.formularioGraficoSalario{
+		margin-top: 100% !important;
+		width: 95% !important;
+		}
+		
+		.grafic{
+		width:78% !important;
+		margin-right: 5px !important;
+		}
+		
+		.title{
+			margin-left: 22%;
+		}
+		.formularioequipe{
+			height: 500px;
+			width: 516px !important;
+		}
+		
+		.datatablefunc{
+			width: 476px !important;
+		
+			overflow-x: scroll !important;
+		}
+	}
 
 
 

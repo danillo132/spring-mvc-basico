@@ -21,6 +21,7 @@ import org.primefaces.model.charts.donut.DonutChartModel;
 import org.primefaces.model.charts.donut.DonutChartOptions;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -745,41 +746,14 @@ public String consultarEmail() throws Exception {
 	public void relatorioFunc() {
 		try {
 			
-			String tipoExportar = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("tipoExportar");
 			List<Funcionarios> funcs = daoFunc.listar(Funcionarios.class);
 			
-			List dados = new ArrayList();
-			dados.add(funcs);
-			
-			String fileUrl = relatorioService.gerarRelatorio(dados, new HashMap(), "funcionarios", "funcionarios");
-			
-			File donwloadFIle = new File(fileUrl);
-			FileInputStream inputStream = new FileInputStream(donwloadFIle);
-			
 		
 			
-			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 			
-		
-			response.setContentLength((int) donwloadFIle.length());
-			String headerKey = "Content-Disposition";
-			String headerValue = String.format("attachment; filename=\"%s\"", donwloadFIle.getName());
-			response.setHeader(headerKey, headerValue);
-			
-			OutputStream outputStream = response.getOutputStream();
-			
-			byte[] buffer = new byte[4096];
-			int byteReader = -1;
+			relatorioService.gerarRelatorio(funcs,"funcionarios");
 			
 			
-			while((byteReader = inputStream.read(buffer)) != -1) {
-				outputStream.write(buffer,0,byteReader);
-				
-				
-			}
-			
-			inputStream.close();
-			outputStream.close();
 			
 		}catch (Exception e) {
 
