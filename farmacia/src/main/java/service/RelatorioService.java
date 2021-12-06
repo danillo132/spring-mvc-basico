@@ -56,7 +56,6 @@ public class RelatorioService implements Serializable {
 			
 		
 			response.reset();
-		
 			response.setContentType("application/pdf");
 			response.setContentLength(baos.size());
 			response.setHeader("Content-disposition", "inline; filename = relatorio.pdf");

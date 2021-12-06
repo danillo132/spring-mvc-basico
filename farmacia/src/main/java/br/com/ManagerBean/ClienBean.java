@@ -391,10 +391,23 @@ ChartData dataPedidos = new ChartData();
 	public void enviarEmailCliente(String emailCliente, String assunto, String nomeCliente) throws Exception {
 		
 StringBuilder stringBuilderTextoEmail = new StringBuilder();
-		
-		stringBuilderTextoEmail.append("<h2 style=\"text-align:center; \">Olá,'"+nomeCliente+"'</h2>");
-		stringBuilderTextoEmail.append("<h4 style=\"text-align:center;\">Nós da Fármacia Momentum Agradecemos Pela Preferência, quando um orçamento/pedido for cadastrado você receberá um email como esse juntamente com um pdf contendo informações referentes ao cadastro </h4> <br><br>");
-		
+		stringBuilderTextoEmail.append("<html>" +
+                "<body style=\"font-family:'Roboto', sans-serif; src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap'); color: #E8EDDF\">" +"<div style=\"width: 100%; height: 100vh; display: block;\">");
+		stringBuilderTextoEmail.append("<div style=\"width: 100%; height: 20%; background-color: #45DB3E\">"
+				+ "<h2 style=\"text-align:center;  color: #E8EDDF; \">Olá,"+nomeCliente+"</h2>"+
+				
+		"<h4 style=\"text-align:center; color: #E8EDDF\">Nós da Fármacia Momentum Agradecemos Pela Preferência, quando um orçamento/pedido for cadastrado você receberá um email como esse juntamente com um pdf contendo informações referentes ao cadastro </h4> <br><br>");
+		stringBuilderTextoEmail.append("</div>");
+		stringBuilderTextoEmail.append("<div style=\"margin-left: 300px !important;\">");
+			stringBuilderTextoEmail.append("<img src=https://im3.ezgif.com/tmp/ffffff-ezgif-3-e8f958138b3a-gif-jpg/frame_122_delay-0.02s.jpg style=\"margin-left: 50px;\" />");
+			stringBuilderTextoEmail.append("</div>");
+		stringBuilderTextoEmail.append("</div>");
+		stringBuilderTextoEmail.append("<div style=\"width: 100%; height: 40%; background-color: #45DB3E\">"
+				+ "<h4 style=\"text-align:center;  color: #E8EDDF; \">Contato: (11) 37841-4012 (11) 98731-9894       farmacia@momentum.com.br\n Endereço: Rua ministro "
+				+ "Alves Silva, Osasco-SP CEP: 19432-120 "+"<br></br>"
+				+ "Todos os direitos reservados @Momentum</h4>"+
+                "</body>" +
+                "</html>");
 		
 		
 		EnviarEmail email = new EnviarEmail(emailCliente, "Farmácia Momentum", assunto, 

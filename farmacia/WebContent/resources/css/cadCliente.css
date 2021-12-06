@@ -401,15 +401,35 @@
 			margin-left: 22%;
 		}
 		.formularioequipe{
-			height: 500px;
-			width: 516px !important;
+			height: auto;
+			width: 90% !important;
+			display: block !important;
 		}
 		
 		.datatablefunc{
 			width: 476px !important;
 		
-			overflow-x: scroll !important;
+			
 		}
+		.formularioGrafico{
+				margin-top: 100% !important;
+		width: 95% !important;
+			display: block;
+		}
+	.ui-panelgrid td{
+	width: 60%;
+	display: block;
+	}
+	
+	.formulario{
+	margin-left: 30px !important;
+		width: 90% !important;
+	}
+	.imageGraph{
+	
+		width: 100%;
+	}
+	
 	}
 
 

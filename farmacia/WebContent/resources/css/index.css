@@ -20,7 +20,7 @@
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
    background-color: #84DD63;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     justify-content: center;
 }
@@ -238,7 +238,7 @@
 	margin: 0;
 	float: left;
 	position: relative;
-		width: auto;
+		width: 100%;
 		top: 0;
 		
 	}

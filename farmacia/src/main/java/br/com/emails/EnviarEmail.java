@@ -9,6 +9,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 
 public class EnviarEmail {
@@ -55,7 +56,7 @@ public class EnviarEmail {
 		});
 		
 		Address[] toUser = InternetAddress.parse(listaDestinarios);
-		
+	
 		Message message = new MimeMessage(session);
 		message.setFrom(new InternetAddress(userName, nomeRemetente)); // Quem está enviando
 		message.setRecipients(Message.RecipientType.TO, toUser); // E-mail de destino

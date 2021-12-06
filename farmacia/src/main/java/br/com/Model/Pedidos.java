@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -80,6 +81,7 @@ public class Pedidos implements Serializable {
 	private Integer statusEntregueTotal;
 	
 	
+
 	
 	
 	
@@ -119,8 +121,16 @@ public class Pedidos implements Serializable {
 		return status;
 	}
 	
-	@ManyToOne
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	private Clientes clientes;
+	
+	public void setClientes(Clientes clientes) {
+		this.clientes = clientes;
+	}
+	
+	public Clientes getClientes() {
+		return clientes;
+	}
 
 	public Long getId() {
 		return id;
@@ -549,13 +559,7 @@ public class Pedidos implements Serializable {
 
 	
 
-	public Clientes getClientes() {
-		return clientes;
-	}
 
-	public void setClientes(Clientes clientes) {
-		this.clientes = clientes;
-	}
 
 	@Override
 	public int hashCode() {
@@ -607,6 +611,7 @@ public class Pedidos implements Serializable {
 				+ ", statusEntregueTotal=" + statusEntregueTotal + ", clientes=" + clientes + "]";
 	}
 
+	
 	
 
 	

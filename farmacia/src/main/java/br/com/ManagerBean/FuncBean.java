@@ -499,25 +499,10 @@ public String logar(){
 
 
 
-	public String iconPerfil() {
-		
-		Funcionarios funcionariosUser = daoFuncionario.consultarFuncionario(funcionarios.getLogin(), funcionarios.getSenha());
-		
-		
-		
-		
-		return  funcionariosUser.getFotoIconBase64();
-	}
 
 
-public String consultarEmail() throws Exception {
-	
-	 funcionarios =  daoFuncionario.consultarEmail(funcionarios.getEmail());
-	System.out.println(funcionarios);
-	
-	
-	return "RedefinirSenha2.jsf";
-}
+
+
 	
 	
 	public void pesquisaCep(AjaxBehaviorEvent event) {

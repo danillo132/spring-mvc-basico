@@ -16,6 +16,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import javassist.bytecode.stackmap.BasicBlock.Catch;
+
 @Entity
 public class Clientes implements Serializable {
 
@@ -61,6 +63,12 @@ public class Clientes implements Serializable {
 	
 	@OneToMany(mappedBy = "clientes", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Orcamentos> orcamentos = new ArrayList<Orcamentos>();
+	
+	
+
+		
+	
+	
 	
 	
 	
@@ -175,8 +183,7 @@ public class Clientes implements Serializable {
 		this.ativo = ativo;
 	}
 	
-	
-	
+
 	
 	
 	public String getFotoIconBase64() {
@@ -212,6 +219,8 @@ public class Clientes implements Serializable {
 	public void setOrcamentos(List<Orcamentos> orcamentos) {
 		this.orcamentos = orcamentos;
 	}
+	
+
 	
 	
 	

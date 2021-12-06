@@ -189,4 +189,10 @@ datatablefunc{
 	width: 150px !important;
 }
 
+@media (max-width: 576px){
+	
+	.botaoeditar{
+		width: 33px !important;
+	}
+	}
 
