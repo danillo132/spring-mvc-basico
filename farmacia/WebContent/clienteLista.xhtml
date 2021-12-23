@@ -109,7 +109,7 @@
 				<p:column exportable="false">
 					<f:facet name="header">Deletar</f:facet>
 					<p:commandButton action="#{ClienBean.removerCliente}" value="Deletar"  icon="pi pi-trash"   update="dataClientes growl erro"  styleClass="botaodeletar" >
-					<p:confirm header="Confirmação" message="Todas os orçamentos e receitas do cliente serão apagados, tem certeza?" icon="pi pi-exclamation-triangle"/>
+					<p:confirm header="Confirmação" message="tem certeza que deseja deletar?" icon="pi pi-exclamation-triangle"/>
 						<f:setPropertyActionListener value="#{cliente}"
 							target="#{ClienBean.clientes}"></f:setPropertyActionListener>
 					</p:commandButton>

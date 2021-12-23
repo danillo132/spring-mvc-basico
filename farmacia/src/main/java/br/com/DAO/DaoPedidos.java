@@ -28,6 +28,15 @@ public class DaoPedidos<E> extends DaoGeneric<Pedidos> {
 		return total;
 	}
 	
+	public void removerTodosPedidos(Long idCliente) {
+		getEntityManager().getTransaction().begin();
+		getEntityManager().createQuery("delete from Pedidos where clientes_id  = " + idCliente); 
+		getEntityManager().getTransaction().commit();
+		
+	}
+	
+
+	
 	public Integer contarStatusEntregue() {
 		getEntityManager().getTransaction().begin();
 		Integer total = Integer.parseInt(getEntityManager().createQuery("select count(id) from Pedidos where status like '%Entregue%'").getSingleResult().toString()); 

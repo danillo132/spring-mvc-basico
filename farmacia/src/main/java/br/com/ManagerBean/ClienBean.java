@@ -366,7 +366,12 @@ ChartData dataPedidos = new ChartData();
 		
 	}
 
-	public String removerCliente() {
+	public void removerCliente() {
+		if(daoPedidos.contarPedidosEntregues(clientes.getId()) != 0) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: ", "Existem pedidos para esse cliente! POR FAVOR cancele os pedidos!"));
+			return;
+		}
 		
 		try {
 		daoCliente.removerCliente(clientes);
@@ -385,7 +390,7 @@ ChartData dataPedidos = new ChartData();
 			}
 			
 			
-		return "";
+		
 	}
 	
 	public void enviarEmailCliente(String emailCliente, String assunto, String nomeCliente) throws Exception {
