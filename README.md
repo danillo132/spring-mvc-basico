@@ -10,6 +10,7 @@ TECNOLOGIAS UTILIZADAS:
 -PostgreSQL
 -JPA
 -Spring data
+-Spring Security
 -JasperSoft Studio
 -Materialize CSS
 -Thymeleaf
